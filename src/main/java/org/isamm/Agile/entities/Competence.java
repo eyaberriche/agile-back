@@ -17,7 +17,7 @@ public class Competence implements Serializable  {
    private int nomC;
    
    @ManyToMany
-   public Collection<MmebreDeL_equipe> membredelequipe;
+   public Collection<Membre> membres;
    
    @ManyToMany(mappedBy = "competences")
    public Collection<Projet> projets;

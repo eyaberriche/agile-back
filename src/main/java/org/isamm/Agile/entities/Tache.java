@@ -16,13 +16,11 @@ public class Tache implements Serializable {
    private int idT;
    private String nomT;
    
-   @ManyToOne
+   @ManyToOne   
+   private UserStory userStory ;
    
-   private UserStory userstory ;
-   
-   @ManyToOne
-   
-   private MmebreDeL_equipe membredelequipe ;
+   @ManyToOne   
+   private Membre membre ;
 
 public Tache(String nomT) {
 	super();

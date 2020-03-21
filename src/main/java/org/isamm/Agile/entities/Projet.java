@@ -19,9 +19,10 @@ public class Projet implements Serializable{
    private String nomP;
    private Date dateCreation;
    private String typeP;
+   
   
-    @ManyToMany
-    private Collection<Equipe> equipes;
+    @ManyToOne
+    private Equipe equipe;
     
     @ManyToOne
 	private Departement departement;
@@ -43,17 +44,25 @@ public class Projet implements Serializable{
 		this.typeP = typeP;
 	}
 
-	public Projet( String nomP, Date dateCreation, String typeP, Departement departement,
-			Entreprise entreprise) {
+	public Projet(String nomP, Date dateCreation, String typeP, Equipe equipe,
+			Departement departement, Entreprise entreprise) {
 		super();
 		
 		this.nomP = nomP;
 		this.dateCreation = dateCreation;
 		this.typeP = typeP;
+		
+		this.equipe = equipe;
 		this.departement = departement;
 		this.entreprise = entreprise;
 	}
+	
+
+}
+
 
 	
+
+	
+	
     
-}

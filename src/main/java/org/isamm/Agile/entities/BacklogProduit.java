@@ -18,11 +18,11 @@ public class BacklogProduit implements Serializable {
 	private int nomBL;
 	
 	@OneToMany(mappedBy = "backlog")
-	private Collection<UserStory> userStory;
+	private Collection<UserStory> userStories;
 	
 	
 	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy ="backlog")
-	    private Projet projet ;
+	private Projet projet ;
 
 
 	public BacklogProduit(int nomBL) {

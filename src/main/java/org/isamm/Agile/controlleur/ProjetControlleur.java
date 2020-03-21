@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping
 public class ProjetControlleur {
-	@Autowired
+	/*@Autowired
 	private ProjetDao proj ;
 	@Autowired
 	private EntrepriseDao entrep ;
 	@Autowired
 	private PersonneDao pers ;
 	@Autowired
-	private SprintDao sprnt ;
+	private SprintDao sprnt ;*/
 	
 	
 	

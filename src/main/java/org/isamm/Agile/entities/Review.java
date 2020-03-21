@@ -13,10 +13,10 @@ import lombok.*;
 
 public class Review extends Evenement {
 	
-	 @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy ="review")
+	 @ManyToOne
 	 private ActeurEntreprise acteur;
 
-	public Review(String nomEv, Date datedebEv, Date datefinEv) {
+	  public Review(String nomEv, Date datedebEv, Date datefinEv) {
 		super(nomEv, datedebEv, datefinEv);
 		
 	}

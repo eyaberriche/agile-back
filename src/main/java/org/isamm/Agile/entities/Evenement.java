@@ -26,8 +26,8 @@ public class Evenement implements Serializable {
    @ManyToMany   
    public Collection<Personne> personnes;
    
-   @ManyToMany(mappedBy = "evenement")
-   public Collection<Sprint> sprint;
+   @ManyToMany(mappedBy = "evenements")
+   public Collection<Sprint> sprints;
 
 public Evenement(String nomEv, Date datedebEv, Date datefinEv) {
 	super();

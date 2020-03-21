@@ -23,10 +23,10 @@ public class Sprint implements Serializable{
   private String planification;
   
   @OneToMany(mappedBy = "sprint" , fetch = FetchType.LAZY)
-  public Collection<UserStory> userStory;
+  private Collection<UserStory> userStories;
   
   @ManyToMany
-  public Collection <Evenement> evenement ;
+  private Collection <Evenement> evenements;
   
   public Sprint(String nomSp, Double dureSp, Date dateSp, String objectif, String planification) {
 	super();

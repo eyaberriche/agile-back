@@ -18,10 +18,10 @@ public class Entreprise implements Serializable  {
    private String adresseE;
    
     @OneToMany(mappedBy = "entreprise" , fetch = FetchType.LAZY)
-   public Collection<ActeurEntreprise> acteurEntreprises;
+   private Collection<ActeurEntreprise> acteurEntreprises;
     
     @OneToMany(mappedBy = "entreprise" , fetch = FetchType.LAZY)
-   	public Collection<Projet> projets;
+   	private Collection<Projet> projets;
     
     
 	public Entreprise( String nomE, String adresseE) {

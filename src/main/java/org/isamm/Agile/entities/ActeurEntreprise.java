@@ -11,12 +11,11 @@ import lombok.*;
 @DiscriminatorValue("AE")
 public class ActeurEntreprise extends Personne {
 	@ManyToOne
-	@JoinColumn(name ="idE" )
+	
 	private Entreprise entreprise;
 	
-	@OneToOne
-	@PrimaryKeyJoinColumn
-    private Review review;
+	@OneToMany(mappedBy = "acteur" , fetch = FetchType.LAZY)
+	 private Collection<Review> reviews;
 
     
 

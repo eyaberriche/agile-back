@@ -18,21 +18,22 @@ public class Equipe implements Serializable  {
    private String nomEq;
    
    @ManyToMany(mappedBy = "equipes")
-   public Collection<MmebreDeL_equipe> mmebreDeL_equipe;
+   private Collection<Membre> membres;
    
    @ManyToMany(mappedBy = "equipes")
-   public Collection<ProductOwner> productOwner;
+   private Collection<ProductOwner> productOwners;
    
    @ManyToOne
-   public ScrumMaster scrumMaster;
+   private ScrumMaster scrumMaster;
    
-   @ManyToMany(mappedBy = "equipes")
-   public Collection<Projet> projet;
+   @OneToMany(mappedBy = "equipe" , fetch = FetchType.LAZY)
+   private Collection<Projet> projets;
 
 public Equipe(String nomEq) {
 	super();
 	this.nomEq = nomEq;
 }
+
    
   
 }
