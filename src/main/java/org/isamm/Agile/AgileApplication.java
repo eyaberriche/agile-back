@@ -2,11 +2,11 @@ package org.isamm.Agile;
 
 import java.util.Date;
 
-import org.isamm.Agile.dao.*;
-import org.isamm.Agile.entities.Departement;
-import org.isamm.Agile.entities.Entreprise;
-import org.isamm.Agile.entities.Equipe;
-import org.isamm.Agile.entities.Projet;
+import org.isamm.Agile.Repository.*;
+import org.isamm.Agile.model.Departement;
+import org.isamm.Agile.model.Entreprise;
+import org.isamm.Agile.model.Equipe;
+import org.isamm.Agile.model.Projet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -38,14 +38,19 @@ private RepositoryRestConfiguration restcofiguration ;*/
 		
 		
 		
-		Entreprise e = edao.save(new Entreprise("delice", "eeya"));
+		/*Entreprise e = edao.save(new Entreprise("delice", "eeya"));
 		Departement d = ddao.save(new Departement("informatique", 10));
 		Equipe eq = eqdao.save(new Equipe("equipe2"));
-		pdao.save(new Projet("p1", new Date(),"quali", eq, d, e));
-		  
+		pdao.save(new Projet("p1", new Date(),"quali", eq, d, e));*/
+		pdao.save(new Projet("p2", new Date(),"quwwali"));
+		pdao.save(new Projet("p3", new Date(),"quwwali"));
+		pdao.save(new Projet("p4", new Date(),"quwwali"));
+		pdao.save(new Projet("prrrrr", new Date(),"quwwali"));
 		
 		
-		
+		/*pdao.findAll().forEach(p->
+		{System.out.println(p.toString());
+		});*/
 		
 		
 
