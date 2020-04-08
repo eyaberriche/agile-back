@@ -10,7 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class Tache implements Serializable {
+public class Task implements Serializable {
    @Id 
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    private int idT;
@@ -22,7 +22,7 @@ public class Tache implements Serializable {
    @ManyToOne   
    private Membre membre ;
 
-public Tache(String nomT) {
+public Task(String nomT) {
 	super();
 	this.nomT = nomT;
 }

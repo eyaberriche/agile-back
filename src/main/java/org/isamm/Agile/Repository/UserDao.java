@@ -1,14 +1,14 @@
 package org.isamm.Agile.Repository;
 
-import java.util.List;
+import java.util.Optional;
 
 import org.isamm.Agile.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.stereotype.Repository;
 
-//@RepositoryRestResource
+@Repository
 public interface UserDao extends JpaRepository<User, Long>{
-	/*@Query("select * from Personne p where p.type_pers = AE ")
-	List<Personne> findByNom(String nom);	*/
+	 Optional<User> findByUsername(String username);
+	 Boolean existsByUsername(String username);
+     Boolean existsByMail(String mail);
 }

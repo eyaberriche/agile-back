@@ -13,7 +13,7 @@ import lombok.*;
 @NoArgsConstructor
 
 
-public class Projet implements Serializable{
+public class Project implements Serializable{
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Long idP;
@@ -23,7 +23,7 @@ public class Projet implements Serializable{
    
   
     @ManyToOne
-    private Equipe equipe;
+    private Team equipe;
     
     @ManyToOne
 	private Departement departement;
@@ -33,19 +33,19 @@ public class Projet implements Serializable{
     
     @OneToOne
     @PrimaryKeyJoinColumn
-    private BacklogProduit backlog;
+    private ProductBacklog backlog;
     
     @ManyToMany
     private Collection<Competence> competences;
 
-	public Projet(String nomP, Date dateCreation, String typeP) {
+	public Project(String nomP, Date dateCreation, String typeP) {
 		super();
 		this.nomP = nomP;
 		this.dateCreation = dateCreation;
 		this.typeP = typeP;
 	}
 
-	public Projet(String nomP, Date dateCreation, String typeP, Equipe equipe,
+	public Project(String nomP, Date dateCreation, String typeP, Team equipe,
 			Departement departement, Entreprise entreprise) {
 		super();
 		

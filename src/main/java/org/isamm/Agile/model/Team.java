@@ -11,7 +11,7 @@ import lombok.*;
 @NoArgsConstructor
 
 
-public class Equipe implements Serializable  {
+public class Team implements Serializable  {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Long idEq;
@@ -27,9 +27,9 @@ public class Equipe implements Serializable  {
    private ScrumMaster scrumMaster;
    
    @OneToMany(mappedBy = "equipe" , fetch = FetchType.LAZY)
-   private Collection<Projet> projets;
+   private Collection<Project> projets;
 
-public Equipe(String nomEq) {
+public Team(String nomEq) {
 	super();
 	this.nomEq = nomEq;
 }

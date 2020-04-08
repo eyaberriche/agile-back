@@ -2,6 +2,7 @@ package org.isamm.Agile.model;
 
  
 import java.util.Collection;
+import java.util.Set;
 
 import javax.persistence.*;
 import lombok.*;
@@ -15,19 +16,21 @@ public class Membre extends User {
 	private String specialite ;  
 	
    @OneToMany(mappedBy = "membre" , fetch = FetchType.LAZY)
-   private Collection<Tache> taches;
+   private Collection<Task> taches;
   
    @ManyToMany(mappedBy = "membres")
    private Collection<Competence> competences;
    
    @ManyToMany
-   private Collection<Equipe> equipes;
+   private Collection<Team> equipes;
 
-  public Membre(String login, String mdp, String nom, String prenom, Long numtel, String mail,
+public Membre(String username, String password, String name, String lastname, Long tel, String mail,
 		String specialite) {
-	super(login, mdp, nom, prenom, numtel, mail);
+	super(username, password, name, lastname, tel, mail);
 	this.specialite = specialite;
 }
+
+ 
 
 
 

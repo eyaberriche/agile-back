@@ -11,7 +11,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class BacklogProduit implements Serializable {
+public class ProductBacklog implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idBL;
@@ -22,16 +22,16 @@ public class BacklogProduit implements Serializable {
 	
 	
 	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy ="backlog")
-	private Projet projet ;
+	private Project projet ;
 
 
-	public BacklogProduit(int nomBL) {
+	public ProductBacklog(int nomBL) {
 		super();
 		this.nomBL = nomBL;
 	}
 
 
-	public BacklogProduit(int nomBL, Projet projet) {
+	public ProductBacklog(int nomBL, Project projet) {
 		super();
 		this.nomBL = nomBL;
 		this.projet = projet;

@@ -5,13 +5,12 @@ import javax.persistence.*;
 import lombok.*;
 
 @Entity
-@Data
+
 @NoArgsConstructor
 @AllArgsConstructor
 @DiscriminatorValue("AE")
-public class ActeurEntreprise extends User {
+public class ActorEntreprise extends User {
 	@ManyToOne
-	
 	private Entreprise entreprise;
 	
 	@OneToMany(mappedBy = "acteur" , fetch = FetchType.LAZY)

@@ -18,10 +18,10 @@ public class Entreprise implements Serializable  {
    private String adresseE;
    
     @OneToMany(mappedBy = "entreprise" , fetch = FetchType.LAZY)
-   private Collection<ActeurEntreprise> acteurEntreprises;
+   private Collection<ActorEntreprise> acteurEntreprises;
     
     @OneToMany(mappedBy = "entreprise" , fetch = FetchType.LAZY)
-   	private Collection<Projet> projets;
+   	private Collection<Project> projets;
     
     
 	public Entreprise( String nomE, String adresseE) {
@@ -31,8 +31,8 @@ public class Entreprise implements Serializable  {
 	}
 
 
-	public Entreprise(String nomE, String adresseE, Collection<ActeurEntreprise> acteurEntreprises,
-			Collection<Projet> projets) {
+	public Entreprise(String nomE, String adresseE, Collection<ActorEntreprise> acteurEntreprises,
+			Collection<Project> projets) {
 		super();
 		this.nomE = nomE;
 		this.adresseE = adresseE;

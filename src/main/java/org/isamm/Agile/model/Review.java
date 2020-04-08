@@ -14,7 +14,7 @@ import lombok.*;
 public class Review extends Evenement {
 	
 	 @ManyToOne
-	 private ActeurEntreprise acteur;
+	 private ActorEntreprise acteur;
 
 	  public Review(String nomEv, Date datedebEv, Date datefinEv) {
 		super(nomEv, datedebEv, datefinEv);

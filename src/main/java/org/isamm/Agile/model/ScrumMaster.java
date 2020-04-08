@@ -1,6 +1,8 @@
 package org.isamm.Agile.model;
 
 import java.util.Collection;
+import java.util.Set;
+
 import javax.persistence.*;
 import lombok.*;
 
@@ -11,11 +13,13 @@ import lombok.*;
 
 public class ScrumMaster extends User {
 	 @OneToMany(mappedBy = "scrumMaster" , fetch = FetchType.LAZY)
-	 private Collection<Equipe> equipes;
+	 private Collection<Team> equipes;
 
-	public ScrumMaster(String login, String mdp, String nom, String prenom, Long numtel, String mail) {
-		super(login, mdp, nom, prenom, numtel, mail);
+	public ScrumMaster(String username, String password, String name, String lastname, Long tel, String mail
+			) {
+		super(username, password, name, lastname, tel, mail);
 	}
+
 
 
 

@@ -20,7 +20,7 @@ public class Competence implements Serializable  {
    public Collection<Membre> membres;
    
    @ManyToMany(mappedBy = "competences" ,fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-   public Collection<Projet> projets;
+   public Collection<Project> projets;
 
 public Competence(int nomC) {
 	super();

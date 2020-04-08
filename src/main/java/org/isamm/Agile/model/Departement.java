@@ -18,7 +18,7 @@ public class Departement implements Serializable {
    private int nombreEmp;
    
    @OneToMany(mappedBy = "departement" , fetch = FetchType.LAZY)
-   private Collection<Projet> projets;
+   private Collection<Project> projets;
 
 public Departement(String libDep, int nombreEmp) {
 	super();

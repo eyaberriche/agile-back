@@ -1,6 +1,7 @@
 package org.isamm.Agile.model;
 
 import java.util.Collection;
+import java.util.Set;
 
 import javax.persistence.*;
 import lombok.*;
@@ -12,12 +13,13 @@ import lombok.*;
 
 public class ProductOwner extends User {
 	   @ManyToMany
-	   public Collection<Equipe> equipes;
+	   public Collection<Team> equipes;
 
-	public ProductOwner(String login, String mdp, String nom, String prenom, Long numtel, String mail) {
-		super(login, mdp, nom, prenom, numtel, mail);
-		
+	public ProductOwner(String username, String password, String name, String lastname, Long tel, String mail
+			) {
+		super(username, password, name, lastname, tel, mail);
 	}
-    
+
+	
     
 }

@@ -17,10 +17,10 @@ public class UserStory implements Serializable{
    private String nomUS;
    
    @OneToMany(mappedBy = "userStory" , fetch = FetchType.LAZY)
-   private Collection<Tache> taches;
+   private Collection<Task> taches;
    
    @ManyToOne   
-   private BacklogProduit backlog ;
+   private ProductBacklog backlog ;
    
 
    @ManyToOne   
@@ -31,7 +31,7 @@ public UserStory(String nomUS) {
 	this.nomUS = nomUS;
 }
 
-public UserStory(String nomUS, BacklogProduit backlog, Sprint sprint) {
+public UserStory(String nomUS, ProductBacklog backlog, Sprint sprint) {
 	super();
 	this.nomUS = nomUS;
 	this.backlog = backlog;
