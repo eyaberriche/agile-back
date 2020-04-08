@@ -29,7 +29,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 //handles signup/login requests
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins ="http://localhost:4200")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -84,17 +84,27 @@ public class AuthController {
 		}
 
 	
-		/*ScrumMaster sm = new ScrumMaster(signUpRequest.getUsername(),
+		ScrumMaster sm = new ScrumMaster(signUpRequest.getUsername(),
 		        encoder.encode(signUpRequest.getPassword()),
 				signUpRequest.getName(), signUpRequest.getLastname(), 
-		        signUpRequest.getTel(), signUpRequest.getMail());*/
+		        signUpRequest.getTel(), signUpRequest.getMail());
         
-		User user = new User(signUpRequest.getUsername(), 
+		ProductOwner po = new ProductOwner(signUpRequest.getUsername(),
+		        encoder.encode(signUpRequest.getPassword()),
+				signUpRequest.getName(), signUpRequest.getLastname(), 
+		        signUpRequest.getTel(), signUpRequest.getMail());
+		
+		Membre mm = new Membre(signUpRequest.getUsername(),
+		        encoder.encode(signUpRequest.getPassword()),
+				signUpRequest.getName(), signUpRequest.getLastname(), 
+		        signUpRequest.getTel(), signUpRequest.getMail(), signUpRequest.getSpecialite());
+
+		/*User user = new User(signUpRequest.getUsername(), 
 				encoder.encode( signUpRequest.getPassword()),
 	        	                signUpRequest.getName(), 
 	        	                signUpRequest.getLastname(), 
 	                        	signUpRequest.getTel(),
-		                        signUpRequest.getMail());
+		                        signUpRequest.getMail());*/
 	
 		Set<String> strRoles = signUpRequest.getRoles();
 		Set<Role> roles = new HashSet<>();
@@ -120,13 +130,29 @@ public class AuthController {
 				}
 			});
 		}
-		user.setRoles(roles);
-		userRepository.save(user);
+		String type = signUpRequest.getTypeuser() ;
+
+		switch (type)
+		{
+		  case "SMMM":
+			    sm.setRoles(roles);
+		    	userRepository.save(sm);
+		    break;
+		  case "PO":
+			    po.setRoles(roles);
+				userRepository.save(po);
+		    break;
+		  case "Mem":
+			    mm.setRoles(roles);
+		    	userRepository.save(mm);
+		    break;
+		  default:
+		  new RuntimeException("ajouter un type user correct");
+		    
+		}
+		/*user.setRoles(roles);
+		userRepository.save(user);*/
       return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
 	}
-	 /* if(signUpRequest.getTypeuser()=="SM")
-	{sm.setRoles(roles);
-	userRepository.save(sm);}
-    else if (signUpRequest.getTypeuser()=="MEq") {mem.setRoles(roles);
-	userRepository.save(mem);}*/
+	 
 }
