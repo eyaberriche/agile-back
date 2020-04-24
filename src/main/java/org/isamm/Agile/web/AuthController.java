@@ -10,16 +10,13 @@ import javax.validation.Valid;
 import org.isamm.Agile.Repository.*;
 import org.isamm.Agile.Security.JWT.JwtUtils;
 import org.isamm.Agile.Security.services.UserDetailsImpl;
-import org.isamm.Agile.model.Membre;
-import org.isamm.Agile.model.ProductOwner;
 import org.isamm.Agile.model.Role;
 import org.isamm.Agile.model.RoleName;
-import org.isamm.Agile.model.ScrumMaster;
+import org.isamm.Agile.Security.payload.request.LoginRequest;
+import org.isamm.Agile.Security.payload.request.SignupRequest;
+import org.isamm.Agile.Security.payload.response.JwtResponse;
+import org.isamm.Agile.Security.payload.response.MessageResponse;
 import org.isamm.Agile.model.User;
-import org.isamm.Agile.payload.request.LoginRequest;
-import org.isamm.Agile.payload.request.SignupRequest;
-import org.isamm.Agile.payload.response.JwtResponse;
-import org.isamm.Agile.payload.response.MessageResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -84,7 +81,7 @@ public class AuthController {
 		}
 
 	
-		ScrumMaster sm = new ScrumMaster(signUpRequest.getUsername(),
+		/*ScrumMaster sm = new ScrumMaster(signUpRequest.getUsername(),
 		        encoder.encode(signUpRequest.getPassword()),
 				signUpRequest.getName(), signUpRequest.getLastname(), 
 		        signUpRequest.getTel(), signUpRequest.getMail());
@@ -97,14 +94,14 @@ public class AuthController {
 		Membre mm = new Membre(signUpRequest.getUsername(),
 		        encoder.encode(signUpRequest.getPassword()),
 				signUpRequest.getName(), signUpRequest.getLastname(), 
-		        signUpRequest.getTel(), signUpRequest.getMail(), signUpRequest.getSpecialite());
+		        signUpRequest.getTel(), signUpRequest.getMail(), signUpRequest.getSpecialite());*/
 
-		/*User user = new User(signUpRequest.getUsername(), 
+		User user = new User(signUpRequest.getUsername(),
 				encoder.encode( signUpRequest.getPassword()),
 	        	                signUpRequest.getName(), 
 	        	                signUpRequest.getLastname(), 
 	                        	signUpRequest.getTel(),
-		                        signUpRequest.getMail());*/
+		                        signUpRequest.getMail(),signUpRequest.getSpecialite());
 	
 		Set<String> strRoles = signUpRequest.getRoles();
 		Set<Role> roles = new HashSet<>();
@@ -123,40 +120,28 @@ public class AuthController {
 
 					break;
 				case "sm":
-					Role modRole = roleRepository.findByName(RoleName.ROLE_SM)
-							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-					roles.add(modRole);
-
-				
-				default:
-					Role smRole = roleRepository.findByName(RoleName.ROLE_USER)
+					Role smRole = roleRepository.findByName(RoleName.ROLE_SM)
 							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 					roles.add(smRole);
+					break;
+					case "clt":
+						Role cltRole = roleRepository.findByName(RoleName.ROLE_CLIENT)
+								.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+						roles.add(cltRole);
+				
+				default:
+					Role usRole = roleRepository.findByName(RoleName.ROLE_USER)
+							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+					roles.add(usRole);
 				}
 			});
 		}
-		String type = signUpRequest.getTypeuser() ;
 
-		switch (type)
-		{
-		  case "SM":
-			    sm.setRoles(roles);
-		    	userRepository.save(sm);
-		    break;
-		  case "PO":
-			    po.setRoles(roles);
-				userRepository.save(po);
-		    break;
-		  case "Mem":
-			    mm.setRoles(roles);
-		    	userRepository.save(mm);
-		    break;
-		  default:
-		  new RuntimeException("ajouter un type user correct");
-		    
-		}
-		/*user.setRoles(roles);
-		userRepository.save(user);*/
+
+
+
+		user.setRoles(roles);
+		userRepository.save(user);
       return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
 	}
 	 

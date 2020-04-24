@@ -23,6 +23,5 @@ public class Role implements Serializable {
 	    @NaturalId
 	    @Column(length = 60)
 	    private RoleName name;
-/*	 @ManyToMany
-	 private Collection<User> users;*/
+
 }

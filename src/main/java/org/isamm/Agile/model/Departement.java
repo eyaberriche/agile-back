@@ -13,17 +13,16 @@ import lombok.*;
 public class Departement implements Serializable {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
-   private Long idDep;
+   private Integer id;
    private String libDep;
-   private int nombreEmp;
-   
-   @OneToMany(mappedBy = "departement" , fetch = FetchType.LAZY)
-   private Collection<Project> projets;
 
-public Departement(String libDep, int nombreEmp) {
+   
+
+
+public Departement(String libDep) {
 	super();
 	this.libDep = libDep;
-	this.nombreEmp = nombreEmp;
+
 }
    
  

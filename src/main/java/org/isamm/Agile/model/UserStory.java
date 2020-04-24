@@ -16,14 +16,11 @@ public class UserStory implements Serializable{
    private Long idUS;
    private String nomUS;
    
-   @OneToMany(mappedBy = "userStory" , fetch = FetchType.LAZY)
-   private Collection<Task> taches;
-   
-   @ManyToOne   
+   @ManyToOne(fetch=FetchType.EAGER)
    private ProductBacklog backlog ;
    
 
-   @ManyToOne   
+   @ManyToOne(fetch=FetchType.EAGER)
    private Sprint sprint ;
 
 public UserStory(String nomUS) {

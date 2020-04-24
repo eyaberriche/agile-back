@@ -13,32 +13,15 @@ public class Entreprise implements Serializable  {
 	
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
-   private Long idE;
+   private Integer id;
    private String nomE;
    private String adresseE;
-   
-    @OneToMany(mappedBy = "entreprise" , fetch = FetchType.LAZY)
-   private Collection<ActorEntreprise> acteurEntreprises;
-    
-    @OneToMany(mappedBy = "entreprise" , fetch = FetchType.LAZY)
-   	private Collection<Project> projets;
-    
-    
-	public Entreprise( String nomE, String adresseE) {
+ public Entreprise( String nomE, String adresseE) {
 		super();
 		this.nomE = nomE;
 		this.adresseE = adresseE;
 	}
 
-
-	public Entreprise(String nomE, String adresseE, Collection<ActorEntreprise> acteurEntreprises,
-			Collection<Project> projets) {
-		super();
-		this.nomE = nomE;
-		this.adresseE = adresseE;
-		this.acteurEntreprises = acteurEntreprises;
-		this.projets = projets;
-	}
     
   
 }

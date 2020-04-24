@@ -1,11 +1,11 @@
 package org.isamm.Agile.model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.*;
-import javax.persistence.*;
-
-
 import lombok.*;
+
+import javax.persistence.*;
 
 @Data
 @Entity
@@ -15,56 +15,28 @@ import lombok.*;
 
 public class Project implements Serializable{
    @Id
-   @GeneratedValue(strategy = GenerationType.IDENTITY)
-   private Long idP;
+   @GeneratedValue(strategy = GenerationType.AUTO)
+   private Long id;
    private String nomP;
-   private Date dateCreation;
+   private LocalDate dateCreation;
    private String typeP;
-   
+    private String description;
   
-    @ManyToOne
-    private Team equipe;
-    
-    @ManyToOne
+    @ManyToMany(fetch=FetchType.EAGER)
+    private Set<User> users = new HashSet<>();
+    @ManyToOne(fetch=FetchType.EAGER)
 	private Departement departement;
-    
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.EAGER)
 	private Entreprise entreprise;
-    
-    @OneToOne
-    @PrimaryKeyJoinColumn
+   @OneToOne(fetch=FetchType.EAGER)
+
     private ProductBacklog backlog;
-    
-    @ManyToMany
-    private Collection<Competence> competences;
-
-	public Project(String nomP, Date dateCreation, String typeP) {
-		super();
-		this.nomP = nomP;
-		this.dateCreation = dateCreation;
-		this.typeP = typeP;
-	}
-
-	public Project(String nomP, Date dateCreation, String typeP, Team equipe,
-			Departement departement, Entreprise entreprise) {
-		super();
-		
-		this.nomP = nomP;
-		this.dateCreation = dateCreation;
-		this.typeP = typeP;
-		
-		this.equipe = equipe;
-		this.departement = departement;
-		this.entreprise = entreprise;
-	}
-
-	@Override
-	public String toString() {
-		return "Projet [idP=" + idP + ", nomP=" + nomP + ", dateCreation=" + dateCreation + ", typeP=" + typeP + "]";
-	}
-	
-	
-
+    @ManyToMany(fetch=FetchType.EAGER)
+	private Set<Competence> competences = new HashSet<>();
+    public Project(String nomP, String typeP) {
+        this.nomP = nomP;
+        this.typeP = typeP;
+    }
 }
 
 

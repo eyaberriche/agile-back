@@ -7,6 +7,7 @@ import javax.persistence.*;
 
 
 import lombok.*;
+import org.hibernate.annotations.NaturalId;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -22,12 +23,13 @@ public class Evenement implements Serializable {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Long idEv;
    private String nomEv;
-   private Date datedebEv;
-   private Date datefinEv;
-   
-   @ManyToMany   
-   public Collection<User> users;
-   
+    @Enumerated(EnumType.STRING)
+    @NaturalId
+    @Column(length = 60)
+    private ObjName objective ;
+    private Date datedebEv;
+    private Date datefinEv;
+
    @ManyToMany(mappedBy = "evenements")
    public Collection<Sprint> sprints;
 

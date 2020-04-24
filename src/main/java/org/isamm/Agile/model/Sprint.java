@@ -15,15 +15,12 @@ import lombok.*;
 public class Sprint implements Serializable{
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long idSp;
+  private Long id;
   private String nomSp;
   private Double dureSp;
   private Date dateSp;
   private String objectif;
   private String planification;
-  
-  @OneToMany(mappedBy = "sprint" , fetch = FetchType.LAZY)
-  private Collection<UserStory> userStories;
   
   @ManyToMany
   private Collection <Evenement> evenements;

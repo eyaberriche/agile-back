@@ -16,11 +16,11 @@ public class Task implements Serializable {
    private int idT;
    private String nomT;
    
-   @ManyToOne   
+   @ManyToOne(fetch=FetchType.EAGER)
    private UserStory userStory ;
    
-   @ManyToOne   
-   private Membre membre ;
+   @ManyToOne(fetch=FetchType.EAGER)
+   private User user ;
 
 public Task(String nomT) {
 	super();

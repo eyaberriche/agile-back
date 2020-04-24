@@ -9,8 +9,6 @@ import javax.persistence.*;
 import lombok.*;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "typeuser",discriminatorType = DiscriminatorType.STRING,length = 20)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,49 +23,34 @@ public class User implements Serializable {
    private String lastname;
    private Long tel;
    private String mail;
-   
-   @ManyToMany(mappedBy = "users")
-   private Collection<Evenement> evenements;
+   private String specialite ;
+  /* @ManyToMany(fetch=FetchType.EAGER)
+   private Set<Evenement> evenements = new HashSet<>();*/
   
    @ManyToMany(fetch = FetchType.EAGER)
-   
-     private Set<Role> roles = new HashSet<>();
-
-public User(String username, String password, String name, String lastname, Long tel, String mail, Set<Role> roles) {
-	super();
-	this.username = username;
-	this.password = password;
-	this.name = name;
-	this.lastname = lastname;
-	this.tel = tel;
-	this.mail = mail;
-	this.roles = roles;
-	
-}
-
-public User( String username, String password, String name, String lastname, Long tel, String mail) {
-	super();
-	
-	this.username = username;
-	this.password = password;
-	this.name = name;
-	this.lastname = lastname;
-	this.tel = tel;
-	this.mail = mail;
-	
-}
-
-public User(String username, String password, String mail) {
-	super();
-	this.username = username;
-	this.password = password;
-	this.mail = mail;
-}
+   private Set<Role> roles = new HashSet<>();
+   @ManyToMany(fetch = FetchType.EAGER)
+   private Set<Competence> competences = new HashSet<>();
 
 
-   
+    public User(String username, String password, String name, String lastname, Long tel, String mail, String specialite, Set<Role> roles) {
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.lastname = lastname;
+        this.tel = tel;
+        this.mail = mail;
+        this.specialite = specialite;
+        this.roles = roles;
+    }
 
-
-
-   
+    public User(String username, String password, String name, String lastname, Long tel, String mail, String specialite) {
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.lastname = lastname;
+        this.tel = tel;
+        this.mail = mail;
+        this.specialite = specialite;
+    }
 }
