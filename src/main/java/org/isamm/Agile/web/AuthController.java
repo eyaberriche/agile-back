@@ -101,7 +101,7 @@ public class AuthController {
 	        	                signUpRequest.getName(), 
 	        	                signUpRequest.getLastname(), 
 	                        	signUpRequest.getTel(),
-		                        signUpRequest.getMail(),signUpRequest.getSpecialite());
+		                        signUpRequest.getMail(),signUpRequest.getSpecialite(), signUpRequest.getCompetences());
 	
 		Set<String> strRoles = signUpRequest.getRoles();
 		Set<Role> roles = new HashSet<>();

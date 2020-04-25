@@ -25,8 +25,6 @@ import org.springframework.web.bind.annotation.*;
 public class ProjectController {
 @Autowired
 private ProjectServiceImp projectService;
-@Autowired
-private UserDao userdao;
   @PostMapping("/projects" )
 		public ResponseEntity<ProjectDTO> createNewProject(@RequestBody ProjectDTO ProjectDTOrequest) {
             Project projectRequest = mapProjectDTOToProject(ProjectDTOrequest);
@@ -37,16 +35,7 @@ private UserDao userdao;
 				return new ResponseEntity<ProjectDTO>(projectDTO, HttpStatus.CREATED);
 			}
 			return new ResponseEntity<ProjectDTO>(HttpStatus.NOT_MODIFIED);}
-    @GetMapping("/listSM")
-    public List<User> getUserListByRoleSM() {
-      RoleName smrole= RoleName.ROLE_SM;
-        return userdao.findByrole(smrole);
-    }
-    @GetMapping("/listPO")
-    public List<User> getUserListByRolePO() {
-        RoleName porole= RoleName.ROLE_PO;
-        return userdao.findByrole(porole);
-    }
+
     @GetMapping("/projects")
     public ResponseEntity<List<ProjectDTO>> getAllDepartements(){
         List<Project> projects = projectService.getAllprojects();

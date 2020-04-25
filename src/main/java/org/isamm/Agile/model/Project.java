@@ -11,8 +11,6 @@ import javax.persistence.*;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-
-
 public class Project implements Serializable{
    @Id
    @GeneratedValue(strategy = GenerationType.AUTO)

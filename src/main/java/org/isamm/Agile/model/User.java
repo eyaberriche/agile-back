@@ -33,7 +33,7 @@ public class User implements Serializable {
    private Set<Competence> competences = new HashSet<>();
 
 
-    public User(String username, String password, String name, String lastname, Long tel, String mail, String specialite, Set<Role> roles) {
+    public User(String username, String password, String name, String lastname, Long tel, String mail, String specialite, Set<Competence> competences) {
         this.username = username;
         this.password = password;
         this.name = name;
@@ -41,7 +41,8 @@ public class User implements Serializable {
         this.tel = tel;
         this.mail = mail;
         this.specialite = specialite;
-        this.roles = roles;
+
+        this.competences = competences;
     }
 
     public User(String username, String password, String name, String lastname, Long tel, String mail, String specialite) {

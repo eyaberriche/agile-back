@@ -15,14 +15,11 @@ public interface UserDao extends JpaRepository<User, Long>{
 	 Optional<User> findByUsername(String username);
 	 Boolean existsByUsername(String username);
      Boolean existsByMail(String mail);
-	/*@Query( "select u from User u inner join u.Role r where r.name = ROLE_SM" )
-	List<User> getListByRole(@Param("u") User user);*/
-	//List<User> findAllByRolesContains(RoleName role);
 	@Query("SELECT u "
 			+ "FROM User u "
 			+ "INNER JOIN u.roles role "
 			+ "WHERE role.name = :name"
 	)
 	public List<User> findByrole(@Param("name") RoleName name);
-	//List<User> getUserListByRoles(RoleName roleName);
+
 }

@@ -7,6 +7,8 @@ import javax.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import org.isamm.Agile.model.Competence;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -28,7 +30,8 @@ public class SignupRequest {
     @NotBlank
     @Size(min = 4, max = 40)
     private String password;
-    private String specialite ; 
+    private String specialite ;
+    private Set<Competence> competences ;
   
  
 }
