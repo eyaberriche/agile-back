@@ -5,6 +5,7 @@ import org.isamm.Agile.Repository.DepartementDao;
 
 import org.isamm.Agile.model.Departement;
 
+import org.isamm.Agile.model.Project;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,5 +21,10 @@ public class DepartementServiceImp implements DepartementService {
     @Override
     public List<Departement> getAllDepartements() {
         return departementdao.findAll();
+    }
+
+    @Override
+    public Departement saveDepartement(Departement departement) {
+        return departementdao.save(departement);
     }
 }

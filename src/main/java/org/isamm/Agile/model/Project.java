@@ -14,10 +14,10 @@ import javax.persistence.*;
 public class Project implements Serializable{
    @Id
    @GeneratedValue(strategy = GenerationType.AUTO)
-   private Long id;
-   private String nomP;
-   private LocalDate dateCreation;
-   private String typeP;
+    private Long id;
+    private String nomP;
+    private LocalDate dateCreation;
+    private String typeP;
     private String description;
   
     @ManyToMany(fetch=FetchType.EAGER)
@@ -26,11 +26,10 @@ public class Project implements Serializable{
 	private Departement departement;
     @ManyToOne(fetch=FetchType.EAGER)
 	private Entreprise entreprise;
-   @OneToOne(fetch=FetchType.EAGER)
-
+    @OneToOne(fetch=FetchType.EAGER)
     private ProductBacklog backlog;
-    @ManyToMany(fetch=FetchType.EAGER)
-	private Set<Competence> competences = new HashSet<>();
+    /*@ManyToMany(fetch=FetchType.EAGER)
+	private Set<Competence> competences = new HashSet<>();*/
     public Project(String nomP, String typeP) {
         this.nomP = nomP;
         this.typeP = typeP;

@@ -4,10 +4,7 @@ import org.isamm.Agile.Repository.UserDao;
 import org.isamm.Agile.model.RoleName;
 import org.isamm.Agile.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,6 +28,15 @@ public class UserController {
     public List<User> getUserList() {
         RoleName userrole= RoleName.ROLE_USER;
         return userdao.findByrole(userrole);
+    }
+    @GetMapping("/list/client")
+    public List<User> getClientList() {
+        RoleName userrole= RoleName.ROLE_CLIENT;
+        return userdao.findByrole(userrole);
+    }
+    @GetMapping("/list/all")
+    public List<User> getAllUserList() {
+        return userdao.findAll();
     }
 
 }

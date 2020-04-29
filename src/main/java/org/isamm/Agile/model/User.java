@@ -15,7 +15,7 @@ import lombok.*;
 
 public class User implements Serializable {
    @Id 
-   @GeneratedValue(strategy = GenerationType.IDENTITY)
+   @GeneratedValue(strategy = GenerationType.AUTO)
    private Long id;
    private String username;
    private String password;
@@ -27,11 +27,12 @@ public class User implements Serializable {
   /* @ManyToMany(fetch=FetchType.EAGER)
    private Set<Evenement> evenements = new HashSet<>();*/
   
-   @ManyToMany(fetch = FetchType.EAGER)
-   private Set<Role> roles = new HashSet<>();
-   @ManyToMany(fetch = FetchType.EAGER)
-   private Set<Competence> competences = new HashSet<>();
-
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Role> roles = new HashSet<>();
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Competence> competences = new HashSet<>();
+    @ManyToOne(fetch=FetchType.EAGER)
+    private Entreprise entreprise;
 
     public User(String username, String password, String name, String lastname, Long tel, String mail, String specialite, Set<Competence> competences) {
         this.username = username;

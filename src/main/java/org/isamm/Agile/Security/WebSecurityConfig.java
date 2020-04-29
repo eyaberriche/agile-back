@@ -56,7 +56,7 @@ package org.isamm.Agile.Security;
 	        http.cors().and().csrf().disable().
 	                authorizeRequests()
 	                .antMatchers("/api/**").permitAll()
-
+                    .antMatchers("/users/**").permitAll()
 	                .anyRequest().authenticated()
 	                .and()
 	                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()

@@ -20,7 +20,7 @@ public class ProjectDTO implements Comparable<ProjectDTO> {
     private DepartementDTO departement;
     private EntrepriseDTO entreprise;
     private ProductBacklogDTO backlog;
-    private Set<CompetenceDTO> competences = new HashSet<>();
+   // private Set<CompetenceDTO> competences = new HashSet<>();
 
 
     @Override

@@ -10,12 +10,13 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Entreprise implements Serializable  {
-	
+
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Integer id;
    private String nomE;
    private String adresseE;
+
  public Entreprise( String nomE, String adresseE) {
 		super();
 		this.nomE = nomE;

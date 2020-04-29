@@ -80,21 +80,7 @@ public class AuthController {
 					.body(new MessageResponse("Error: Email is already in use!"));
 		}
 
-	
-		/*ScrumMaster sm = new ScrumMaster(signUpRequest.getUsername(),
-		        encoder.encode(signUpRequest.getPassword()),
-				signUpRequest.getName(), signUpRequest.getLastname(), 
-		        signUpRequest.getTel(), signUpRequest.getMail());
-        
-		ProductOwner po = new ProductOwner(signUpRequest.getUsername(),
-		        encoder.encode(signUpRequest.getPassword()),
-				signUpRequest.getName(), signUpRequest.getLastname(), 
-		        signUpRequest.getTel(), signUpRequest.getMail());
-		
-		Membre mm = new Membre(signUpRequest.getUsername(),
-		        encoder.encode(signUpRequest.getPassword()),
-				signUpRequest.getName(), signUpRequest.getLastname(), 
-		        signUpRequest.getTel(), signUpRequest.getMail(), signUpRequest.getSpecialite());*/
+
 
 		User user = new User(signUpRequest.getUsername(),
 				encoder.encode( signUpRequest.getPassword()),
