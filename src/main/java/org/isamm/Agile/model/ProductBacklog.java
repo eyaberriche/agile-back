@@ -14,8 +14,8 @@ import lombok.*;
 public class ProductBacklog implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idBL;
-	private String nomBL;
+	private Integer id;
+	private String name;
 
 
 	

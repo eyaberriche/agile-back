@@ -15,14 +15,21 @@ import org.springframework.stereotype.Repository;
 public interface UserDao extends JpaRepository<User, Long>{
 	 Optional<User> findByUsername(String username);
 	 Boolean existsByUsername(String username);
-     Boolean existsByMail(String mail);
+     Boolean existsByEmail(String email);
 	@Query("SELECT u "
 			+ "FROM User u "
 			+ "INNER JOIN u.roles role "
 			+ "WHERE role.name = :name"
 	)
 	public List<User> findByrole(@Param("name") RoleName name);
-	@RestResource(path = "byName")
+	/*@RestResource(path = "byName")
 	public List<User> findByLastnameContains(@Param("name") String lastname);
+	@RestResource(path = "byrole")
+	@Query("SELECT u "
+			+ "FROM User u "
+			+ "INNER JOIN u.roles role "
+			+ "WHERE role.description = :description"
+	)
+	public List<User> findByrolec(@Param("description") String description);*/
 
 }

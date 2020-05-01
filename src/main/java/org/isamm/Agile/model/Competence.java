@@ -12,13 +12,13 @@ import lombok.*;
 
 public class Competence implements Serializable  {
    @Id
-   @GeneratedValue(strategy = GenerationType.IDENTITY)
-   private Long idC;
-   private String nomC;
+   @GeneratedValue(strategy = GenerationType.AUTO)
+   private Long id;
+   private String name;
 
-public Competence(String nomC) {
+public Competence(String name) {
 	super();
-	this.nomC = nomC;
+	this.name = name;
 }
 
    

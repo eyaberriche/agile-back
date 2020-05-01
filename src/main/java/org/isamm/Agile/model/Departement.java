@@ -12,18 +12,14 @@ import lombok.*;
 
 public class Departement implements Serializable {
    @Id
-   @GeneratedValue(strategy = GenerationType.IDENTITY)
+   @GeneratedValue(strategy = GenerationType.AUTO)
    private Integer id;
-   private String libDep;
+   private String name;
 
    
 
 
-public Departement(String libDep) {
-	super();
-	this.libDep = libDep;
 
-}
    
  
 

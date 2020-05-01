@@ -10,4 +10,6 @@ public interface DepartementService {
 
     public List<Departement> getAllDepartements();
     public Departement saveDepartement(Departement departement);
+    public Departement updateDepartement(Departement departement);
+    public void deleteDepartement(Long id);
 }

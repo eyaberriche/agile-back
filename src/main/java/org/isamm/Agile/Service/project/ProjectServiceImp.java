@@ -33,6 +33,11 @@ public class ProjectServiceImp implements ProjectService {
         projectdao.deleteById(id);
     }
 
+    @Override
+    public boolean checkIfnameExists(String name) {
+        return projectdao.existsByName(name);
+    }
+
    /* @Override
     public List<Project> findProjectByDepartement(Integer id) {
         return projectdao.findByDepartement(id);

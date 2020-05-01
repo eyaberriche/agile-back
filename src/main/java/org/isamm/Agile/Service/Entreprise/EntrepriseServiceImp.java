@@ -23,4 +23,24 @@ public class EntrepriseServiceImp implements EntrepriseService{
     public List<Entreprise> getAllEntreprises() {
         return entreprisedao.findAll();
     }
+
+    @Override
+    public Entreprise updateEntreprise(Entreprise entreprise) {
+        return null;
+    }
+
+    @Override
+    public boolean checkIfnameExists(String name) {
+        return entreprisedao.existsByName(name);
+    }
+
+    @Override
+    public boolean checkIfemailExists(String email) {
+        return entreprisedao.existsByEmail(email);
+    }
+
+    @Override
+    public void deleteEntreprise(Long id) {
+
+    }
 }

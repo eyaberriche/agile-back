@@ -3,6 +3,9 @@ package org.isamm.Agile.model;
 import java.io.Serializable;
 import java.util.*;
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+
 import lombok.*;
 
 @Data
@@ -12,15 +15,21 @@ import lombok.*;
 public class Entreprise implements Serializable  {
 
    @Id
-   @GeneratedValue(strategy = GenerationType.IDENTITY)
+   @GeneratedValue(strategy = GenerationType.AUTO)
    private Integer id;
-   private String nomE;
-   private String adresseE;
+   @NotBlank
+   private String name;
+   @NotBlank
+   private String adress;
+    @NotBlank
 
- public Entreprise( String nomE, String adresseE) {
+    @Email
+   private String email ;
+
+ public Entreprise( String name, String adress) {
 		super();
-		this.nomE = nomE;
-		this.adresseE = adresseE;
+		this.name = name;
+		this.adress = adress;
 	}
 
     

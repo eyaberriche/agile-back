@@ -9,6 +9,7 @@ public interface ProjectService {
     public List<Project> getAllprojects();
     public Project updateProject(Project project);
     public void deleteProject(Long id);
+    public boolean checkIfnameExists(String name);
 
    /* public boolean checkIfIdExists(Integer id);
      public List<Project> findProjectByDepartement( Integer id);

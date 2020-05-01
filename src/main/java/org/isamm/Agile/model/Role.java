@@ -16,12 +16,13 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Role implements Serializable {
 	 @Id
-	    @GeneratedValue(strategy = GenerationType.AUTO)
+	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	    private Long id;
 	 
 	    @Enumerated(EnumType.STRING)
 	    @NaturalId
 	    @Column(length = 60)
 	    private RoleName name;
+	    private String description ;
 
 }

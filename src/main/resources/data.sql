@@ -1,7 +1,7 @@
 
-INSERT INTO role ( name) VALUES 
-('ROLE_ADMIN'),
-('ROLE_PO'),
-('ROLE_SM'),
-('ROLE_USER'),
-('ROLE_CLIENT');
+INSERT INTO role ( name, description) VALUES
+('ROLE_ADMIN','admin'),
+('ROLE_PO','product owner'),
+('ROLE_SM','scrum master'),
+('ROLE_USER','user'),
+('ROLE_CLIENT','client');

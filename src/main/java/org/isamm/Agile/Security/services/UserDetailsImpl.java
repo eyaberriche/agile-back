@@ -15,32 +15,35 @@ package org.isamm.Agile.Security.services;
 
 		   private Long id;
 		   private String username;
-		   private String mail;
+		   private String email;
+
 
 		@JsonIgnore
 		private String password;
 
 		private Collection<? extends GrantedAuthority> authorities;
 
-		public UserDetailsImpl(Long id, String username, String mail,
+		public UserDetailsImpl(Long id, String username, String email,
 				String password, Collection<? extends GrantedAuthority> authorities) {
 			super();
 			this.id = id;
 			this.username = username;
-			this.mail = mail;
+			this.email = email;
 			this.password = password;
 			this.authorities = authorities;
+
 		}
 		public static UserDetailsImpl build(User user) {
 			List<GrantedAuthority> authorities = user.getRoles().stream()
 					.map(role -> new SimpleGrantedAuthority(role.getName().name()))
 					.collect(Collectors.toList());
 
+
 			return new UserDetailsImpl(
 					user.getId(), 
 					user.getUsername(), 
-					user.getMail(),
-					user.getPassword(), 
+					user.getEmail(),
+					user.getPassword(),
 					authorities);
 		}
 
@@ -52,8 +55,8 @@ package org.isamm.Agile.Security.services;
 			return id;
 		}
 
-		public String getMail() {
-			return mail;
+		public String getEmail() {
+			return email;
 		}
 		@Override
 		public String getPassword() {

@@ -21,24 +21,19 @@ public class Evenement implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-   private Long idEv;
-   private String nomEv;
+    private Long id;
+    private String name;
+    private Date fdate;
+    private Date ldate;
     @Enumerated(EnumType.STRING)
     @NaturalId
     @Column(length = 60)
     private ObjName objective ;
-    private Date datedebEv;
-    private Date datefinEv;
+
 
    @ManyToMany(mappedBy = "evenements")
    public Collection<Sprint> sprints;
 
-public Evenement(String nomEv, Date datedebEv, Date datefinEv) {
-	super();
-	this.nomEv = nomEv;
-	this.datedebEv = datedebEv;
-	this.datefinEv = datefinEv;
-}
 
 
    

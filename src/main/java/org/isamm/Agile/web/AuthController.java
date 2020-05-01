@@ -2,6 +2,7 @@ package org.isamm.Agile.web;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -62,9 +63,10 @@ public class AuthController {
 		return ResponseEntity.ok(new JwtResponse(jwt, 
 												 userDetails.getId(), 
 												 userDetails.getUsername(), 
-												 userDetails.getMail(), 
+												 userDetails.getEmail(),
 												 roles));
 	}
+
 
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
@@ -74,26 +76,25 @@ public class AuthController {
 					.body(new MessageResponse("Error: Username is already taken!"));
 		}
 
-		if (userRepository.existsByMail(signUpRequest.getMail())) {
+		if (userRepository.existsByEmail(signUpRequest.getEmail())) {
 			return ResponseEntity
 					.badRequest()
 					.body(new MessageResponse("Error: Email is already in use!"));
 		}
-
-
-
-		User user = new User(signUpRequest.getUsername(),
+	User user = new User(signUpRequest.getUsername(),
 				encoder.encode( signUpRequest.getPassword()),
-	        	                signUpRequest.getName(), 
+	        	                signUpRequest.getFirstname(),
 	        	                signUpRequest.getLastname(), 
 	                        	signUpRequest.getTel(),
-		                        signUpRequest.getMail(),signUpRequest.getSpecialite(), signUpRequest.getCompetences());
+		                        signUpRequest.getEmail(),
+				                signUpRequest.getSpecialite(),
+				                signUpRequest.getCompetences());
 	
 		Set<String> strRoles = signUpRequest.getRoles();
 		Set<Role> roles = new HashSet<>();
 
 		if (strRoles == null) {
-			Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
+			Role userRole = roleRepository.findByName(RoleName.ROLE_CLIENT)
 					.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 			roles.add(userRole);
 		} else {
@@ -122,13 +123,9 @@ public class AuthController {
 				}
 			});
 		}
-
-
-
-
-		user.setRoles(roles);
+    	user.setRoles(roles);
 		userRepository.save(user);
-      return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+        return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
 	}
-	 
+
 }

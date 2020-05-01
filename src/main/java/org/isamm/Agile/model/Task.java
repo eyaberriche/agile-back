@@ -13,8 +13,8 @@ import lombok.*;
 public class Task implements Serializable {
    @Id 
    @GeneratedValue(strategy = GenerationType.IDENTITY)
-   private int idT;
-   private String nomT;
+   private int id;
+   private String name;
    
    @ManyToOne(fetch=FetchType.EAGER)
    private UserStory userStory ;
@@ -22,10 +22,7 @@ public class Task implements Serializable {
    @ManyToOne(fetch=FetchType.EAGER)
    private User user ;
 
-public Task(String nomT) {
-	super();
-	this.nomT = nomT;
-}
+
 
 
 }

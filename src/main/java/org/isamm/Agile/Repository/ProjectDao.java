@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ProjectDao extends JpaRepository<Project,Long> {
-	
+    Boolean existsByName(String  name);
 	/*@Query(   "SELECT p "
 			+ "FROM Project p "
 			+ "INNER JOIN p.departement dep "

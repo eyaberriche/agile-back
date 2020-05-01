@@ -15,9 +15,9 @@ public class Project implements Serializable{
    @Id
    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String nomP;
-    private LocalDate dateCreation;
-    private String typeP;
+    private String name;
+    private LocalDate creationDate;
+    private String type;
     private String description;
   
     @ManyToMany(fetch=FetchType.EAGER)
@@ -30,10 +30,7 @@ public class Project implements Serializable{
     private ProductBacklog backlog;
     /*@ManyToMany(fetch=FetchType.EAGER)
 	private Set<Competence> competences = new HashSet<>();*/
-    public Project(String nomP, String typeP) {
-        this.nomP = nomP;
-        this.typeP = typeP;
-    }
+
 }
 
 

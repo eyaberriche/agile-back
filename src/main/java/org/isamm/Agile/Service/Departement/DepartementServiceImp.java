@@ -27,4 +27,14 @@ public class DepartementServiceImp implements DepartementService {
     public Departement saveDepartement(Departement departement) {
         return departementdao.save(departement);
     }
+
+    @Override
+    public Departement updateDepartement(Departement departement) {
+        return null;
+    }
+
+    @Override
+    public void deleteDepartement(Long id) {
+
+    }
 }

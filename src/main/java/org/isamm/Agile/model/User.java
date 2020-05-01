@@ -1,7 +1,6 @@
 package org.isamm.Agile.model;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,10 +18,10 @@ public class User implements Serializable {
    private Long id;
    private String username;
    private String password;
-   private String name;
+   private String firstname;
    private String lastname;
    private Long tel;
-   private String mail;
+   private String email;
    private String specialite ;
   /* @ManyToMany(fetch=FetchType.EAGER)
    private Set<Evenement> evenements = new HashSet<>();*/
@@ -31,28 +30,30 @@ public class User implements Serializable {
     private Set<Role> roles = new HashSet<>();
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Competence> competences = new HashSet<>();
-    @ManyToOne(fetch=FetchType.EAGER)
-    private Entreprise entreprise;
 
-    public User(String username, String password, String name, String lastname, Long tel, String mail, String specialite, Set<Competence> competences) {
+
+    public User(String username, String password, String firstname, String lastname, Long tel, String email, String specialite, Set<Competence> competences) {
         this.username = username;
         this.password = password;
-        this.name = name;
+        this.firstname = firstname;
         this.lastname = lastname;
         this.tel = tel;
-        this.mail = mail;
+        this.email = email;
         this.specialite = specialite;
-
         this.competences = competences;
     }
 
-    public User(String username, String password, String name, String lastname, Long tel, String mail, String specialite) {
+    public User(String username, String password, String firstname, String lastname, Long tel, String email, String specialite) {
         this.username = username;
         this.password = password;
-        this.name = name;
+        this.firstname = firstname;
         this.lastname = lastname;
         this.tel = tel;
-        this.mail = mail;
+        this.email = email;
         this.specialite = specialite;
     }
+
+
+
+
 }
