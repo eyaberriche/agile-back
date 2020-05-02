@@ -5,3 +5,5 @@ INSERT INTO role ( name, description) VALUES
 ('ROLE_SM','scrum master'),
 ('ROLE_USER','user'),
 ('ROLE_CLIENT','client');
+INSERT INTO typeproject (name) VALUES
+('quati'),('quali');

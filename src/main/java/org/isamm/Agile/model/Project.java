@@ -17,7 +17,6 @@ public class Project implements Serializable{
     private Long id;
     private String name;
     private LocalDate creationDate;
-    private String type;
     private String description;
   
     @ManyToMany(fetch=FetchType.EAGER)
@@ -26,6 +25,8 @@ public class Project implements Serializable{
 	private Departement departement;
     @ManyToOne(fetch=FetchType.EAGER)
 	private Entreprise entreprise;
+    @ManyToOne(fetch=FetchType.EAGER)
+    private Typeproject type;
     @OneToOne(fetch=FetchType.EAGER)
     private ProductBacklog backlog;
     /*@ManyToMany(fetch=FetchType.EAGER)
