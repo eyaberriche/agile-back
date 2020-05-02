@@ -22,9 +22,9 @@ public class Entreprise implements Serializable  {
    @NotBlank
    private String adress;
     @NotBlank
-
     @Email
    private String email ;
+    private String fax ;
 
  public Entreprise( String name, String adress) {
 		super();
