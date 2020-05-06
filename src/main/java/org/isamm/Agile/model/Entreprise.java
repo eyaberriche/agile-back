@@ -22,14 +22,13 @@ public class Entreprise implements Serializable  {
    @NotBlank
    private String adress;
     @NotBlank
-<<<<<<< Updated upstream
-=======
+
   private String fax;
     @NotBlank
->>>>>>> Stashed changes
+
     @Email
    private String email ;
-    private String fax ;
+
 
  public Entreprise( String name, String adress) {
 		super();
