@@ -39,7 +39,7 @@ public class UserController {
     }
     @GetMapping("/all/user")
     public List<User> getUserList() {
-        RoleName userrole= RoleName.ROLE_USER;
+        RoleName userrole= RoleName.ROLE_MEMBER;
         return userdao.findByrole(userrole);
     }
     @GetMapping("/all/client")
@@ -58,6 +58,23 @@ public class UserController {
         User user = userdao.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("user not found for this id :: " +
                         userId));
+
+        if ((userdao.existsByUsername(userDetails.getUsername())) &&  (!(user.getUsername().equals(userDetails.getUsername())))) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: Username is already taken!"));
+        }
+        if ((userdao.existsByEmail(userDetails.getEmail())) &&  (!(user.getEmail().equals(userDetails.getEmail())))) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: Email is already taken!"));
+        }
+
+        if(!userDetails.getPassword().equals(userDetails.getConfirmpassword())){
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: confirm password is not like your password!"));
+        }
         user.setEmail(userDetails.getEmail());
         user.setUsername(userDetails.getUsername());
         user.setLastname(userDetails.getLastname());
@@ -69,12 +86,16 @@ public class UserController {
         Set<Role> roles = new HashSet<>();
 
         if (strRoles == null) {
-            Role userRole = roleDao.findByName(RoleName.ROLE_USER)
+            Role userRole = roleDao.findByName(RoleName.ROLE_CLIENT)
                     .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
             roles.add(userRole);
         } else {
             strRoles.forEach(role -> {
                 switch (role) {
+                    case "admin":
+                        Role adminRole = roleDao.findByName(RoleName.ROLE_ADMIN)
+                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                        roles.add(adminRole);
                     case "po":
                         Role poRole = roleDao.findByName(RoleName.ROLE_PO)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
@@ -92,7 +113,7 @@ public class UserController {
                         roles.add(cltRole);
 
                     default:
-                        Role usRole = roleDao.findByName(RoleName.ROLE_USER)
+                        Role usRole = roleDao.findByName(RoleName.ROLE_MEMBER)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(usRole);
                 }
@@ -101,9 +122,14 @@ public class UserController {
         user.setRoles(roles);
         userdao.save(user);
         return ResponseEntity.ok(new MessageResponse("User modified successfully!"));
+ }
 
-
-
-    }
-
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable(value = "id") Long userId)
+            throws ResourceNotFoundException {
+        User user = userdao.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("user not found for this id :: " +
+                        userId));
+        userdao.deleteById(userId);
+        return ResponseEntity.ok(new MessageResponse("user deleted succesfully !"));}
 }

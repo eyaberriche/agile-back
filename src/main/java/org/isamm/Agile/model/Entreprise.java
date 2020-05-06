@@ -16,12 +16,17 @@ public class Entreprise implements Serializable  {
 
    @Id
    @GeneratedValue(strategy = GenerationType.AUTO)
-   private Integer id;
+   private Long id;
    @NotBlank
    private String name;
    @NotBlank
    private String adress;
     @NotBlank
+<<<<<<< Updated upstream
+=======
+  private String fax;
+    @NotBlank
+>>>>>>> Stashed changes
     @Email
    private String email ;
     private String fax ;

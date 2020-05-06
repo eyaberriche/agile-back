@@ -11,7 +11,7 @@ import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface EntrepriseDao extends JpaRepository<Entreprise,Integer>{
+public interface EntrepriseDao extends JpaRepository<Entreprise,Long>{
     Boolean existsByName(String  name);
     Boolean existsByEmail(String email);
 }

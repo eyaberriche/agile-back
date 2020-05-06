@@ -22,6 +22,7 @@ public interface UserDao extends JpaRepository<User, Long>{
 			+ "WHERE role.name = :name"
 	)
 	public List<User> findByrole(@Param("name") RoleName name);
+
 	/*@RestResource(path = "byName")
 	public List<User> findByLastnameContains(@Param("name") String lastname);
 	@RestResource(path = "byrole")

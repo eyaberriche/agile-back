@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
+
 @Service
 @Transactional
 public class ProjectServiceImp implements ProjectService {
@@ -25,6 +27,7 @@ public class ProjectServiceImp implements ProjectService {
 
     @Override
     public Project updateProject(Project project) {
+
         return projectdao.save(project);
     }
 
@@ -36,6 +39,16 @@ public class ProjectServiceImp implements ProjectService {
     @Override
     public boolean checkIfnameExists(String name) {
         return projectdao.existsByName(name);
+    }
+
+    @Override
+    public Optional<Project> checkIfIdExists(Long id) {
+        return projectdao.findById(id);
+    }
+
+    @Override
+    public Optional<Project> findbyid(Long id) {
+        return projectdao.findById(id);
     }
 
    /* @Override

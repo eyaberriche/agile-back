@@ -81,6 +81,12 @@ public class AuthController {
 					.badRequest()
 					.body(new MessageResponse("Error: Email is already in use!"));
 		}
+		if(!signUpRequest.getPassword().equals(signUpRequest.getConfirmpassword())){
+			return ResponseEntity
+					.badRequest()
+					.body(new MessageResponse("Error: confirmed password is not like your password!"));
+		}
+
 	User user = new User(signUpRequest.getUsername(),
 				encoder.encode( signUpRequest.getPassword()),
 	        	                signUpRequest.getFirstname(),
@@ -117,7 +123,7 @@ public class AuthController {
 						roles.add(cltRole);
 				
 				default:
-					Role usRole = roleRepository.findByName(RoleName.ROLE_USER)
+					Role usRole = roleRepository.findByName(RoleName.ROLE_MEMBER)
 							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 					roles.add(usRole);
 				}

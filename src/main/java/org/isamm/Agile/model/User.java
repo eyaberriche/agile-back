@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 @Entity
@@ -20,19 +22,20 @@ public class User implements Serializable {
    private String password;
    private String firstname;
    private String lastname;
-   private Long tel;
+   private String tel;
    private String email;
    private String specialite ;
-  /* @ManyToMany(fetch=FetchType.EAGER)
-   private Set<Evenement> evenements = new HashSet<>();*/
-  
+  /**/
+
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles = new HashSet<>();
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Competence> competences = new HashSet<>();
 
 
-    public User(String username, String password, String firstname, String lastname, Long tel, String email, String specialite, Set<Competence> competences) {
+    public User(String username, String password, String firstname, String lastname, String tel, String email, String specialite, Set<Competence> competences) {
         this.username = username;
         this.password = password;
         this.firstname = firstname;
@@ -43,7 +46,7 @@ public class User implements Serializable {
         this.competences = competences;
     }
 
-    public User(String username, String password, String firstname, String lastname, Long tel, String email, String specialite) {
+    public User(String username, String password, String firstname, String lastname, String tel, String email, String specialite) {
         this.username = username;
         this.password = password;
         this.firstname = firstname;

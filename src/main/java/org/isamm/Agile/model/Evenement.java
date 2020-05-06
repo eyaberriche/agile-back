@@ -5,7 +5,7 @@ import java.util.*;
 import javax.persistence.*;
 
 
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.NaturalId;
 
@@ -29,17 +29,12 @@ public class Evenement implements Serializable {
     @NaturalId
     @Column(length = 60)
     private ObjName objective ;
-
-
+    @JsonIgnore
+    @ManyToMany(fetch=FetchType.EAGER)
+    private Set<User> users = new HashSet<>();
    @ManyToMany(mappedBy = "evenements")
    public Collection<Sprint> sprints;
 
 
-
-   
-  
-   
-   
-   
 
 }

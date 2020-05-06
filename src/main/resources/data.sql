@@ -6,4 +6,6 @@ INSERT INTO role ( name, description) VALUES
 ('ROLE_USER','user'),
 ('ROLE_CLIENT','client');
 INSERT INTO typeproject (name) VALUES
-('quati'),('quali');
+("quati"),("quali");
+INSERT INTO departement (name) VALUES
+("informatique"),("statistique"),("centre d'appel"),("multimedia");

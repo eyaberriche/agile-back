@@ -31,6 +31,9 @@ public class SignupRequest {
    @NotBlank
     @Size(min = 4, max = 40)
     private String password;
+    @NotBlank
+    @Size(min = 4, max = 40)
+    private String confirmpassword;
     private String specialite ;
     private Set<Competence> competences ;
 

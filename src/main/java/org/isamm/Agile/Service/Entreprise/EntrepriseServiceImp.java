@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -41,6 +42,11 @@ public class EntrepriseServiceImp implements EntrepriseService{
 
     @Override
     public void deleteEntreprise(Long id) {
+      entreprisedao.deleteById(id);
+    }
 
+    @Override
+    public Optional<Entreprise> findbyid(Long id) {
+        return entreprisedao.findById(id);
     }
 }
