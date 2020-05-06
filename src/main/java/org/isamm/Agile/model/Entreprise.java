@@ -30,11 +30,6 @@ public class Entreprise implements Serializable  {
    private String email ;
 
 
- public Entreprise( String name, String adress) {
-		super();
-		this.name = name;
-		this.adress = adress;
-	}
 
     
   
