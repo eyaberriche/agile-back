@@ -70,11 +70,11 @@ public class UserController {
                     .body(new MessageResponse("Error: Email is already taken!"));
         }
 
-        if(!userDetails.getPassword().equals(userDetails.getConfirmpassword())){
+      /*  if(!userDetails.getPassword().equals(userDetails.getConfirmpassword())){
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: confirm password is not like your password!"));
-        }
+        }*/
         user.setEmail(userDetails.getEmail());
         user.setUsername(userDetails.getUsername());
         user.setLastname(userDetails.getLastname());

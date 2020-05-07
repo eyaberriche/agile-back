@@ -81,11 +81,11 @@ public class AuthController {
 					.badRequest()
 					.body(new MessageResponse("Error: Email is already in use!"));
 		}
-		if(!signUpRequest.getPassword().equals(signUpRequest.getConfirmpassword())){
+		/*if(!signUpRequest.getPassword().equals(signUpRequest.getConfirmpassword())){
 			return ResponseEntity
 					.badRequest()
 					.body(new MessageResponse("Error: confirmed password is not like your password!"));
-		}
+		}*/
 
 	User user = new User(signUpRequest.getUsername(),
 				encoder.encode( signUpRequest.getPassword()),
