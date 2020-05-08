@@ -132,4 +132,11 @@ public class UserController {
                         userId));
         userdao.deleteById(userId);
         return ResponseEntity.ok(new MessageResponse("user deleted succesfully !"));}
+    @GetMapping("/byId/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable(value = "id") Long userId)
+            throws ResourceNotFoundException {
+        User user = userdao.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("user not found for this id :: " + userId));
+        return ResponseEntity.ok().body(user);
+    }
 }

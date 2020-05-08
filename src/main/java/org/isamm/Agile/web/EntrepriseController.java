@@ -72,6 +72,14 @@ public class EntrepriseController {
         entrepriseService.updateEntreprise(entreprise) ;
 
         return ResponseEntity.ok(new MessageResponse("entreprise updated"+entreprise));}
+
+    @GetMapping("/byId/{id}")
+    public ResponseEntity<Entreprise> getEntrepriseById(@PathVariable(value = "id") Long entrepriseId)
+            throws ResourceNotFoundException {
+        Entreprise entreprise = entrepriseService.findbyid(entrepriseId)
+                .orElseThrow(() -> new ResourceNotFoundException("Entreprise not found for this id :: " + entrepriseId));
+        return ResponseEntity.ok().body(entreprise);
+    }
 }
 
 

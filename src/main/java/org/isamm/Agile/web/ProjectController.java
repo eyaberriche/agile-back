@@ -84,7 +84,13 @@ private TypeDao typeDao ;
         projectService.deleteProject(Id);
         return ResponseEntity.ok(new MessageResponse("projet"+""+project.getName()+""+"supprimé !"));}
 
-
+    @GetMapping("/byId/{id}")
+    public ResponseEntity<Project> getProjectById(@PathVariable(value = "id") Long projectId)
+            throws ResourceNotFoundException {
+        Project project = projectService.findbyid(projectId)
+                .orElseThrow(() -> new ResourceNotFoundException("project not found for this id :: " + projectId));
+        return ResponseEntity.ok().body(project);
+    }
 
 
 
