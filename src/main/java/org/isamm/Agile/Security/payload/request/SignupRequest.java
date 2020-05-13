@@ -22,7 +22,7 @@ public class SignupRequest {
     private String lastname;
     @NotBlank
     @Size(max = 20)
-    @Email
+
     private String email;
     private String  tel ;
     private Set<String> roles;
@@ -30,9 +30,6 @@ public class SignupRequest {
    @NotBlank
     @Size(min = 6, max = 20)
     private String password;
-   /* @NotBlank
-    @Size(min = 4, max = 40)
-    private String confirmpassword;*/
     private String specialite ;
     private Set<Competence> competences ;
 

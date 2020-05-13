@@ -17,8 +17,7 @@ public class ProductBacklog implements Serializable {
 	private Integer id;
 	private String name;
 
-
-	
-   
-   
+    public ProductBacklog(String name) {
+        this.name = name;
+    }
 }

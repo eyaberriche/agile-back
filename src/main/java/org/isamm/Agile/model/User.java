@@ -27,10 +27,10 @@ public class User implements Serializable {
    private String specialite ;
   /**/
 
-    @JsonIgnore
+
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles = new HashSet<>();
-    @JsonIgnore
+    
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Competence> competences = new HashSet<>();
 

@@ -5,9 +5,11 @@ import java.util.List;
 import java.util.Set;
 
 import org.isamm.Agile.Exception.ResourceNotFoundException;
+import org.isamm.Agile.Repository.ProductBacklogDao;
 import org.isamm.Agile.Repository.TypeDao;
 import org.isamm.Agile.Security.payload.response.MessageResponse;
 import org.isamm.Agile.Service.project.ProjectServiceImp;
+import org.isamm.Agile.model.ProductBacklog;
 import org.isamm.Agile.model.Project;
 import org.isamm.Agile.model.Typeproject;
 import org.isamm.Agile.model.User;
@@ -26,18 +28,22 @@ public class ProjectController {
 private ProjectServiceImp projectService;
 @Autowired
 private TypeDao typeDao ;
-
+@Autowired
+private ProductBacklogDao backlogDao;
 
     @PostMapping("/create" )
   public ResponseEntity<?> createNewProject(@RequestBody Project projectrequest) {
       if (projectService.checkIfnameExists(projectrequest.getName())) {
           return ResponseEntity
                   .badRequest()
-                  .body(new MessageResponse("Error: Name is already taken!"));}
+                  .body(new MessageResponse(" Le nom est déjà existe !"));}
 
             projectrequest.setCreationDate(LocalDate.now());
+            ProductBacklog backlog = new ProductBacklog(projectrequest.getName());
+            backlogDao.save(backlog);
+            projectrequest.setBacklog(backlog);
 			Project project = projectService.saveProject(projectrequest) ;
-            return ResponseEntity.ok(project);}
+            return ResponseEntity.ok(new MessageResponse(project.getName()));}
     @PutMapping("/update/{id}" )
      public ResponseEntity<?> updateProject(@PathVariable(value = "id") Long id,
                                             @Valid @RequestBody Project projectrequest)  throws ResourceNotFoundException {
@@ -48,7 +54,7 @@ private TypeDao typeDao ;
         if ((projectService.checkIfnameExists(projectrequest.getName())) &&  (!(project.getName().equals(projectrequest.getName())))) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Error: Name of project is already taken!"));
+                    .body(new MessageResponse("Name of project is already taken !"));
         }
 
         project.setName(projectrequest.getName());

@@ -1,9 +1,11 @@
 package org.isamm.Agile.web;
 import org.isamm.Agile.Exception.ResourceNotFoundException;
+import org.isamm.Agile.Repository.CompetenceDao;
 import org.isamm.Agile.Repository.RoleDao;
 import org.isamm.Agile.Repository.UserDao;
 import org.isamm.Agile.Security.payload.request.SignupRequest;
 import org.isamm.Agile.Security.payload.response.MessageResponse;
+import org.isamm.Agile.model.Competence;
 import org.isamm.Agile.model.Role;
 import org.isamm.Agile.model.RoleName;
 import org.isamm.Agile.model.User;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @CrossOrigin(origins ="http://localhost:4200")
@@ -27,6 +30,8 @@ public class UserController {
     private RoleDao roleDao;
     @Autowired
     PasswordEncoder encoder;
+    @Autowired
+    CompetenceDao compdao;
     @GetMapping("/all/SM")
     public List<User> getUserListByRoleSM() {
         RoleName smrole= RoleName.ROLE_SM;
@@ -51,6 +56,7 @@ public class UserController {
     public List<User> getAllUserList() {
         return userdao.findAll();
     }
+
     @PutMapping("/edit/{id}")
     public ResponseEntity<?> updateUser(@PathVariable(value = "id") Long userId,
                                         @Valid @RequestBody SignupRequest userDetails)
@@ -138,5 +144,28 @@ public class UserController {
         User user = userdao.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("user not found for this id :: " + userId));
         return ResponseEntity.ok().body(user);
+    }
+    @GetMapping("/byUsername/{username}")
+    public ResponseEntity<User> getUserById(@PathVariable(value = "username") String username)
+            throws ResourceNotFoundException {
+        User user = userdao.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFoundException("user not found with this username :: " + username));
+        return ResponseEntity.ok().body(user);
+    }
+
+    @GetMapping("/allCompetences")
+    public List<Competence> getAllcompetence() {
+        return compdao.findAll();
+    }
+    @PostMapping("/createCompetence")
+    public ResponseEntity<?> createNewCompetence(@RequestBody Competence competencerequest) {
+        if (compdao.existsByName(competencerequest.getName())) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: Name is already taken!"));
+        }
+
+        Competence competence = compdao.save(competencerequest) ;
+        return ResponseEntity.ok(new MessageResponse("competence registred successfully!"+"\n"+competence));
     }
 }
