@@ -64,6 +64,7 @@ private ProductBacklogDao backlogDao;
         project.setDepartement(projectrequest.getDepartement());
         project.setEntreprise(projectrequest.getEntreprise());
         project.setUsers(projectrequest.getUsers());
+        project.setEndDate(projectrequest.getEndDate());
 
         projectService.updateProject(project) ;
 

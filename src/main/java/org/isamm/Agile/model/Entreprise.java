@@ -21,12 +21,9 @@ public class Entreprise implements Serializable  {
    @NotBlank
    private String adress;
     @NotBlank
-
-  private String fax;
+    private String fax;
     @NotBlank
-
-
-   private String email ;
+  private String email ;
 
 
 
