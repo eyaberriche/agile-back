@@ -145,14 +145,13 @@ public class UserController {
                 .orElseThrow(() -> new ResourceNotFoundException("user not found for this id :: " + userId));
         return ResponseEntity.ok().body(user);
     }
-    @GetMapping("/byUsername/{username}")
-    public ResponseEntity<User> getUserById(@PathVariable(value = "username") String username)
-            throws ResourceNotFoundException {
-        User user = userdao.findByUsername(username)
-                .orElseThrow(() -> new ResourceNotFoundException("user not found with this username :: " + username));
-        return ResponseEntity.ok().body(user);
-    }
 
+    @GetMapping("/byEntreprise/{id}")
+    public List<User> getUserByEntreprise(@PathVariable(value = "id") Long id)
+            throws ResourceNotFoundException {
+
+        return userdao.findByEntreprise(id);
+    }
     @GetMapping("/allCompetences")
     public List<Competence> getAllcompetence() {
         return compdao.findAll();

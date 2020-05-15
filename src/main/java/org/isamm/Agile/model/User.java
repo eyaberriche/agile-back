@@ -30,7 +30,8 @@ public class User implements Serializable {
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles = new HashSet<>();
-    
+    @ManyToOne(fetch=FetchType.EAGER)
+    private Entreprise entreprise ;
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Competence> competences = new HashSet<>();
 

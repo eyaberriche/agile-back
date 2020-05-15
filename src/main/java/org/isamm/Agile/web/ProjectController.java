@@ -54,7 +54,7 @@ private ProductBacklogDao backlogDao;
         if ((projectService.checkIfnameExists(projectrequest.getName())) &&  (!(project.getName().equals(projectrequest.getName())))) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Name of project is already taken !"));
+                    .body(new MessageResponse("Le nom est déjà existe !"));
         }
 
         project.setName(projectrequest.getName());
@@ -89,7 +89,7 @@ private ProductBacklogDao backlogDao;
                 .orElseThrow(() -> new ResourceNotFoundException("user not found for this id :: " +
                         Id));
         projectService.deleteProject(Id);
-        return ResponseEntity.ok(new MessageResponse("projet"+""+project.getName()+""+"supprimé !"));}
+        return ResponseEntity.ok(new MessageResponse(project.getName()));}
 
     @GetMapping("/byId/{id}")
     public ResponseEntity<Project> getProjectById(@PathVariable(value = "id") Long projectId)

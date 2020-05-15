@@ -22,6 +22,12 @@ public interface UserDao extends JpaRepository<User, Long>{
 			+ "WHERE role.name = :name"
 	)
 	public List<User> findByrole(@Param("name") RoleName name);
+	@Query("SELECT u "
+			+ "FROM User u "
+			+ "INNER JOIN u.entreprise e "
+			+ "WHERE e.id = :id"
+	)
+	public List<User> findByEntreprise(@Param("id") Long id);
 
 	/*@RestResource(path = "byName")
 	public List<User> findByLastnameContains(@Param("name") String lastname);
