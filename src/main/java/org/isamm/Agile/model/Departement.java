@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.*;
 import javax.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Data
 @Entity
@@ -15,8 +17,6 @@ public class Departement implements Serializable {
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Integer id;
    private String name;
-
-   
 
 
 

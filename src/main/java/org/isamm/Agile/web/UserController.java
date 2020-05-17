@@ -76,55 +76,27 @@ public class UserController {
                     .body(new MessageResponse("Error: Email is already taken!"));
         }
 
-      /*  if(!userDetails.getPassword().equals(userDetails.getConfirmpassword())){
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: confirm password is not like your password!"));
-        }*/
+
         user.setEmail(userDetails.getEmail());
         user.setUsername(userDetails.getUsername());
         user.setLastname(userDetails.getLastname());
         user.setFirstname(userDetails.getFirstname());
         user.setTel(userDetails.getTel());
+        user.setRoles(userDetails.getRoles());
+        user.setCompetences(userDetails.getCompetences());
+        user.setEntreprise(userDetails.getEntreprise());
         user.setSpecialite(userDetails.getSpecialite());
         user.setPassword(encoder.encode(userDetails.getPassword()));
-        Set<String> strRoles = userDetails.getRoles();
+
         Set<Role> roles = new HashSet<>();
 
-        if (strRoles == null) {
+        if (userDetails.getRoles() == null) {
             Role userRole = roleDao.findByName(RoleName.ROLE_CLIENT)
                     .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
             roles.add(userRole);
         } else {
-            strRoles.forEach(role -> {
-                switch (role) {
-                    case "admin":
-                        Role adminRole = roleDao.findByName(RoleName.ROLE_ADMIN)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(adminRole);
-                    case "po":
-                        Role poRole = roleDao.findByName(RoleName.ROLE_PO)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(poRole);
-
-                        break;
-                    case "sm":
-                        Role smRole = roleDao.findByName(RoleName.ROLE_SM)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(smRole);
-                        break;
-                    case "clt":
-                        Role cltRole = roleDao.findByName(RoleName.ROLE_CLIENT)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(cltRole);
-
-                    default:
-                        Role usRole = roleDao.findByName(RoleName.ROLE_MEMBER)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(usRole);
-                }
-            });
-        }
+            roles.addAll(userDetails.getRoles());
+       }
         user.setRoles(roles);
         userdao.save(user);
         return ResponseEntity.ok(new MessageResponse("User modified successfully!"));
@@ -166,5 +138,9 @@ public class UserController {
 
         Competence competence = compdao.save(competencerequest) ;
         return ResponseEntity.ok(new MessageResponse("competence registred successfully!"+"\n"+competence));
+    }
+    @GetMapping("/Roleliste")
+    public List<Role> getAllRoles() {
+        return roleDao.findAll();
     }
 }

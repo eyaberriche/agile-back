@@ -1,11 +1,15 @@
 package org.isamm.Agile.model;
 
 import java.io.Serializable;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Data
 @Entity
@@ -24,7 +28,6 @@ public class Entreprise implements Serializable  {
     private String fax;
     @NotBlank
   private String email ;
-
 
 
     

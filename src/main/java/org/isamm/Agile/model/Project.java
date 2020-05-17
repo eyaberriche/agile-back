@@ -3,6 +3,8 @@ package org.isamm.Agile.model;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.*;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.annotations.NaturalId;
 
@@ -26,13 +28,14 @@ public class Project implements Serializable{
   
     @ManyToMany(fetch=FetchType.EAGER)
     private  Collection <User> users ;
-    @ManyToOne(fetch=FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER )
 	private Departement departement;
-    @ManyToOne(fetch=FetchType.EAGER)
+   // @JsonManagedReference
+    @ManyToOne(fetch = FetchType.EAGER )
 	private Entreprise entreprise;
     @ManyToOne(fetch=FetchType.EAGER)
     private Typeproject type;
-    @OneToOne(fetch=FetchType.EAGER)
+    @OneToOne(fetch=FetchType.EAGER , cascade = CascadeType.ALL)
     private ProductBacklog backlog;
     /*@ManyToMany(fetch=FetchType.EAGER)
 	private Set<Competence> competences = new HashSet<>();*/

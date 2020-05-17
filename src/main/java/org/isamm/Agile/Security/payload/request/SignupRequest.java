@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.isamm.Agile.model.Competence;
+import org.isamm.Agile.model.Entreprise;
+import org.isamm.Agile.model.Role;
 
 @Getter
 @Setter
@@ -25,12 +27,13 @@ public class SignupRequest {
 
     private String email;
     private String  tel ;
-    private Set<String> roles;
+    private Set<Role> roles;
     
    @NotBlank
     @Size(min = 6, max = 20)
     private String password;
     private String specialite ;
+    private Entreprise entreprise ;
     private Set<Competence> competences ;
 
   
