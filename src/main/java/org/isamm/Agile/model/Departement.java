@@ -15,7 +15,7 @@ import org.hibernate.annotations.FetchMode;
 public class Departement implements Serializable {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
-   private Integer id;
+   private Long id;
    private String name;
 
 

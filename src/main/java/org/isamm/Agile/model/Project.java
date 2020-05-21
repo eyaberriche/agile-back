@@ -20,7 +20,7 @@ public class Project implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column(unique=true)
+
     private String name;
     private LocalDate creationDate;
     private LocalDate endDate;
@@ -35,6 +35,17 @@ public class Project implements Serializable{
 	private Entreprise entreprise;
     @ManyToOne(fetch=FetchType.EAGER)
     private Typeproject type;
+
+    public Project(String name, LocalDate endDate, String description, Collection<User> users, Departement departement, Entreprise entreprise, Typeproject type) {
+        this.name = name;
+        this.endDate = endDate;
+        this.description = description;
+        this.users = users;
+        this.departement = departement;
+        this.entreprise = entreprise;
+        this.type = type;
+    }
+
     @OneToOne(fetch=FetchType.EAGER , cascade = CascadeType.ALL)
     private ProductBacklog backlog;
     /*@ManyToMany(fetch=FetchType.EAGER)
