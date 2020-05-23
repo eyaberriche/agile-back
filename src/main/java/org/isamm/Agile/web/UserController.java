@@ -92,7 +92,7 @@ public class UserController {
         }else{
         user.setPassword(encoder.encode(userDetails.getPassword()));}
 
-        Set<Role> roles = new HashSet<>();
+     /*   Set<Role> roles = new HashSet<>();
 
         if (userDetails.getRoles() == null) {
             Role userRole = roleDao.findByName(RoleName.ROLE_CLIENT)
@@ -101,7 +101,8 @@ public class UserController {
         } else {
             roles.addAll(userDetails.getRoles());
        }
-        user.setRoles(roles);
+        user.setRoles(roles);*/
+
         userdao.save(user);
         return ResponseEntity.ok(new MessageResponse("User modified successfully!"));
  }
@@ -134,6 +135,7 @@ public class UserController {
     }
     @PostMapping("/createCompetence")
     public ResponseEntity<?> createNewCompetence(@RequestBody Competence competencerequest) {
+
         if (compdao.existsByName(competencerequest.getName())) {
             return ResponseEntity
                     .badRequest()
@@ -143,6 +145,15 @@ public class UserController {
         Competence competence = compdao.save(competencerequest) ;
         return ResponseEntity.ok(new MessageResponse("competence registred successfully!"+"\n"+competence));
     }
+    @DeleteMapping("/deleteCompetence/{id}")
+    public ResponseEntity<?> deleteCompetence(@PathVariable(value = "id") Long competenceId)
+            throws ResourceNotFoundException {
+        Competence competence = compdao.findById(competenceId)
+                .orElseThrow(() -> new ResourceNotFoundException("competence not found for this id :: " +
+                        competenceId));
+        compdao.deleteById(competenceId);
+        return ResponseEntity.ok(new MessageResponse("competence deleted succesfully !"));}
+
     @GetMapping("/Roleliste")
     public List<Role> getAllRoles() {
         return roleDao.findAll();
