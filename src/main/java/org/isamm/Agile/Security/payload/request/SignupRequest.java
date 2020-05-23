@@ -30,7 +30,7 @@ public class SignupRequest {
     private Set<Role> roles;
     
 
-    @Size(min = 6, max = 20)
+   // @Size(min = 6, max = 20)
     private String password;
     private String specialite ;
     private Entreprise entreprise ;
