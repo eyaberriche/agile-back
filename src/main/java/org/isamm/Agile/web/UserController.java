@@ -149,7 +149,6 @@ public class UserController {
                         competenceId));
         compdao.deleteById(competenceId);
         return ResponseEntity.ok(new MessageResponse("competence deleted succesfully !"));}
-
     @GetMapping("/Roleliste")
     public List<Role> getAllRoles() {
         return roleDao.findAll();
