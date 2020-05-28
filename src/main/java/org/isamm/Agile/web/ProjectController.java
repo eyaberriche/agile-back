@@ -56,7 +56,7 @@ private ProductBacklogDao backlogDao;
                     .badRequest()
                     .body(new MessageResponse("Le nom est déjà existe !"));
         }
-
+       // project.setId(project.getId());
         project.setName(projectrequest.getName());
         project.setEndDate(projectrequest.getEndDate());
         project.setDescription(projectrequest.getDescription());
@@ -68,7 +68,7 @@ private ProductBacklogDao backlogDao;
 
         projectService.updateProject(project) ;
 
-        return ResponseEntity.ok(new MessageResponse("project updated"+project));}
+        return ResponseEntity.ok(new MessageResponse(project.getName()));}
 
 
     @GetMapping("/all")

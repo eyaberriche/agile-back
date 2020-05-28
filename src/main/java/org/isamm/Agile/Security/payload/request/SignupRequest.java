@@ -15,22 +15,22 @@ import org.isamm.Agile.model.Role;
 @Setter
 @AllArgsConstructor
 public class SignupRequest {
-    @NotBlank
+    //@NotBlank
     @Size(min = 4, max = 20)
     private String username;
-    @NotBlank
+    //@NotBlank
     private String firstname;
-    @NotBlank
+    //@NotBlank
     private String lastname;
-    @NotBlank
+    //@NotBlank
     @Size(max = 20)
 
     private String email;
     private String  tel ;
     private Set<Role> roles;
     
-   @NotBlank
-    @Size(min = 6, max = 20)
+
+   // @Size(min = 6, max = 20)
     private String password;
     private String specialite ;
     private Entreprise entreprise ;

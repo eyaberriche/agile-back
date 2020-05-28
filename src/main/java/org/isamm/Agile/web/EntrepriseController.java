@@ -33,16 +33,16 @@ public class EntrepriseController {
         if (entrepriseService.checkIfnameExists(Entrepriserequest.getName())) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Error: Name is already taken!"));
+                    .body(new MessageResponse("erreur : le nom est déjà existe !"));
         }
 
         if (entrepriseService.checkIfemailExists(Entrepriserequest.getEmail())) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Error: Email is already in use!"));
+                    .body(new MessageResponse("erreur : le courrier est déjà existe !"));
         }
         Entreprise entreprise = entrepriseService.saveEntreprise(Entrepriserequest) ;
-        return ResponseEntity.ok(new MessageResponse("enterprise registred successfully!"+"\n"+entreprise));
+        return ResponseEntity.ok(new MessageResponse("Entreprise creé avec succés !"));
         }
     @GetMapping("/all")
         public ResponseEntity<?> getAllEntreprises(){
@@ -73,12 +73,12 @@ public class EntrepriseController {
         if ((entrepriseService.checkIfnameExists(entrepriserequest.getName())) &&  (!(entreprise.getName().equals(entrepriserequest.getName())))) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Error: Name of entreprise is already taken!"));
+                    .body(new MessageResponse("erreur : le nom est déjà existe !!"));
         }
         if ((entrepriseService.checkIfemailExists(entrepriserequest.getEmail())) &&  (!(entreprise.getEmail().equals(entrepriserequest.getEmail())))) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Error: email of entreprise is already taken!"));
+                    .body(new MessageResponse("erreur : le courrier est déjà existe !"));
         }
 
         entreprise.setName(entrepriserequest.getName());

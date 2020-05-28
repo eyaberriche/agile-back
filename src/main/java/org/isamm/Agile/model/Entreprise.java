@@ -20,13 +20,13 @@ public class Entreprise implements Serializable  {
    @Id
    @GeneratedValue(strategy = GenerationType.AUTO)
    private Long id;
-   @NotBlank
+
    private String name;
-   @NotBlank
+
    private String adress;
-    @NotBlank
+
     private String fax;
-    @NotBlank
+
   private String email ;
 
 

@@ -86,7 +86,11 @@ public class UserController {
         user.setCompetences(userDetails.getCompetences());
         user.setEntreprise(userDetails.getEntreprise());
         user.setSpecialite(userDetails.getSpecialite());
-        user.setPassword(encoder.encode(userDetails.getPassword()));
+        if (userDetails.getPassword() == "")
+        {
+            user.setPassword(encoder.encode(user.getPassword()));
+        }else{
+        user.setPassword(encoder.encode(userDetails.getPassword()));}
 
      /*   Set<Role> roles = new HashSet<>();
 
