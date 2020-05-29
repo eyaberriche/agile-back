@@ -25,8 +25,9 @@ public class BacklogServiceImp  {
 	
     public ProductBacklog cloturerBacklog(ProductBacklog backlog)
 	{
-    	backlog.setCloture();
-		return backlogdao.save(backlog);
+	    ProductBacklog back = backlogdao.findById(backlog.getId()).orElse(null);
+	    back.setCloture();
+		return backlogdao.save(back); // 3leh twali null k nmlo cloture ? nn yoked juste myzid chy ctta lahdha aw aandi l hall n7iw null c tt
 	}
 
 
