@@ -68,12 +68,12 @@ public class UserController {
         if ((userdao.existsByUsername(userDetails.getUsername())) &&  (!(user.getUsername().equals(userDetails.getUsername())))) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Error: Username is already taken!"));
+                    .body(new MessageResponse("Erreur: le nom est déjà existe!"));
         }
         if ((userdao.existsByEmail(userDetails.getEmail())) &&  (!(user.getEmail().equals(userDetails.getEmail())))) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Error: Email is already taken!"));
+                    .body(new MessageResponse("Erreur: L'email est déjà existe!"));
         }
 
 
@@ -104,7 +104,7 @@ public class UserController {
         user.setRoles(roles);*/
 
         userdao.save(user);
-        return ResponseEntity.ok(new MessageResponse("User modified successfully!"));
+        return ResponseEntity.ok(new MessageResponse("mise à jour effectué avec succés!"));
  }
 
     @DeleteMapping("/delete/{id}")
@@ -139,11 +139,11 @@ public class UserController {
         if (compdao.existsByName(competencerequest.getName())) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Error: Name is already taken!"));
+                    .body(new MessageResponse("Erreur : le nom est déjà existe !"));
         }
 
         Competence competence = compdao.save(competencerequest) ;
-        return ResponseEntity.ok(new MessageResponse("competence registred successfully!"+"\n"+competence));
+        return ResponseEntity.ok(new MessageResponse("ajout de compétence réussi !"));
     }
     @DeleteMapping("/deleteCompetence/{id}")
     public ResponseEntity<?> deleteCompetence(@PathVariable(value = "id") Long competenceId)
