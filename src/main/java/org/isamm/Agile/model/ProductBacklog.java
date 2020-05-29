@@ -19,9 +19,9 @@ public class ProductBacklog implements Serializable {
     private String name;
     private boolean cloture=false;
 
-    /*@OneToMany(mappedBy="backlog",orphanRemoval = true,
+    @OneToMany(mappedBy="backlog",orphanRemoval = true,
             cascade = CascadeType.ALL)
-    private Collection<UserStory> us;*/
+    private Collection<UserStory> us;
 
 
     public ProductBacklog(String name) {
@@ -46,11 +46,11 @@ public class ProductBacklog implements Serializable {
     }
 
 
+    public Collection<UserStory> getUs() {
+        return us;
+    }
 
-
-
-
-
-
-
+    public void setUs(Collection<UserStory> us) {
+        this.us = us;
+    }
 }
