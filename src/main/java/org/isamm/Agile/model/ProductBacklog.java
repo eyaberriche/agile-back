@@ -11,13 +11,46 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 
+
 public class ProductBacklog implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
-	private String name;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    private String name;
+    private boolean cloture=false;
+
+    /*@OneToMany(mappedBy="backlog",orphanRemoval = true,
+            cascade = CascadeType.ALL)
+    private Collection<UserStory> us;*/
+
 
     public ProductBacklog(String name) {
         this.name = name;
     }
+
+    public ProductBacklog(Long i) {
+        super();
+        this.id = i;
+    }
+
+
+
+    public boolean isCloture()
+    {
+        return this.cloture;
+    }
+
+    public void setCloture()
+    {
+        this.cloture=true;
+    }
+
+
+
+
+
+
+
+
+
 }
