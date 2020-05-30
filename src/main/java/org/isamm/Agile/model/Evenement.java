@@ -1,6 +1,7 @@
 package org.isamm.Agile.model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.*;
 import javax.persistence.*;
 
@@ -23,8 +24,8 @@ public class Evenement implements Serializable {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private Date fdate;
-    private Date ldate;
+    private LocalDate fdate;
+    private LocalDate ldate;
     @Enumerated(EnumType.STRING)
     @NaturalId
     @Column(length = 60)
@@ -32,8 +33,8 @@ public class Evenement implements Serializable {
 
     @ManyToMany(fetch=FetchType.EAGER)
     private Set<User> users = new HashSet<>();
-   @ManyToMany(mappedBy = "evenements")
-   public Collection<Sprint> sprints;
+  /* @ManyToMany(fetch=FetchType.EAGER)
+   public Set<Sprint> sprints = new HashSet<>();*/
 
 
 

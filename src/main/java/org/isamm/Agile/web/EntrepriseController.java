@@ -53,7 +53,7 @@ public class EntrepriseController {
     public ResponseEntity<?> deleteEntreprise(@PathVariable(value = "id") Long Id)
             throws ResourceNotFoundException {
         Entreprise entreprise = entrepriseService.findbyid(Id)
-                .orElseThrow(() -> new ResourceNotFoundException("user not found for this id :: " +
+                .orElseThrow(() -> new ResourceNotFoundException("entreprise not found for this id :: " +
                         Id));
         List<User> users = userDao.findByEntreprise(Id);
         userDao.deleteAll(users);
@@ -87,7 +87,7 @@ public class EntrepriseController {
         entreprise.setFax(entrepriserequest.getFax());
         entrepriseService.updateEntreprise(entreprise) ;
 
-        return ResponseEntity.ok(new MessageResponse("entreprise updated"+entreprise));}
+        return ResponseEntity.ok(new MessageResponse("entreprise updated"));}
 
     @GetMapping("/byId/{id}")
     public ResponseEntity<Entreprise> getEntrepriseById(@PathVariable(value = "id") Long entrepriseId)
