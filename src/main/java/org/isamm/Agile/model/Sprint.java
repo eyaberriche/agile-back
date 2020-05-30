@@ -23,7 +23,8 @@ public class Sprint implements Serializable{
     private String objective;
     private Long estimation ;
   
-  @ManyToMany(fetch=FetchType.EAGER)
+  @OneToMany(mappedBy="sprint",orphanRemoval = true,
+          cascade = CascadeType.ALL)
   private Set<Evenement> evenements = new HashSet<>();
   @ManyToOne
   private ProductBacklog backlog ;
@@ -32,10 +33,6 @@ public class Sprint implements Serializable{
   private Collection<UserStory> us;
   
 
-
-  
-  
-  
    
  
 

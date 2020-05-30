@@ -23,6 +23,8 @@ public class ProductBacklog implements Serializable {
             cascade = CascadeType.ALL)
     private Collection<UserStory> us;
 
+    @OneToOne
+    private Project project;
 
     public ProductBacklog(String name) {
         this.name = name;
