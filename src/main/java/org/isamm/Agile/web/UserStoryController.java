@@ -30,10 +30,5 @@ private UserStoryDao userStorydao;
 	       
 
   }
-  @GetMapping("allbybacklog/{id}")
-  public List<UserStory> getUsBybacklog(@PathVariable(value = "id") Long id)
-          throws ResourceNotFoundException {
 
-      return userStorydao.findByBacklog(id);
-  }
 }

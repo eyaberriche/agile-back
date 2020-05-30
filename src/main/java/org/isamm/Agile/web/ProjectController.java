@@ -88,6 +88,8 @@ private ProductBacklogDao backlogDao;
         Project project = projectService.findbyid(Id)
                 .orElseThrow(() -> new ResourceNotFoundException("user not found for this id :: " +
                         Id));
+       // ProductBacklog backlog = new ProductBacklog();
+        backlogDao.deleteById(project.getBacklog().getId());
         projectService.deleteProject(Id);
         return ResponseEntity.ok(new MessageResponse(project.getName()));}
 
