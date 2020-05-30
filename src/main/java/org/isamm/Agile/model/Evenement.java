@@ -26,15 +26,12 @@ public class Evenement implements Serializable {
     private String name;
     private LocalDate fdate;
     private LocalDate ldate;
-    @Enumerated(EnumType.STRING)
-    @NaturalId
-    @Column(length = 60)
-    private ObjName objective ;
-
+    @ManyToOne(fetch = FetchType.EAGER )
+    private Objective objective ;
     @ManyToMany(fetch=FetchType.EAGER)
     private Set<User> users = new HashSet<>();
-  /* @ManyToMany(fetch=FetchType.EAGER)
-   public Set<Sprint> sprints = new HashSet<>();*/
+    @ManyToOne
+    private Sprint sprint;
 
 
 

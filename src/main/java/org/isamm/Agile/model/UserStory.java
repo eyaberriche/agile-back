@@ -20,8 +20,6 @@ public class UserStory implements Serializable{
    
    @ManyToOne(fetch=FetchType.EAGER)
    private ProductBacklog backlog ;
-   
-
    @ManyToOne(fetch=FetchType.EAGER)
    private Sprint sprint ;
 

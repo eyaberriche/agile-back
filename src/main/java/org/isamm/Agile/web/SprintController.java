@@ -4,7 +4,6 @@ import org.isamm.Agile.Exception.ResourceNotFoundException;
 import org.isamm.Agile.Repository.EvenementDao;
 import org.isamm.Agile.Repository.SprintDao;
 import org.isamm.Agile.Security.payload.response.MessageResponse;
-import org.isamm.Agile.model.Evenement;
 import org.isamm.Agile.model.Sprint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,9 +22,9 @@ public class SprintController {
     @Autowired
     private EvenementDao eventdao ;
      @GetMapping("allbybacklog/{id}")
-  public List<Sprint> getUsBybacklog(@PathVariable(value = "id") Long id)
-          throws ResourceNotFoundException {
-          return sprintDao.findByBacklog(id);
+     public List<Sprint> getUsBybacklog(@PathVariable(value = "id") Long id)
+             throws ResourceNotFoundException {
+              return sprintDao.findByBacklog(id);
   }
     @PostMapping("/create")
     public ResponseEntity<?> createNewSprint(@RequestBody Sprint sprintrequest) {
@@ -34,8 +33,8 @@ public class SprintController {
                     .badRequest()
                     .body(new MessageResponse("Erreur : le nom du sprint est déjà existe !"));
         }
-        sprintrequest.setCreationDate(LocalDate.now());
-       Sprint sprint = sprintDao.save(sprintrequest) ;
+         sprintrequest.setCreationDate(LocalDate.now());
+         Sprint sprint = sprintDao.save(sprintrequest) ;
         return ResponseEntity.ok(new MessageResponse(sprint.getName()));
     }
     @PutMapping("/update/{id}" )
@@ -45,7 +44,8 @@ public class SprintController {
                  Sprint sprint = sprintDao.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("sprint not found for this id :: " +
                         id));
-        if ((sprintDao.existsByName(sprintrequest.getName())) &&  (!(sprint.getName().equals(sprintrequest.getName())))) {
+        if ((sprintDao.existsByName(sprintrequest.getName())) &&  (!(sprint.getName().equals(sprintrequest.getName())))
+                && (sprint.getBacklog().getId().equals(sprintrequest.getBacklog().getId()))){
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Erreur : le nom du sprint est déjà existe !"));
