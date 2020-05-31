@@ -17,6 +17,6 @@ public interface SprintDao extends JpaRepository<Sprint, Long> {
             + "WHERE b.id = :id"
     )
     public List<Sprint> findByBacklog(@Param("id") Long id);
-    Boolean existsByName(String  name);
-
+    Boolean existsByNameAndBacklogId(String  name , Long id);
+    Boolean existsByName(String name);
 }

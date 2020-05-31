@@ -28,7 +28,8 @@ public class SprintController {
   }
     @PostMapping("/create")
     public ResponseEntity<?> createNewSprint(@RequestBody Sprint sprintrequest) {
-        if (sprintDao.existsByName(sprintrequest.getName())) {
+         Sprint sprintt = new Sprint();
+        if (sprintDao.existsByNameAndBacklogId(sprintrequest.getName(),sprintrequest.getBacklog().getId()))  {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Erreur : le nom du sprint est déjà existe !"));
@@ -48,7 +49,7 @@ public class SprintController {
                 && (sprint.getBacklog().getId().equals(sprintrequest.getBacklog().getId()))){
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Erreur : le nom du sprint est déjà existe !"));
+                    .body(new MessageResponse("Erreur : le nom du sprint est déjà existe dans ce backlog!"));
         }
         sprint.setName(sprintrequest.getName());
         sprint.setEndDate(sprintrequest.getEndDate());
