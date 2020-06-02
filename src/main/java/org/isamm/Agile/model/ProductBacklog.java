@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.*;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 @Data
@@ -19,11 +20,17 @@ public class ProductBacklog implements Serializable {
     private String name;
     private boolean cloture=false;
 
-    @OneToMany(mappedBy="backlog",orphanRemoval = true,
-            cascade = CascadeType.ALL)
+    @OneToMany(mappedBy="backlog")
     private Collection<UserStory> us;
 
-    @OneToOne
+
+
+    public ProductBacklog(String name, Project project) {
+        this.name = name;
+        this.project = project;
+    }
+
+    @OneToOne(cascade = CascadeType.ALL)
     private Project project;
 
     public ProductBacklog(String name) {

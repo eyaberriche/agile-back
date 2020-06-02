@@ -38,9 +38,8 @@ public UserStory(String name, ProductBacklog backlog, Sprint sprint) {
     public ProductBacklog getBacklog() {
         return backlog;
     }
-   
-   
-   
-   
-  
+    @JsonIgnore
+      public Sprint getSprint() {
+        return sprint;
+    }
 }

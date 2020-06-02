@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.annotations.NaturalId;
@@ -46,11 +47,12 @@ public class Project implements Serializable{
         this.type = type;
     }
 
-    @OneToOne(fetch=FetchType.EAGER , cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "project" ,fetch=FetchType.LAZY , cascade = CascadeType.ALL)
     private ProductBacklog backlog;
-    /*@ManyToMany(fetch=FetchType.EAGER)
-	private Set<Competence> competences = new HashSet<>();*/
-
+    @JsonIgnore
+    public ProductBacklog getBacklog() {
+        return backlog;
+    }
 }
 
 

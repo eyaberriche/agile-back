@@ -39,7 +39,7 @@ private ProductBacklogDao backlogDao;
                   .body(new MessageResponse(" Le nom  du projet est déjà existe !"));}
 
             projectrequest.setCreationDate(LocalDate.now());
-            ProductBacklog backlog = new ProductBacklog(projectrequest.getName());
+            ProductBacklog backlog = new ProductBacklog(projectrequest.getName(),projectrequest);
             backlogDao.save(backlog);
             projectrequest.setBacklog(backlog);
 			Project project = projectService.saveProject(projectrequest) ;
@@ -89,7 +89,7 @@ private ProductBacklogDao backlogDao;
                 .orElseThrow(() -> new ResourceNotFoundException("user not found for this id :: " +
                         Id));
        // ProductBacklog backlog = new ProductBacklog();
-        backlogDao.deleteById(project.getBacklog().getId());
+        //backlogDao.deleteById(project.getBacklog().getId());
         projectService.deleteProject(Id);
         return ResponseEntity.ok(new MessageResponse(project.getName()));}
 

@@ -6,6 +6,7 @@ import java.util.*;
 import javax.persistence.*;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 @Data
@@ -31,6 +32,7 @@ public class Sprint implements Serializable{
   @OneToMany(mappedBy="sprint",orphanRemoval = true,
           cascade = CascadeType.ALL)
   private Collection<UserStory> us;
+
   
 
    
