@@ -33,13 +33,13 @@ public class EntrepriseController {
         if (entrepriseService.checkIfnameExists(Entrepriserequest.getName())) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("erreur : le nom est déjà existe !"));
+                    .body(new MessageResponse("Erreur : le nom  d'entreprise est déjà existe !"));
         }
 
         if (entrepriseService.checkIfemailExists(Entrepriserequest.getEmail())) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("erreur : le courrier est déjà existe !"));
+                    .body(new MessageResponse("Erreur : le courrier est déjà existe !"));
         }
         Entreprise entreprise = entrepriseService.saveEntreprise(Entrepriserequest) ;
         return ResponseEntity.ok(new MessageResponse("Entreprise creé avec succés !"));
@@ -73,12 +73,12 @@ public class EntrepriseController {
         if ((entrepriseService.checkIfnameExists(entrepriserequest.getName())) &&  (!(entreprise.getName().equals(entrepriserequest.getName())))) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("erreur : le nom est déjà existe !!"));
+                    .body(new MessageResponse("Erreur : le nom  d'entreprise est déjà existe !"));
         }
         if ((entrepriseService.checkIfemailExists(entrepriserequest.getEmail())) &&  (!(entreprise.getEmail().equals(entrepriserequest.getEmail())))) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("erreur : le courrier est déjà existe !"));
+                    .body(new MessageResponse("Erreur : le courrier est déjà existe !"));
         }
 
         entreprise.setName(entrepriserequest.getName());
@@ -87,7 +87,7 @@ public class EntrepriseController {
         entreprise.setFax(entrepriserequest.getFax());
         entrepriseService.updateEntreprise(entreprise) ;
 
-        return ResponseEntity.ok(new MessageResponse("entreprise updated"));}
+        return ResponseEntity.ok(new MessageResponse("Entreprise modifiée avec succés !"));}
 
     @GetMapping("/byId/{id}")
     public ResponseEntity<Entreprise> getEntrepriseById(@PathVariable(value = "id") Long entrepriseId)
