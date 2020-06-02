@@ -68,12 +68,12 @@ public class UserController {
         if ((userdao.existsByUsername(userDetails.getUsername())) &&  (!(user.getUsername().equals(userDetails.getUsername())))) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Erreur: le nom est déjà existe!"));
+                    .body(new MessageResponse("Erreur: le nom d'utilisateur est déjà existe!"));
         }
         if ((userdao.existsByEmail(userDetails.getEmail())) &&  (!(user.getEmail().equals(userDetails.getEmail())))) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Erreur: L'email est déjà existe!"));
+                    .body(new MessageResponse("Erreur: L'email d'utilisateur est déjà existe!"));
         }
 
 
@@ -114,7 +114,7 @@ public class UserController {
                 .orElseThrow(() -> new ResourceNotFoundException("user not found for this id :: " +
                         userId));
         userdao.deleteById(userId);
-        return ResponseEntity.ok(new MessageResponse("user deleted succesfully !"));}
+        return ResponseEntity.ok(new MessageResponse("Utilisateur modifé avec succés !"));}
     @GetMapping("/byId/{id}")
     public ResponseEntity<User> getUserById(@PathVariable(value = "id") Long userId)
             throws ResourceNotFoundException {
@@ -139,7 +139,7 @@ public class UserController {
         if (compdao.existsByName(competencerequest.getName())) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Erreur : le nom est déjà existe !"));
+                    .body(new MessageResponse("Erreur : le nom de compétence est déjà existe !"));
         }
 
         Competence competence = compdao.save(competencerequest) ;
@@ -152,7 +152,8 @@ public class UserController {
                 .orElseThrow(() -> new ResourceNotFoundException("competence not found for this id :: " +
                         competenceId));
         compdao.deleteById(competenceId);
-        return ResponseEntity.ok(new MessageResponse("competence deleted succesfully !"));}
+        return ResponseEntity.ok(new MessageResponse("compétence supprimeé !"));}
+
     @GetMapping("/Roleliste")
     public List<Role> getAllRoles() {
         return roleDao.findAll();

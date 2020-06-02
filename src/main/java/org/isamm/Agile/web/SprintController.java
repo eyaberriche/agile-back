@@ -46,17 +46,17 @@ public class SprintController {
                 .orElseThrow(() -> new ResourceNotFoundException("sprint not found for this id :: " +
                         id));
         if ((sprintDao.existsByName(sprintrequest.getName())) &&  (!(sprint.getName().equals(sprintrequest.getName())))
-                && (sprint.getBacklog().getId().equals(sprintrequest.getBacklog().getId()))){
+                && sprintDao.existsByNameAndBacklogId(sprintrequest.getName(),sprintrequest.getBacklog().getId())){
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Erreur : le nom du sprint est déjà existe dans ce backlog!"));
+                    .body(new MessageResponse("Erreur : le nom du sprint est déjà existe dans ce backlog !"));
         }
         sprint.setName(sprintrequest.getName());
         sprint.setEndDate(sprintrequest.getEndDate());
         sprint.setEstimation(sprintrequest.getEstimation());
         sprint.setEvenements(sprint.getEvenements());
         sprint.setObjective(sprint.getObjective());
-        sprintDao.save(sprint) ;
+        sprintDao.save(sprint);
         return ResponseEntity.ok(new MessageResponse(sprint.getName()));}
 
     @GetMapping("/byId/{id}")
@@ -75,6 +75,7 @@ public class SprintController {
                         Id));
         eventdao.deleteAll(sprint.getEvenements());
         sprintDao.deleteById(Id);
+
         return ResponseEntity.ok(new MessageResponse(sprint.getName()+""+"supprimée !"));}
 }
 
