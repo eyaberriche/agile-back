@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 
-@CrossOrigin(origins ="http://localhost:4200")
+@CrossOrigin(origins ="http://localhost:4200" )
 @RestController
 @RequestMapping("/api/us")
 public class UserStoryController {
@@ -35,7 +35,9 @@ private UserStoryDao userStorydao;
       public List<UserStory> getUsBybacklog(@PathVariable(value = "id") Long id)
              throws ResourceNotFoundException {
           return userStorydao.findByBacklog(id);
-      }  @DeleteMapping("/delete/{id}")
+      }
+
+      @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteUS(@PathVariable(value = "id") Long Id)
             throws ResourceNotFoundException {
         UserStory userStory = userStorydao.findById(Id)

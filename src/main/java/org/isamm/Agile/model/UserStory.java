@@ -39,8 +39,5 @@ public UserStory(String name, ProductBacklog backlog, Sprint sprint) {
         return backlog;
     }
    
-   
-   
-   
-  
+
 }
