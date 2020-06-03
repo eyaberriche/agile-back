@@ -20,7 +20,8 @@ public class ProductBacklog implements Serializable {
     private String name;
     private boolean cloture=false;
 
-    @OneToMany(mappedBy="backlog")
+    @OneToMany(mappedBy="backlog",orphanRemoval = true,
+            cascade = CascadeType.ALL)
     private Collection<UserStory> us;
 
 
@@ -30,7 +31,8 @@ public class ProductBacklog implements Serializable {
         this.project = project;
     }
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne (cascade=CascadeType.ALL)
+    //@JoinColumn(name="PROJECT_ID", unique= true, nullable=true, insertable=true, updatable=true)
     private Project project;
 
     public ProductBacklog(String name) {
@@ -62,4 +64,5 @@ public class ProductBacklog implements Serializable {
     public void setUs(Collection<UserStory> us) {
         this.us = us;
     }
+
 }

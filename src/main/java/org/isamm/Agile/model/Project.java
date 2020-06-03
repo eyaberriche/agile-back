@@ -47,12 +47,9 @@ public class Project implements Serializable{
         this.type = type;
     }
 
-    @OneToOne(mappedBy = "project" ,fetch=FetchType.LAZY , cascade = CascadeType.ALL)
-    private ProductBacklog backlog;
-    @JsonIgnore
-    public ProductBacklog getBacklog() {
-        return backlog;
-    }
+   /* @OneToOne(mappedBy = "project" ,fetch=FetchType.EAGER , cascade = CascadeType.ALL)
+    private ProductBacklog backlog;*/
+
 }
 
 

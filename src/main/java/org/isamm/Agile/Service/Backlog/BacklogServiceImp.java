@@ -19,7 +19,7 @@ public class BacklogServiceImp  implements  BacklogService{
 
     @Override
     public void deleteBacklog(Long id)  {
-       backlogDao.deleteById(id);
         sprintDao.deleteAll(sprintDao.findByBacklog(id));
+       backlogDao.deleteById(id);
     }
 }

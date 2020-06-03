@@ -16,4 +16,11 @@ public interface UserStoryDao extends JpaRepository<UserStory, Long>{
             + "WHERE b.id = :id"
     )
     public List<UserStory> findByBacklog(@Param("id") Long id);
+
+    @Query("SELECT us "
+            + "FROM UserStory us "
+            + "INNER JOIN us.sprint b "
+            + "WHERE b.id = :id"
+    )
+    public UserStory findBySprint(@Param("id") Long id);
 }

@@ -5,6 +5,7 @@ import org.isamm.Agile.Exception.ResourceNotFoundException;
 import org.isamm.Agile.Repository.UserStoryDao;
 import org.isamm.Agile.Security.payload.response.MessageResponse;
 import org.isamm.Agile.model.ProductBacklog;
+import org.isamm.Agile.model.Sprint;
 import org.isamm.Agile.model.User;
 import org.isamm.Agile.model.UserStory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,28 @@ private UserStoryDao userStorydao;
       us.setBacklog(back);
       us.setId(null);
       return userStorydao.save(us);}
+
+    @PutMapping("/update/{id}" )
+    public ResponseEntity<?> updateEntreprise(@PathVariable(value = "id") Long id,
+                                              @Valid @RequestBody UserStory usrequest)  throws ResourceNotFoundException {
+
+        UserStory uss = userStorydao.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("entreprise not found for this id :: " +
+                        id));
+
+
+       if (usrequest.getName()== null)
+       {uss.setName(uss.getName());}
+       else
+       {uss.setName(usrequest.getName());}
+
+        Sprint sprint = new Sprint();
+        sprint.setId(usrequest.getId());
+        uss.setSprint(sprint);
+       // uss.setId(null);
+        userStorydao.save(uss) ;
+
+        return ResponseEntity.ok(new MessageResponse("us modifiée avec succés !"));}
 
       @GetMapping("allbybacklog/{id}")
       public List<UserStory> getUsBybacklog(@PathVariable(value = "id") Long id)
