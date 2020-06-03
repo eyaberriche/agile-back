@@ -6,8 +6,10 @@ import java.util.Set;
 
 import org.isamm.Agile.Exception.ResourceNotFoundException;
 import org.isamm.Agile.Repository.ProductBacklogDao;
+import org.isamm.Agile.Repository.SprintDao;
 import org.isamm.Agile.Repository.TypeDao;
 import org.isamm.Agile.Security.payload.response.MessageResponse;
+import org.isamm.Agile.Service.Backlog.BacklogService;
 import org.isamm.Agile.Service.project.ProjectServiceImp;
 import org.isamm.Agile.model.ProductBacklog;
 import org.isamm.Agile.model.Project;
@@ -30,6 +32,11 @@ private ProjectServiceImp projectService;
 private TypeDao typeDao ;
 @Autowired
 private ProductBacklogDao backlogDao;
+@Autowired
+private SprintDao sprintDao;
+@Autowired
+private BacklogService bc ;
+
 
     @PostMapping("/create" )
   public ResponseEntity<?> createNewProject(@RequestBody Project projectrequest) {
@@ -40,8 +47,9 @@ private ProductBacklogDao backlogDao;
 
             projectrequest.setCreationDate(LocalDate.now());
             ProductBacklog backlog = new ProductBacklog(projectrequest.getName());
+            backlog.setProject(projectrequest);
             backlogDao.save(backlog);
-            projectrequest.setBacklog(backlog);
+            //projectrequest.setBacklog(backlog);
 			Project project = projectService.saveProject(projectrequest) ;
             return ResponseEntity.ok(new MessageResponse(project.getName()));}
     @PutMapping("/update/{id}" )
@@ -88,8 +96,10 @@ private ProductBacklogDao backlogDao;
         Project project = projectService.findbyid(Id)
                 .orElseThrow(() -> new ResourceNotFoundException("user not found for this id :: " +
                         Id));
-       // ProductBacklog backlog = new ProductBacklog();
-        backlogDao.deleteById(project.getBacklog().getId());
+
+        ProductBacklog backlog = backlogDao.findByProject(Id);
+        backlog.setProject(null);
+        bc.deleteBacklog(backlog.getId());
         projectService.deleteProject(Id);
         return ResponseEntity.ok(new MessageResponse(project.getName()));}
 

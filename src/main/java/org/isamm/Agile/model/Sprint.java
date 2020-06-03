@@ -6,6 +6,7 @@ import java.util.*;
 import javax.persistence.*;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 @Data
@@ -28,12 +29,11 @@ public class Sprint implements Serializable{
   private Set<Evenement> evenements = new HashSet<>();
   @ManyToOne
   private ProductBacklog backlog ;
-  @OneToMany(mappedBy="sprint",orphanRemoval = true,
-          cascade = CascadeType.ALL)
-  private Collection<UserStory> us;
-  
+ /* @OneToMany(mappedBy="sprint", cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+  private Set<UserStory> us = new HashSet<>();
 
-   
- 
-
+ @JsonIgnore
+  public Set<UserStory> getUs() {
+    return us;
+  }*/
 }

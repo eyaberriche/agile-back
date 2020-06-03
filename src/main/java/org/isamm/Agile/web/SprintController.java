@@ -3,8 +3,10 @@ package org.isamm.Agile.web;
 import org.isamm.Agile.Exception.ResourceNotFoundException;
 import org.isamm.Agile.Repository.EvenementDao;
 import org.isamm.Agile.Repository.SprintDao;
+import org.isamm.Agile.Repository.UserStoryDao;
 import org.isamm.Agile.Security.payload.response.MessageResponse;
 import org.isamm.Agile.model.Sprint;
+import org.isamm.Agile.model.UserStory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @CrossOrigin(origins ="http://localhost:4200")
 @RestController
@@ -21,22 +24,29 @@ public class SprintController {
     private SprintDao sprintDao ;
     @Autowired
     private EvenementDao eventdao ;
+    @Autowired
+    private UserStoryDao userStoryDao;
      @GetMapping("allbybacklog/{id}")
      public List<Sprint> getUsBybacklog(@PathVariable(value = "id") Long id)
              throws ResourceNotFoundException {
               return sprintDao.findByBacklog(id);
   }
-    @PostMapping("/create")
+    @PostMapping("/create")//makch fehmtni el page wini mta3 ajout sprint kona fiha békri ?? aaa angular
     public ResponseEntity<?> createNewSprint(@RequestBody Sprint sprintrequest) {
-         Sprint sprintt = new Sprint();
+        //Sprint sprint = sprintDao.findById(sprintrequest.getId()).orElse(null);
+
         if (sprintDao.existsByNameAndBacklogId(sprintrequest.getName(),sprintrequest.getBacklog().getId()))  {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Erreur : le nom du sprint est déjà existe !"));
         }
          sprintrequest.setCreationDate(LocalDate.now());
-         Sprint sprint = sprintDao.save(sprintrequest) ;
-        return ResponseEntity.ok(new MessageResponse(sprint.getName()));
+         sprintDao.save(sprintrequest) ;
+
+
+        //System.out.println("id"+sprintrequest.getUs());
+
+        return ResponseEntity.ok(new MessageResponse("id"));
     }
     @PutMapping("/update/{id}" )
     public ResponseEntity<?> updateEntreprise(@PathVariable(value = "id") Long id,
