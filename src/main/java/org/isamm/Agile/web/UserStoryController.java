@@ -49,7 +49,6 @@ private UserStoryDao userStorydao;
         Sprint sprint = new Sprint();
         sprint.setId(usrequest.getId());
         uss.setSprint(sprint);
-       // uss.setId(null);
         userStorydao.save(uss) ;
 
         return ResponseEntity.ok(new MessageResponse("us modifiée avec succés !"));}

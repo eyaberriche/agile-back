@@ -29,11 +29,10 @@ public class Sprint implements Serializable{
   private Set<Evenement> evenements = new HashSet<>();
   @ManyToOne
   private ProductBacklog backlog ;
- /* @OneToMany(mappedBy="sprint", cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
-  private Set<UserStory> us = new HashSet<>();
+  @Transient
+  @OneToMany(mappedBy="sprint",orphanRemoval = true,
+          cascade = CascadeType.ALL )
+  private Set<UserStory> us ;
 
- @JsonIgnore
-  public Set<UserStory> getUs() {
-    return us;
-  }*/
+
 }
