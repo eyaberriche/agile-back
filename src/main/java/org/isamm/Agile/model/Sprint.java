@@ -22,7 +22,7 @@ public class Sprint implements Serializable{
     private LocalDate creationDate;
     private LocalDate endDate;
     private String objective;
-    private Long estimation ;
+
   
   @OneToMany(mappedBy="sprint",orphanRemoval = true,
           cascade = CascadeType.ALL)

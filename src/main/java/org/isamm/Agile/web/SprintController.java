@@ -32,16 +32,16 @@ public class SprintController {
   }
     @PostMapping("/create")
     public ResponseEntity<?> createNewSprint(@RequestBody Sprint sprintrequest)   {
-        //Sprint sprint = sprintDao.findById(sprintrequest.getId()).orElse(null);
+
 
         if (sprintDao.existsByNameAndBacklogId(sprintrequest.getName(),sprintrequest.getBacklog().getId()))  {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Erreur : le nom du sprint est déjà existe !"));
         }
-        sprintDao.save(sprintrequest) ;
-        Set<UserStory> uss= sprintrequest.getUs();
-        uss.forEach(us -> {us.setSprint(sprintrequest);
+                sprintDao.save(sprintrequest) ;
+                Set<UserStory> uss= sprintrequest.getUs();
+                uss.forEach(us -> {us.setSprint(sprintrequest);
                  UserStory us1 = userStoryDao.findByidd(us.getId());
                  String name = us1.getName();
                     us.setBacklog(sprintrequest.getBacklog());
@@ -54,16 +54,7 @@ public class SprintController {
 
 
 
-       /*  uss.forEach(us -> {us.setSprint(sprintrequest);
-          us.setBacklog(sprintrequest.getBacklog());
-          userStoryDao.save(us);
-          }
-         );*/
-
-
-        //System.out.println("id"+sprintrequest.getUs());
-
-        return ResponseEntity.ok(new MessageResponse(sprintrequest.getId()+""));
+        return ResponseEntity.ok(new MessageResponse(sprintrequest.getName()+""));
     }
     @PutMapping("/update/{id}" )
     public ResponseEntity<?> updateEntreprise(@PathVariable(value = "id") Long id,
@@ -80,7 +71,6 @@ public class SprintController {
         }
         sprint.setName(sprintrequest.getName());
         sprint.setEndDate(sprintrequest.getEndDate());
-        sprint.setEstimation(sprintrequest.getEstimation());
         sprint.setEvenements(sprint.getEvenements());
         sprint.setObjective(sprint.getObjective());
         sprintDao.save(sprint);
@@ -100,6 +90,8 @@ public class SprintController {
         Sprint sprint = sprintDao.findById(Id)
                 .orElseThrow(() -> new ResourceNotFoundException("sprint not found for this id :: " +
                         Id));
+        List<UserStory> uss = userStoryDao.findBySprint(Id);
+        uss.forEach(us -> {us.setSprint(null);});
         eventdao.deleteAll(sprint.getEvenements());
         sprintDao.deleteById(Id);
 
