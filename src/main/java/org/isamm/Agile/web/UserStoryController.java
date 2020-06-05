@@ -65,6 +65,7 @@ private UserStoryDao userStorydao;
         UserStory userStory = userStorydao.findById(Id)
                 .orElseThrow(() -> new ResourceNotFoundException("userstory not found for this id :: " +
                         Id));
+
         userStorydao.deleteById(Id);
 
         return ResponseEntity.ok(new MessageResponse(userStory.getName()+""+"supprimée !"));}
