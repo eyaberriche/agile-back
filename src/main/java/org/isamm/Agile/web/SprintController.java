@@ -57,7 +57,7 @@ public class SprintController {
         return ResponseEntity.ok(new MessageResponse(sprintrequest.getName()+""));
     }
     @PutMapping("/update/{id}" )
-    public ResponseEntity<?> updateEntreprise(@PathVariable(value = "id") Long id,
+    public ResponseEntity<?> updateSprint(@PathVariable(value = "id") Long id,
                                               @Valid @RequestBody Sprint sprintrequest)  throws ResourceNotFoundException {
 
                  Sprint sprint = sprintDao.findById(id)
