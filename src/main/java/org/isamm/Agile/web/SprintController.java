@@ -37,7 +37,7 @@ public class SprintController {
         if (sprintDao.existsByNameAndBacklogId(sprintrequest.getName(),sprintrequest.getBacklog().getId()))  {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Erreur : le nom du sprint est déjà existe !"));
+                    .body(new MessageResponse("Erreur : le nom du sprint est déjà existe dans ce backlog !"));
         }
                 sprintDao.save(sprintrequest) ;
                 Set<UserStory> uss= sprintrequest.getUs();
@@ -63,18 +63,28 @@ public class SprintController {
                  Sprint sprint = sprintDao.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("sprint not found for this id :: " +
                         id));
-        if ((sprintDao.existsByName(sprintrequest.getName())) &&  (!(sprint.getName().equals(sprintrequest.getName())))
-                && sprintDao.existsByNameAndBacklogId(sprintrequest.getName(),sprintrequest.getBacklog().getId())){
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Erreur : le nom du sprint est déjà existe dans ce backlog !"));
-        }
-        sprint.setName(sprintrequest.getName());
+       sprint.setName(sprintrequest.getName());
         sprint.setEndDate(sprintrequest.getEndDate());
         sprint.setCreationDate(sprintrequest.getCreationDate());
         sprint.setUs(sprintrequest.getUs());
-        sprint.setObjective(sprint.getObjective());
+        sprint.setObjective(sprintrequest.getObjective());
+        if (sprintrequest.getBacklog()== null)
+        {sprint.setBacklog(sprint.getBacklog());}
+
         sprintDao.save(sprint);
+        Set<UserStory> uss= sprint.getUs();
+        uss.forEach(us -> {us.setSprint(sprint);
+            UserStory us1 = userStoryDao.findByidd(us.getId());
+            String name = us1.getName();
+            us.setBacklog(sprint.getBacklog());
+            if(us1.getName()!=null)
+            {us.setName(name);}
+            userStoryDao.save(us);
+
+
+        });
+
+
         return ResponseEntity.ok(new MessageResponse(sprint.getName()));}
 
     @GetMapping("/byId/{id}")
