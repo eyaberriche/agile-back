@@ -67,7 +67,6 @@ private UserStoryDao userStorydao;
                         Id));
 
         userStorydao.deleteById(Id);
-
         return ResponseEntity.ok(new MessageResponse(userStory.getName()+""+"supprimée !"));}
 }
 
