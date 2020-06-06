@@ -71,7 +71,8 @@ public class SprintController {
         }
         sprint.setName(sprintrequest.getName());
         sprint.setEndDate(sprintrequest.getEndDate());
-        sprint.setEvenements(sprint.getEvenements());
+        sprint.setCreationDate(sprintrequest.getCreationDate());
+        sprint.setUs(sprintrequest.getUs());
         sprint.setObjective(sprint.getObjective());
         sprintDao.save(sprint);
         return ResponseEntity.ok(new MessageResponse(sprint.getName()));}
@@ -80,7 +81,7 @@ public class SprintController {
     public ResponseEntity<Sprint> getSprintById(@PathVariable(value = "id") Long sprintId)
             throws ResourceNotFoundException {
         Sprint sprint = sprintDao.findById(sprintId)
-                .orElseThrow(() -> new ResourceNotFoundException("Sprint not found for this id :: " + sprintId));
+                .orElseThrow(() -> new ResourceNotFoundException("Sprint not found for this id : " + sprintId));
         return ResponseEntity.ok().body(sprint);
     }
 

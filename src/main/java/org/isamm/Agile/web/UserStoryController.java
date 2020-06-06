@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 
-@CrossOrigin(origins ="http://localhost:4200" )
+@CrossOrigin(origins ="http://localhost:4200")
 @RestController
 @RequestMapping("/api/us")
 public class UserStoryController {
@@ -32,9 +32,9 @@ private UserStoryDao userStorydao;
       us.setId(null);
       return userStorydao.save(us);}
 
-    @PutMapping("/update/{id}" )
-    public ResponseEntity<?> updateEntreprise(@PathVariable(value = "id") Long id,
-                                              @Valid @RequestBody UserStory usrequest)  throws ResourceNotFoundException {
+    @PutMapping("/update/{id}" )//ki tji tbdl ism us f nfs bcklog
+    public ResponseEntity<?> updateUs(@PathVariable(value = "id") Long id,
+                                      @Valid @RequestBody UserStory usrequest)  throws ResourceNotFoundException {
 
         UserStory uss = userStorydao.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("entreprise not found for this id :: " +
@@ -45,20 +45,40 @@ private UserStoryDao userStorydao;
        {uss.setName(uss.getName());}
        else
        {uss.setName(usrequest.getName());}
-
-        Sprint sprint = new Sprint();
-        sprint.setId(usrequest.getId());
-        uss.setSprint(sprint);
+        if (usrequest.getBacklog()== null)
+        {uss.setBacklog(uss.getBacklog());}
+        if (usrequest.getSprint()== null)
+        {uss.setSprint(uss.getSprint());}
         userStorydao.save(uss) ;
 
         return ResponseEntity.ok(new MessageResponse("us modifiée avec succés !"));}
 
+    @PutMapping("/liberer/{id}" )//libere us , ywli id sprint mt3ha null (us.sprint=null) ama 9tlo y5li us.bcklog w nom nfshom
+    public ResponseEntity<?> libereUs(@PathVariable(value = "id") Long id,
+                                      @Valid @RequestBody UserStory usrequest)  throws ResourceNotFoundException {
+
+        UserStory uss = userStorydao.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("entreprise not found for this id :: " +
+                        id));
+        if (usrequest.getName()== null)
+        {uss.setName(uss.getName());}
+        else
+        {uss.setName(usrequest.getName());}
+        if (usrequest.getBacklog()== null)
+        {uss.setBacklog(uss.getBacklog());}
+        uss.setSprint(null);
+        userStorydao.save(uss);
+        return ResponseEntity.ok(new MessageResponse("us liberé avec succés !"));}
+
       @GetMapping("allbybacklog/{id}")
       public List<UserStory> getUsBybacklog(@PathVariable(value = "id") Long id)
              throws ResourceNotFoundException {
-          return userStorydao.findByBacklog(id);
+          return userStorydao.findByBacklog(id);}
+          @GetMapping("allbySprint/{id}")
+          public List<UserStory> getUsBysprint(@PathVariable(value = "id") Long id)
+             throws ResourceNotFoundException {
+              return userStorydao.findBySprint(id);
       }
-
       @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteUS(@PathVariable(value = "id") Long Id)
             throws ResourceNotFoundException {
@@ -67,6 +87,7 @@ private UserStoryDao userStorydao;
                         Id));
 
         userStorydao.deleteById(Id);
+
         return ResponseEntity.ok(new MessageResponse(userStory.getName()+""+"supprimée !"));}
 }
 
