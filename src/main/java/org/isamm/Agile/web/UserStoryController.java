@@ -2,6 +2,7 @@ package org.isamm.Agile.web;
 import java.util.List;
 
 import org.isamm.Agile.Exception.ResourceNotFoundException;
+import org.isamm.Agile.Repository.SprintDao;
 import org.isamm.Agile.Repository.UserStoryDao;
 import org.isamm.Agile.Security.payload.response.MessageResponse;
 import org.isamm.Agile.model.ProductBacklog;
@@ -22,6 +23,8 @@ public class UserStoryController {
 	
 @Autowired
 private UserStoryDao userStorydao;
+@Autowired
+private SprintDao sprintdao ;
 
   @PostMapping("/create" )
   public  UserStory ajouterUS(@Valid @RequestBody UserStory us) {
@@ -53,22 +56,7 @@ private UserStoryDao userStorydao;
 
         return ResponseEntity.ok(new MessageResponse("us modifiée avec succés !"));}
 
-    @PutMapping("/liberer/{id}" )//libere us , ywli id sprint mt3ha null (us.sprint=null) ama 9tlo y5li us.bcklog w nom nfshom
-    public ResponseEntity<?> libereUs(@PathVariable(value = "id") Long id,
-                                      @Valid @RequestBody UserStory usrequest)  throws ResourceNotFoundException {
 
-        UserStory uss = userStorydao.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("entreprise not found for this id :: " +
-                        id));
-        if (usrequest.getName()== null)
-        {uss.setName(uss.getName());}
-        else
-        {uss.setName(usrequest.getName());}
-        if (usrequest.getBacklog()== null)
-        {uss.setBacklog(uss.getBacklog());}
-        uss.setSprint(null);
-        userStorydao.save(uss);
-        return ResponseEntity.ok(new MessageResponse("us liberé avec succés !"));}
 
       @GetMapping("allbybacklog/{id}")
       public List<UserStory> getUsBybacklog(@PathVariable(value = "id") Long id)
@@ -77,7 +65,9 @@ private UserStoryDao userStorydao;
           @GetMapping("allbySprint/{id}")
           public List<UserStory> getUsBysprint(@PathVariable(value = "id") Long id)
              throws ResourceNotFoundException {
-              return userStorydao.findBySprint(id);
+              Sprint sprint = sprintdao.findByidd(id);
+              Long bcl = sprint.getBacklog().getId();
+              return userStorydao.findByusSprint(bcl,id);
       }
       @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteUS(@PathVariable(value = "id") Long Id)
