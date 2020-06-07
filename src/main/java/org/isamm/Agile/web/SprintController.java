@@ -70,9 +70,17 @@ public class SprintController {
         sprint.setObjective(sprintrequest.getObjective());
         if (sprintrequest.getBacklog()== null)
         {sprint.setBacklog(sprint.getBacklog());}
-
         sprintDao.save(sprint);
-        Set<UserStory> uss= sprint.getUs();
+        List<UserStory> ss = userStoryDao.findBySprint(id);
+        ss.forEach(uz -> {uz.setSprint(null);
+            UserStory us1 = userStoryDao.findByidd(uz.getId());
+            String name = us1.getName();
+            uz.setBacklog(sprint.getBacklog());
+            if(us1.getName()!=null)
+            {uz.setName(name);}
+            userStoryDao.save(uz);});
+
+        Set<UserStory> uss= sprintrequest.getUs();
         uss.forEach(us -> {us.setSprint(sprint);
             UserStory us1 = userStoryDao.findByidd(us.getId());
             String name = us1.getName();
@@ -83,6 +91,8 @@ public class SprintController {
 
 
         });
+        //sprintDao.save(sprint);
+
 
 
         return ResponseEntity.ok(new MessageResponse(sprint.getName()));}
