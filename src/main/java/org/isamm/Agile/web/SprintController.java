@@ -56,23 +56,23 @@ public class SprintController {
 
         return ResponseEntity.ok(new MessageResponse(sprintrequest.getName()+""));
     }
-    @PutMapping("/update/{id}" )
+    @PutMapping("/update/{id}")
     public ResponseEntity<?> updateSprint(@PathVariable(value = "id") Long id,
                                               @Valid @RequestBody Sprint sprintrequest)  throws ResourceNotFoundException {
 
                  Sprint sprint = sprintDao.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("sprint not found for this id :: " +
                         id));
-       sprint.setName(sprintrequest.getName());
-        sprint.setEndDate(sprintrequest.getEndDate());
-        sprint.setCreationDate(sprintrequest.getCreationDate());
-        sprint.setUs(sprintrequest.getUs());
-        sprint.setObjective(sprintrequest.getObjective());
-        if (sprintrequest.getBacklog()== null)
-        {sprint.setBacklog(sprint.getBacklog());}
-        sprintDao.save(sprint);
-        List<UserStory> ss = userStoryDao.findBySprint(id);
-        ss.forEach(uz -> {uz.setSprint(null);
+           sprint.setName(sprintrequest.getName());
+           sprint.setEndDate(sprintrequest.getEndDate());
+           sprint.setCreationDate(sprintrequest.getCreationDate());
+           sprint.setUs(sprintrequest.getUs());
+           sprint.setObjective(sprintrequest.getObjective());
+           if (sprintrequest.getBacklog()== null)
+           {sprint.setBacklog(sprint.getBacklog());}
+            sprintDao.save(sprint);
+            List<UserStory> ss = userStoryDao.findBySprint(id);
+            ss.forEach(uz -> {uz.setSprint(null);
             UserStory us1 = userStoryDao.findByidd(uz.getId());
             String name = us1.getName();
             uz.setBacklog(sprint.getBacklog());
@@ -80,8 +80,8 @@ public class SprintController {
             {uz.setName(name);}
             userStoryDao.save(uz);});
 
-        Set<UserStory> uss= sprintrequest.getUs();
-        uss.forEach(us -> {us.setSprint(sprint);
+            Set<UserStory> uss= sprintrequest.getUs();
+            uss.forEach(us -> {us.setSprint(sprint);
             UserStory us1 = userStoryDao.findByidd(us.getId());
             String name = us1.getName();
             us.setBacklog(sprint.getBacklog());
