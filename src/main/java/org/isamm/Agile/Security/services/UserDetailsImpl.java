@@ -16,6 +16,10 @@ package org.isamm.Agile.Security.services;
 		   private Long id;
 		   private String username;
 		   private String email;
+		   private String lastname ;
+		   private String firstname ;
+		   private String tel ;
+		   private String specialite ;
 
 
 		@JsonIgnore
@@ -23,16 +27,18 @@ package org.isamm.Agile.Security.services;
 
 		private Collection<? extends GrantedAuthority> authorities;
 
-		public UserDetailsImpl(Long id, String username, String email,
-				String password, Collection<? extends GrantedAuthority> authorities) {
-			super();
+		public UserDetailsImpl(Long id, String username, String email, String lastname, String firstname, String tel, String specialite, String password, Collection<? extends GrantedAuthority> authorities) {
 			this.id = id;
 			this.username = username;
 			this.email = email;
+			this.lastname = lastname;
+			this.firstname = firstname;
+			this.tel = tel;
+			this.specialite = specialite;
 			this.password = password;
 			this.authorities = authorities;
-
 		}
+
 		public static UserDetailsImpl build(User user) {
 			List<GrantedAuthority> authorities = user.getRoles().stream()
 					.map(role -> new SimpleGrantedAuthority(role.getName().name()))
@@ -40,11 +46,18 @@ package org.isamm.Agile.Security.services;
 
 
 			return new UserDetailsImpl(
-					user.getId(), 
-					user.getUsername(), 
+					user.getId(),
+					user.getUsername(),
 					user.getEmail(),
+					user.getLastname(),
+					user.getFirstname(),
+					user.getTel(),
+					user.getSpecialite(),
 					user.getPassword(),
-					authorities);
+					authorities
+
+
+					);
 		}
 
 		@Override
@@ -58,6 +71,23 @@ package org.isamm.Agile.Security.services;
 		public String getEmail() {
 			return email;
 		}
+
+		public String getLastname() {
+			return lastname;
+		}
+
+		public String getFirstname() {
+			return firstname;
+		}
+
+		public String getTel() {
+			return tel;
+		}
+
+		public String getSpecialite() {
+			return specialite;
+		}
+
 		@Override
 		public String getPassword() {
 			return password;
