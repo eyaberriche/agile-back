@@ -66,6 +66,10 @@ private BacklogService bc ;
         }
        // project.setId(project.getId());
         project.setName(projectrequest.getName());
+        ProductBacklog back = backlogDao.findByProject(id);
+        back.setName(projectrequest.getName());
+        back.setProject(project);
+        backlogDao.save(back);
         project.setEndDate(projectrequest.getEndDate());
         project.setDescription(projectrequest.getDescription());
         project.setType(projectrequest.getType());

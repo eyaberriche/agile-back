@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @CrossOrigin(origins ="http://localhost:4200")
 @RestController
@@ -56,6 +58,8 @@ public class SprintController {
 
         return ResponseEntity.ok(new MessageResponse(sprintrequest.getName()+""));
     }
+
+
     @PutMapping("/update/{id}")
     public ResponseEntity<?> updateSprint(@PathVariable(value = "id") Long id,
                                               @Valid @RequestBody Sprint sprintrequest)  throws ResourceNotFoundException {
@@ -63,6 +67,12 @@ public class SprintController {
                  Sprint sprint = sprintDao.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("sprint not found for this id :: " +
                         id));
+        if(sprintDao.existsByNameAndBacklogId(sprintrequest.getName(),sprint.getBacklog().getId())
+                && (!(sprint.getName().equals(sprintrequest.getName()) )))
+        { return ResponseEntity
+                .badRequest()
+                .body(new MessageResponse("Le nom  du sprint est déjà existe dans ce backlog !"));
+        }
            sprint.setName(sprintrequest.getName());
            sprint.setEndDate(sprintrequest.getEndDate());
            sprint.setCreationDate(sprintrequest.getCreationDate());

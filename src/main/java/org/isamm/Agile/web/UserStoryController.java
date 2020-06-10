@@ -27,22 +27,36 @@ private UserStoryDao userStorydao;
 private SprintDao sprintdao ;
 
   @PostMapping("/create" )
-  public  UserStory ajouterUS(@Valid @RequestBody UserStory us) {
+   public ResponseEntity<?> ajouterUS(@Valid @RequestBody UserStory us) {
+      if (userStorydao.existsByNameAndBacklogId(us.getName(),us.getBacklog().getId()))  {
+          return ResponseEntity
+                  .badRequest()
+                  .body(new MessageResponse("Erreur : le nom du sprint est déjà existe dans ce backlog !"));
+      }
       System.out.println("id"+us.getId());
       ProductBacklog back = new ProductBacklog();
       back.setId(us.getId());
       us.setBacklog(back);
       us.setId(null);
-      return userStorydao.save(us);}
+       userStorydao.save(us);
+      return ResponseEntity.ok(new MessageResponse("us cree !"));
+  }
 
     @PutMapping("/update/{id}" )//ki tji tbdl ism us f nfs bcklog
     public ResponseEntity<?> updateUs(@PathVariable(value = "id") Long id,
                                       @Valid @RequestBody UserStory usrequest)  throws ResourceNotFoundException {
 
+
         UserStory uss = userStorydao.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("entreprise not found for this id :: " +
                         id));
-
+       if(userStorydao.existsByNameAndBacklogId(usrequest.getName(),uss.getBacklog().getId())
+               && (!(uss.getName().equals(usrequest.getName()) )))
+         {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Erreur : le nom du user story est déjà existe dans ce backlog !"));
+        }
 
        if (usrequest.getName()== null)
        {uss.setName(uss.getName());}

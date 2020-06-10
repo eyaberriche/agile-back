@@ -34,22 +34,22 @@ public class UserController {
     CompetenceDao compdao;
     @GetMapping("/all/SM")
     public List<User> getUserListByRoleSM() {
-        RoleName smrole= RoleName.ROLE_SM;
+        RoleName smrole= RoleName.ScrumMaster;
         return userdao.findByrole(smrole);
     }
     @GetMapping("/all/PO")
     public List<User> getUserListByRolePO() {
-        RoleName porole= RoleName.ROLE_PO;
+        RoleName porole= RoleName.ProductOwner;
         return userdao.findByrole(porole);
     }
     @GetMapping("/all/user")
     public List<User> getUserList() {
-        RoleName userrole= RoleName.ROLE_MEMBER;
+        RoleName userrole= RoleName.Member;
         return userdao.findByrole(userrole);
     }
     @GetMapping("/all/client")
     public List<User> getClientList() {
-        RoleName userrole= RoleName.ROLE_CLIENT;
+        RoleName userrole= RoleName.Client;
         return userdao.findByrole(userrole);
     }
     @GetMapping("/all")

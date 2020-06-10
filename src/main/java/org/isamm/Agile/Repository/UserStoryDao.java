@@ -18,6 +18,8 @@ public interface UserStoryDao extends JpaRepository<UserStory, Long>{
     )
     public List<UserStory> findByBacklog(@Param("id") Long id);
     //public  List<UserStory> findAllByBacklogAndId(Long id , Long idus);
+    Boolean existsByNameAndBacklogId(String  name , Long id);
+    Boolean existsByName(String  name );
 
     @Query("SELECT us "
             + "FROM UserStory us "

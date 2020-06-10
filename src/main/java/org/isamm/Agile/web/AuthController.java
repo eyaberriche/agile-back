@@ -102,7 +102,7 @@ public class AuthController {
 		Set<Role> roles = new HashSet<>();
 
 		if ( signUpRequest.getRoles()== null) {
-			Role userRole = roleRepository.findByName(RoleName.ROLE_CLIENT)
+			Role userRole = roleRepository.findByName(RoleName.Client)
 					.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 			roles.add(userRole);
 			user.setSpecialite("client");

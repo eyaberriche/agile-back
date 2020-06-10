@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -18,6 +19,7 @@ public interface SprintDao extends JpaRepository<Sprint, Long> {
     )
     public List<Sprint> findByBacklog(@Param("id") Long id);
     Boolean existsByNameAndBacklogId(String  name , Long id);
+
     Boolean existsByName(String name);
     @Query("SELECT s "
             + "FROM Sprint s "
@@ -25,4 +27,5 @@ public interface SprintDao extends JpaRepository<Sprint, Long> {
             + "WHERE s.id = :id"
     )
     public Sprint findByidd(@Param("id") Long id);
+
 }

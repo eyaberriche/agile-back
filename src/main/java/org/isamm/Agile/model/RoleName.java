@@ -1,10 +1,10 @@
 package org.isamm.Agile.model;
 
 public enum RoleName {
-	ROLE_CLIENT,
-	ROLE_PO,
-	ROLE_SM,
-	ROLE_MEMBER,
-	ROLE_ADMIN
+	Client,
+	ProductOwner,
+	ScrumMaster,
+	Member,
+	Admin
 
 }

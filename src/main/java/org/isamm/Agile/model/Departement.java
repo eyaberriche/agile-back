@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.*;
 import javax.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 @Data
 @Entity
