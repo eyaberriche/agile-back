@@ -74,8 +74,6 @@ public class SprintController {
                 .body(new MessageResponse("Le nom  du sprint est déjà existe dans ce backlog !"));
         }
            sprint.setName(sprintrequest.getName());
-           sprint.setEndDate(sprintrequest.getEndDate());
-           sprint.setCreationDate(sprintrequest.getCreationDate());
            sprint.setUs(sprintrequest.getUs());
            sprint.setObjective(sprintrequest.getObjective());
            if (sprintrequest.getBacklog()== null)

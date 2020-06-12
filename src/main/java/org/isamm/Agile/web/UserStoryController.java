@@ -42,13 +42,13 @@ private SprintDao sprintdao ;
       return ResponseEntity.ok(new MessageResponse("us cree !"));
   }
 
-    @PutMapping("/update/{id}" )//ki tji tbdl ism us f nfs bcklog
+    @PatchMapping("/update/{id}" )
     public ResponseEntity<?> updateUs(@PathVariable(value = "id") Long id,
                                       @Valid @RequestBody UserStory usrequest)  throws ResourceNotFoundException {
 
 
         UserStory uss = userStorydao.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("entreprise not found for this id :: " +
+                .orElseThrow(() -> new ResourceNotFoundException("us not found for this id :: " +
                         id));
        if(userStorydao.existsByNameAndBacklogId(usrequest.getName(),uss.getBacklog().getId())
                && (!(uss.getName().equals(usrequest.getName()) )))
@@ -62,10 +62,10 @@ private SprintDao sprintdao ;
        {uss.setName(uss.getName());}
        else
        {uss.setName(usrequest.getName());}
-        if (usrequest.getBacklog()== null)
+       /* if (usrequest.getBacklog()== null)
         {uss.setBacklog(uss.getBacklog());}
         if (usrequest.getSprint()== null)
-        {uss.setSprint(uss.getSprint());}
+        {uss.setSprint(uss.getSprint());}*/
         userStorydao.save(uss) ;
 
         return ResponseEntity.ok(new MessageResponse("us modifiée avec succés !"));}
