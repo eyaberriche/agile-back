@@ -1,11 +1,11 @@
 
-INSERT INTO role ( name, description) VALUES
-('ROLE_ADMIN','admin'),
-('ROLE_PO','product owner'),
-('ROLE_SM','scrum master'),
-('ROLE_MEMBER','member'),
-('ROLE_CLIENT','client');
+INSERT INTO role (name) VALUES
+('Admin'),
+('ProductOwner'),
+('ScrumMaster'),
+('Member'),
+('Client');
 INSERT INTO typeproject (name) VALUES
-("quati"),("quali");
+("Sur papier"),("Sur tablette"),("Test gout");
 INSERT INTO departement (name) VALUES
 ("informatique"),("statistique"),("centre d'appel"),("multimedia");
