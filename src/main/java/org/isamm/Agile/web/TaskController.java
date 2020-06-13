@@ -70,6 +70,21 @@ public class TaskController {
         return ResponseEntity.ok(new MessageResponse(task.getTitle()+"-"+task.getContent()+"-"+task.getEndDate()+"-"+task.getStatus()));
 
     }
+    @GetMapping("/todo/{id}")
+    public List<Task> getTaskToDo(@PathVariable(value = "id") Long id) {
+        StatusTask status= StatusTask.TODO;
+        return taskDao.findAllByUserStoryIdAndStatus(id , status);
+    }
+    @GetMapping("/doing/{id}") // list des tasks doing selon id de userstory
+    public List<Task> getTaskdoing(@PathVariable(value = "id") Long id) {
+        StatusTask status= StatusTask.DOING;
+        return taskDao.findAllByUserStoryIdAndStatus(id , status);
+    }
+    @GetMapping("/done/{id}")
+    public List<Task> getTaskdone(@PathVariable(value = "id") Long id) {
+        StatusTask status= StatusTask.DONE;
+        return taskDao.findAllByUserStoryIdAndStatus(id , status);
+    }
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteTask(@PathVariable(value = "id") Long Id)
             throws ResourceNotFoundException {
