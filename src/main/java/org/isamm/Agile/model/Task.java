@@ -21,14 +21,15 @@ public class Task implements Serializable {
    private String content;
    @Enumerated(EnumType.STRING)
    //@NaturalId
-   @Column(length = 60)
+  // @Column(length = 60)
+   //@JoinColumn(name="state")
    private StatusTask status;
-   @ManyToOne(fetch=FetchType.LAZY)
+   @ManyToOne(fetch = FetchType.LAZY, targetEntity = UserStory.class)
    private UserStory userStory ;
 
    private LocalDate creationDate;
    private LocalDate endDate ;
-   @ManyToOne(fetch=FetchType.LAZY)
+   @ManyToOne(fetch = FetchType.LAZY, targetEntity = User.class)
    private User user ;
 
 

@@ -1,5 +1,6 @@
 package org.isamm.Agile.Repository;
 
+import org.isamm.Agile.model.StatusTask;
 import org.isamm.Agile.model.Task;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -17,4 +18,6 @@ public interface TaskDao extends JpaRepository<Task, Long>{
     )
     public List<Task> findByUserStory(@Param("id") Long id);
     Boolean existsByTitleAndUserStoryId(String  name , Long id);
+    public List<Task> findAllByUserStoryIdAndStatus(Long id , StatusTask status);
+
 }
