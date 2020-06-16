@@ -42,7 +42,7 @@ private SprintDao sprintdao ;
       return ResponseEntity.ok(new MessageResponse("us cree !"));
   }
 
-    @PatchMapping("/update/{id}" )
+    @PutMapping("/update/{id}" )
     public ResponseEntity<?> updateUs(@PathVariable(value = "id") Long id,
                                       @Valid @RequestBody UserStory usrequest)  throws ResourceNotFoundException {
 
@@ -58,17 +58,14 @@ private SprintDao sprintdao ;
                     .body(new MessageResponse("Erreur : le nom du user story est déjà existe dans ce backlog !"));
         }
 
-       if (usrequest.getName()== null)
-       {uss.setName(uss.getName());}
-       else
-       {uss.setName(usrequest.getName());}
-       /* if (usrequest.getBacklog()== null)
+       uss.setName(usrequest.getName());
+        if (usrequest.getBacklog()== null)
         {uss.setBacklog(uss.getBacklog());}
-        if (usrequest.getSprint()== null)
+       /* if (usrequest.getSprint()== null)
         {uss.setSprint(uss.getSprint());}*/
         userStorydao.save(uss) ;
 
-        return ResponseEntity.ok(new MessageResponse("us modifiée avec succés !"));}
+        return ResponseEntity.ok(new MessageResponse("us modifiée avec succés !"+uss.getName()));}
 
 
 
