@@ -26,6 +26,8 @@ public class User implements Serializable {
     private String tel;
     private String email;
     private String specialite;
+    @OneToOne (cascade=CascadeType.ALL)
+    private Image image;
     /**/
 
 
