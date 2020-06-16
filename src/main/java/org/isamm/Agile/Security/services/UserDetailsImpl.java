@@ -3,9 +3,12 @@ package org.isamm.Agile.Security.services;
 	import java.util.Collection;
 	import java.util.List;
 	import java.util.Objects;
+	import java.util.Set;
 	import java.util.stream.Collectors;
 	import com.fasterxml.jackson.annotation.JsonIgnore;
-    import org.isamm.Agile.model.User;
+	import org.isamm.Agile.model.Competence;
+	import org.isamm.Agile.model.Image;
+	import org.isamm.Agile.model.User;
     import org.springframework.security.core.GrantedAuthority;
 	import org.springframework.security.core.authority.SimpleGrantedAuthority;
 	import org.springframework.security.core.userdetails.UserDetails;
@@ -20,6 +23,8 @@ package org.isamm.Agile.Security.services;
 		   private String firstname ;
 		   private String tel ;
 		   private String specialite ;
+		   private Set<Competence> competences ;
+		   private Image image ;
 
 
 		@JsonIgnore
@@ -27,7 +32,7 @@ package org.isamm.Agile.Security.services;
 
 		private Collection<? extends GrantedAuthority> authorities;
 
-		public UserDetailsImpl(Long id, String username, String email, String lastname, String firstname, String tel, String specialite, String password, Collection<? extends GrantedAuthority> authorities) {
+		public UserDetailsImpl(Long id, String username, String email, String lastname, String firstname, String tel, String specialite, Set<Competence> competences, Image image, String password, Collection<? extends GrantedAuthority> authorities) {
 			this.id = id;
 			this.username = username;
 			this.email = email;
@@ -35,6 +40,8 @@ package org.isamm.Agile.Security.services;
 			this.firstname = firstname;
 			this.tel = tel;
 			this.specialite = specialite;
+			this.competences = competences;
+			this.image = image;
 			this.password = password;
 			this.authorities = authorities;
 		}
@@ -53,6 +60,8 @@ package org.isamm.Agile.Security.services;
 					user.getFirstname(),
 					user.getTel(),
 					user.getSpecialite(),
+					user.getCompetences()
+					,user.getImage(),
 					user.getPassword(),
 					authorities
 
@@ -86,6 +95,14 @@ package org.isamm.Agile.Security.services;
 
 		public String getSpecialite() {
 			return specialite;
+		}
+
+		public Set<Competence> getCompetences() {
+			return competences;
+		}
+
+		public Image getImage() {
+			return image;
 		}
 
 		@Override

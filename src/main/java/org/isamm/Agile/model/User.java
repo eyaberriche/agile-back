@@ -63,7 +63,7 @@ public class User implements Serializable {
         this.entreprise = entreprise;
     }
 
-    public User(String username, String password, String firstname, String lastname, String tel, String email, String specialite, Set<Role> roles, Entreprise entreprise, Set<Competence> competences) {
+    public User(String username, String password, String firstname, String lastname, String tel, String email, String specialite, Image image, Set<Role> roles, Entreprise entreprise, Set<Competence> competences) {
         this.username = username;
         this.password = password;
         this.firstname = firstname;
@@ -71,6 +71,7 @@ public class User implements Serializable {
         this.tel = tel;
         this.email = email;
         this.specialite = specialite;
+        this.image = image;
         this.roles = roles;
         this.entreprise = entreprise;
         this.competences = competences;

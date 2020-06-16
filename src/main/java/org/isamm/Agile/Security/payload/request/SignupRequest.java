@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.isamm.Agile.model.Competence;
 import org.isamm.Agile.model.Entreprise;
+import org.isamm.Agile.model.Image;
 import org.isamm.Agile.model.Role;
 
 @Getter
@@ -35,6 +36,7 @@ public class SignupRequest {
     private String specialite ;
     private Entreprise entreprise ;
     private Set<Competence> competences ;
+    private Image image ;
 
   
  
