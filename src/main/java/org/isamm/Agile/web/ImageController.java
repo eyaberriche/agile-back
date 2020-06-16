@@ -24,18 +24,18 @@ public class ImageController {
     @PostMapping("/upload")
     public ResponseEntity.BodyBuilder uplaodImage(@RequestParam("imageFile") MultipartFile file) throws IOException {
         System.out.println("Original Image Byte Size - " + file.getBytes().length);
-        Image img = new Image(file.getOriginalFilename(), file.getContentType(),
+        Image img = new Image(
                 compressBytes(file.getBytes()));
         imageRepository.save(img);
         return ResponseEntity.status(HttpStatus.OK);
     }
-    @GetMapping(path = { "/get/{imageName}" })
+   /* @GetMapping(path = { "/get/{imageName}" })
     public Image getImage(@PathVariable("imageName") String imageName) throws IOException {
         final Optional<Image> retrievedImage = imageRepository.findByName(imageName);
         Image img = new Image(retrievedImage.get().getName(), retrievedImage.get().getType(),
                 decompressBytes(retrievedImage.get().getPicByte()));
         return img;
-    }
+    }*/
     // compress the image bytes before storing it in the database
     public static byte[] compressBytes(byte[] data) {
         Deflater deflater = new Deflater();

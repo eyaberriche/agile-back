@@ -68,7 +68,7 @@ public class AuthController {
                                                  userDetails.getFirstname(),
 				                                 userDetails.getTel(),
                                                  userDetails.getSpecialite(),
-                                           roles));
+                                           roles , userDetails.getImage() , userDetails.getCompetences()));
 	}
 
 
@@ -87,16 +87,17 @@ public class AuthController {
 		}
 
 	User user = new User(signUpRequest.getUsername(),
-				encoder.encode( signUpRequest.getPassword()),
-	        	                signUpRequest.getFirstname(),
-	        	                signUpRequest.getLastname(), 
-	                        	signUpRequest.getTel(),
-		                        signUpRequest.getEmail(),
-				                signUpRequest.getSpecialite(),
-                                signUpRequest.getRoles(),
-                                signUpRequest.getEntreprise(),
-                                signUpRequest.getCompetences()
-                                );
+					encoder.encode( signUpRequest.getPassword()),
+									signUpRequest.getFirstname(),
+									signUpRequest.getLastname(),
+									signUpRequest.getTel(),
+									signUpRequest.getEmail(),
+									signUpRequest.getSpecialite(),
+			                        signUpRequest.getImage(),
+			                        signUpRequest.getRoles(),
+			                        signUpRequest.getEntreprise(),
+			                        signUpRequest.getCompetences()
+									);
 	
 
 		Set<Role> roles = new HashSet<>();
