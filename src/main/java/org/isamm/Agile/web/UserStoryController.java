@@ -28,18 +28,20 @@ private SprintDao sprintdao ;
 
   @PostMapping("/create" )
    public ResponseEntity<?> ajouterUS(@Valid @RequestBody UserStory us) {
-      if (userStorydao.existsByNameAndBacklogId(us.getName(),us.getBacklog().getId()))  {
+      if (userStorydao.existsByNameAndBacklogId(us.getName(),us.getId()))  {
           return ResponseEntity
                   .badRequest()
                   .body(new MessageResponse("Erreur : le nom du sprint est déjà existe dans ce backlog !"));
       }
-      System.out.println("id"+us.getId());
-      ProductBacklog back = new ProductBacklog();
-      back.setId(us.getId());
-      us.setBacklog(back);
-      us.setId(null);
-       userStorydao.save(us);
-      return ResponseEntity.ok(new MessageResponse("us cree !"));
+
+          System.out.println("id" + us.getId());////natutll att att mhich else at att
+          ProductBacklog back = new ProductBacklog();
+          back.setId(us.getId());
+          us.setBacklog(back);
+          us.setId(null);
+          userStorydao.save(us);
+          return ResponseEntity.ok(new MessageResponse("us cree !"));
+
   }
 
     @PutMapping("/update/{id}" )
