@@ -51,9 +51,9 @@ public class ProductBacklog implements Serializable {
         return this.cloture;
     }
 
-    public void setCloture()
+    public void setCloture(boolean etat)
     {
-        this.cloture=true;
+        this.cloture=etat;
     }
 
 

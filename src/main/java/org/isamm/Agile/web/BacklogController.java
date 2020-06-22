@@ -30,10 +30,10 @@ private ProductBacklogDao backlogDao;
     }
     
     @PostMapping("/update" )
-    public  ProductBacklog ajouterProductBacklog(@RequestBody ProductBacklog backlog) {
+    public  ProductBacklog updateBacklog(@RequestBody ProductBacklog backlog) {
 
         ProductBacklog back = backlogDao.findById(backlog.getId()).orElse(null);
-        back.setCloture();
+        back.setCloture(!back.isCloture());
         return backlogDao.save(back);
     }
 

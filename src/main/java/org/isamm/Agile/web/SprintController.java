@@ -28,7 +28,7 @@ public class SprintController {
     @Autowired
     private UserStoryDao userStoryDao;
      @GetMapping("allbybacklog/{id}")
-     public List<Sprint> getUsBybacklog(@PathVariable(value = "id") Long id)
+     public List<Sprint> getSprintBybacklog(@PathVariable(value = "id") Long id)
              throws ResourceNotFoundException {
               return sprintDao.findByBacklog(id);
   }

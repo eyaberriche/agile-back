@@ -19,5 +19,6 @@ public interface TaskDao extends JpaRepository<Task, Long>{
     public List<Task> findByUserStory(@Param("id") Long id);
     Boolean existsByTitleAndUserStoryId(String  name , Long id);
     public List<Task> findAllByUserStoryIdAndStatus(Long id , StatusTask status);
+    public List<Task> findAllByUserId(Long id);
 
 }
