@@ -28,6 +28,11 @@ public class TaskController {
             throws ResourceNotFoundException {
         return taskDao.findByUserStory(id);
     }
+    @GetMapping("allbyTeam/{id}")
+    public List<Task> getTaskByTeamMember(@PathVariable(value = "id") Long id)
+            throws ResourceNotFoundException {
+        return taskDao.findAllByUserId(id);
+    }
     @PostMapping("/create")
     public ResponseEntity<?> createNewtask(@RequestBody Task taskrequest) {
         if (taskDao.existsByTitleAndUserStoryId(taskrequest.getTitle(), taskrequest.getUserStory().getId())) {

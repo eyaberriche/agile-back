@@ -27,14 +27,14 @@ private UserStoryDao userStorydao;
 private SprintDao sprintdao ;
 
   @PostMapping("/create" )
-   public ResponseEntity<?> ajouterUS(@Valid @RequestBody UserStory us) {
+   public ResponseEntity<?> createUs(@Valid @RequestBody UserStory us) {
       if (userStorydao.existsByNameAndBacklogId(us.getName(),us.getId()))  {
           return ResponseEntity
                   .badRequest()
                   .body(new MessageResponse("Erreur : le nom du sprint est déjà existe dans ce backlog !"));
       }
 
-          System.out.println("id" + us.getId());////natutll att att mhich else at att
+          System.out.println("id" + us.getId());
           ProductBacklog back = new ProductBacklog();
           back.setId(us.getId());
           us.setBacklog(back);
@@ -43,6 +43,16 @@ private SprintDao sprintdao ;
           return ResponseEntity.ok(new MessageResponse("us cree !"));
 
   }
+
+
+    @PostMapping("/tri" )
+    public ResponseEntity<?> triUs(@Valid @RequestBody UserStory us) {
+        UserStory userStory = userStorydao.findById(us.getId()).orElse(null);
+        userStory.setPeriorite(us.getPeriorite());
+        userStorydao.save(userStory);
+        return ResponseEntity.ok(new MessageResponse("us cree !"));
+
+    }
 
     @PutMapping("/update/{id}" )
     public ResponseEntity<?> updateUs(@PathVariable(value = "id") Long id,

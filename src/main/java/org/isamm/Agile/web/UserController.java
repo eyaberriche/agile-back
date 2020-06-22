@@ -33,17 +33,17 @@ public class UserController {
     @Autowired
     CompetenceDao compdao;
     @GetMapping("/all/SM")
-    public List<User> getUserListByRoleSM() {
+    public List<User> getListSM() {
         RoleName smrole= RoleName.ScrumMaster;
         return userdao.findByrole(smrole);
     }
     @GetMapping("/all/PO")
-    public List<User> getUserListByRolePO() {
+    public List<User> getListPO() {
         RoleName porole= RoleName.ProductOwner;
         return userdao.findByrole(porole);
     }
     @GetMapping("/all/user")
-    public List<User> getUserList() {
+    public List<User> getMemberList() {
         RoleName userrole= RoleName.Member;
         return userdao.findByrole(userrole);
     }
@@ -86,9 +86,10 @@ public class UserController {
         user.setCompetences(userDetails.getCompetences());
         user.setEntreprise(userDetails.getEntreprise());
         user.setSpecialite(userDetails.getSpecialite());
-        if (userDetails.getPassword() == "")
+        if (userDetails.getPassword() == "" || userDetails.getPassword()== null )
         {
-            user.setPassword(encoder.encode(user.getPassword()));
+            user.setPassword(user.getPassword());
+            encoder.encode(user.getPassword());
         }else{
         user.setPassword(encoder.encode(userDetails.getPassword()));}
 
@@ -134,7 +135,7 @@ public class UserController {
         return compdao.findAll();
     }
     @PostMapping("/createCompetence")
-    public ResponseEntity<?> createNewCompetence(@RequestBody Competence competencerequest) {
+    public ResponseEntity<?> createCompetence(@RequestBody Competence competencerequest) {
 
         if (compdao.existsByName(competencerequest.getName())) {
             return ResponseEntity

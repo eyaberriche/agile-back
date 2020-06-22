@@ -14,7 +14,6 @@ import org.isamm.Agile.Service.project.ProjectServiceImp;
 import org.isamm.Agile.model.ProductBacklog;
 import org.isamm.Agile.model.Project;
 import org.isamm.Agile.model.Typeproject;
-import org.isamm.Agile.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -89,7 +88,7 @@ private BacklogService bc ;
         return ResponseEntity.ok(projects);
     }
     @GetMapping("/allTypes")
-    public ResponseEntity<?> getAllTypeProjects(){
+    public ResponseEntity<?> getAllTypes(){
         List<Typeproject> types = typeDao.findAll();
         return ResponseEntity.ok(types);
     }
