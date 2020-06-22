@@ -79,8 +79,10 @@ private SprintDao sprintdao ;
        uss.setName(usrequest.getName());
         if (usrequest.getBacklog()== null)
         {uss.setBacklog(uss.getBacklog());}
-       /* if (usrequest.getSprint()== null)
-        {uss.setSprint(uss.getSprint());}*/
+        if (usrequest.getSprint()== null)
+        {uss.setSprint(uss.getSprint());}
+       if (usrequest.getPeriorite()== null)
+       {uss.setPeriorite(uss.getPeriorite());}
         userStorydao.save(uss) ;
 
         return ResponseEntity.ok(new MessageResponse("us modifiée avec succés !"+uss.getName()));}
