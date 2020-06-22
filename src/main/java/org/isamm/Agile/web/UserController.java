@@ -130,30 +130,6 @@ public class UserController {
 
         return userdao.findByEntreprise(id);
     }
-    @GetMapping("/allCompetences")
-    public List<Competence> getAllcompetence() {
-        return compdao.findAll();
-    }
-    @PostMapping("/createCompetence")
-    public ResponseEntity<?> createCompetence(@RequestBody Competence competencerequest) {
-
-        if (compdao.existsByName(competencerequest.getName())) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Erreur : le nom de compétence est déjà existe !"));
-        }
-
-        Competence competence = compdao.save(competencerequest) ;
-        return ResponseEntity.ok(new MessageResponse("ajout de compétence réussi !"));
-    }
-    @DeleteMapping("/deleteCompetence/{id}")
-    public ResponseEntity<?> deleteCompetence(@PathVariable(value = "id") Long competenceId)
-            throws ResourceNotFoundException {
-        Competence competence = compdao.findById(competenceId)
-                .orElseThrow(() -> new ResourceNotFoundException("competence not found for this id :: " +
-                        competenceId));
-        compdao.deleteById(competenceId);
-        return ResponseEntity.ok(new MessageResponse("compétence supprimeé !"));}
 
     @GetMapping("/Roleliste")
     public List<Role> getAllRoles() {
