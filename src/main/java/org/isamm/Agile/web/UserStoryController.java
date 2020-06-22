@@ -45,9 +45,15 @@ private SprintDao sprintdao ;
   }
 
 
-    @PostMapping("/tri" )
+    @PutMapping("/tri" )
     public ResponseEntity<?> triUs(@Valid @RequestBody UserStory us) {
         UserStory userStory = userStorydao.findById(us.getId()).orElse(null);
+        if(us.getName()==null)
+        {userStory.setName(userStory.getName());}
+        if(us.getSprint()==null)
+        {userStory.setSprint(userStory.getSprint());}
+        if(us.getBacklog()==null)
+        {userStory.setBacklog(userStory.getBacklog());}
         userStory.setPeriorite(us.getPeriorite());
         userStorydao.save(userStory);
         return ResponseEntity.ok(new MessageResponse("us cree !"));
@@ -73,8 +79,10 @@ private SprintDao sprintdao ;
        uss.setName(usrequest.getName());
         if (usrequest.getBacklog()== null)
         {uss.setBacklog(uss.getBacklog());}
-       /* if (usrequest.getSprint()== null)
-        {uss.setSprint(uss.getSprint());}*/
+        if (usrequest.getSprint()== null)
+        {uss.setSprint(uss.getSprint());}
+       if (usrequest.getPeriorite()== null)
+       {uss.setPeriorite(uss.getPeriorite());}
         userStorydao.save(uss) ;
 
         return ResponseEntity.ok(new MessageResponse("us modifiée avec succés !"+uss.getName()));}

@@ -17,7 +17,7 @@ public class UserStory implements Serializable{
    @GeneratedValue(strategy = GenerationType.AUTO)
    private Long id;
    private String name;
-   private int periorite;
+   private Long periorite;
 
     @ManyToOne
     private ProductBacklog backlog ;
@@ -44,15 +44,15 @@ public class UserStory implements Serializable{
         return sprint;
     }
 
-    public int getPeriorite() {
+    public Long getPeriorite() {
         return periorite;
     }
 
-    public void setPeriorite(int periorite) {
+    public void setPeriorite(Long periorite) {
         this.periorite = periorite;
     }
 
-    public UserStory(String name, int periorite, ProductBacklog backlog, Sprint sprint) {
+    public UserStory(String name, Long periorite, ProductBacklog backlog, Sprint sprint) {
         this.name = name;
         this.periorite = periorite;
         this.backlog = backlog;
