@@ -35,13 +35,17 @@ public class TaskController {
     }
     @PostMapping("/create")
     public ResponseEntity<?> createNewtask(@RequestBody Task taskrequest) {
-        if (taskDao.existsByTitleAndUserStoryId(taskrequest.getTitle(), taskrequest.getUserStory().getId())) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Erreur : le nom de tache est déjà existe dans la user story !"));
-        }
+
         taskrequest.setStatus(StatusTask.TODO);
         taskrequest.setCreationDate(LocalDate.now());
+        taskDao.save(taskrequest);
+        return ResponseEntity.ok(new MessageResponse(taskrequest.getTitle()+""));
+    }
+    @PostMapping("/taskIntimesheet")
+    public ResponseEntity<?> newTaskInTimesheet(@RequestBody Task taskrequest) {
+
+        taskrequest.setStatus(StatusTask.INDEFINED);
+        //taskrequest.setCreationDate(LocalDate.now());
         taskDao.save(taskrequest);
         return ResponseEntity.ok(new MessageResponse(taskrequest.getTitle()+""));
     }
@@ -52,6 +56,7 @@ public class TaskController {
         Task task = taskDao.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("task not found for this id :: " +
                         id));
+
         if (taskrequest.getStatus()==null)
         { task.setStatus(task.getStatus());
         task.setEndDate(task.getEndDate());}
@@ -71,6 +76,8 @@ public class TaskController {
         {task.setContent(taskrequest.getContent());}
         if(taskrequest.getCreationDate()==null)
         {task.setCreationDate(task.getCreationDate());}
+        if(taskrequest.getEstimationDate()==null)
+        {task.setEstimationDate(task.getEstimationDate());}
         taskDao.save(task);
         return ResponseEntity.ok(new MessageResponse(task.getTitle()+"-"+task.getContent()+"-"+task.getEndDate()+"-"+task.getStatus()));
 
@@ -100,6 +107,14 @@ public class TaskController {
         taskDao.deleteById(Id);
 
         return ResponseEntity.ok(new MessageResponse(task.getTitle()+""+"supprimée !"));}
+    @PostMapping("/cloturer" )
+    public  Task clotureTask(@RequestBody Task task) {
+
+       Task tsk = taskDao.findById(task.getId()).orElse(null);
+        tsk.setCloture(false);
+        return taskDao.save(tsk);
+    }// yaawd yethal thb el task baad ma tsurha cloture ? nnn
+
 }
 
 
