@@ -94,6 +94,7 @@ private SprintDao sprintdao ;
              throws ResourceNotFoundException {
           return userStorydao.findByBacklog(id);}
 
+
           @GetMapping("allbySprint/{id}")
           public List<UserStory> getUsLibereBysprint(@PathVariable(value = "id") Long id)
              throws ResourceNotFoundException {
