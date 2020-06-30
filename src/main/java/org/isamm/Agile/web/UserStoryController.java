@@ -31,7 +31,7 @@ private SprintDao sprintdao ;
       if (userStorydao.existsByNameAndBacklogId(us.getName(),us.getId()))  {
           return ResponseEntity
                   .badRequest()
-                  .body(new MessageResponse("Erreur : le nom du sprint est déjà existe dans ce backlog !"));
+                  .body(new MessageResponse("Le nom du sprint est déjà existe dans ce backlog !"));
       }
 
           System.out.println("id" + us.getId());
@@ -56,7 +56,7 @@ private SprintDao sprintdao ;
         {userStory.setBacklog(userStory.getBacklog());}
         userStory.setPeriorite(us.getPeriorite());
         userStorydao.save(userStory);
-        return ResponseEntity.ok(new MessageResponse("us cree !"));
+        return ResponseEntity.ok(new MessageResponse("us trieé !"));
 
     }
 
@@ -73,7 +73,7 @@ private SprintDao sprintdao ;
          {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Erreur : le nom du user story est déjà existe dans ce backlog !"));
+                    .body(new MessageResponse("Le nom du user story est déjà existe dans ce backlog !"));
         }
 
        uss.setName(usrequest.getName());
@@ -94,12 +94,17 @@ private SprintDao sprintdao ;
              throws ResourceNotFoundException {
           return userStorydao.findByBacklog(id);}
           @GetMapping("allbySprint/{id}")
-          public List<UserStory> getUsBysprint(@PathVariable(value = "id") Long id)
+          public List<UserStory> getUsLibereBysprint(@PathVariable(value = "id") Long id)
              throws ResourceNotFoundException {
               Sprint sprint = sprintdao.findByidd(id);
               Long bcl = sprint.getBacklog().getId();
               return userStorydao.findByusSprint(bcl,id);
       }
+          @GetMapping("usbySprint/{id}")
+          public List<UserStory> getUsBysprint(@PathVariable(value = "id") Long id)
+            throws ResourceNotFoundException {
+           return userStorydao.findBySprint(id);
+           }
       @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteUS(@PathVariable(value = "id") Long Id)
             throws ResourceNotFoundException {

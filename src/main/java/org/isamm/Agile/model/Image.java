@@ -15,12 +15,14 @@ public class Image {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id;
+        @OneToOne (cascade=CascadeType.ALL)
+        private User user ;
 
         //image bytes can have large lengths so we specify a value
         //which is more than the default length for picByte column
         @Column(name = "picByte", length = 1000)
         private byte[] picByte;
-    public Image( byte[] picByte) {
+        public Image( byte[] picByte) {
 
         this.picByte = picByte;
     }

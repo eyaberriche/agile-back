@@ -3,6 +3,7 @@ package org.isamm.Agile.Repository;
 import java.util.List;
 import java.util.Optional;
 
+import org.isamm.Agile.model.Image;
 import org.isamm.Agile.model.RoleName;
 import org.isamm.Agile.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -28,6 +29,12 @@ public interface UserDao extends JpaRepository<User, Long>{
 			+ "WHERE e.id = :id"
 	)
 	public List<User> findByEntreprise(@Param("id") Long id);
+	@Query("SELECT i "
+			+ "FROM User u "
+			+ "INNER JOIN u.image i "
+			+ "WHERE i.id = :id"
+	)
+	public Optional<Image> findImage(@Param("id") Long id);
 
 	/*@RestResource(path = "byName")
 	public List<User> findByLastnameContains(@Param("name") String lastname);

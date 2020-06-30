@@ -87,6 +87,7 @@ private BacklogService bc ;
         List<Project> projects = projectService.getAllprojects();
         return ResponseEntity.ok(projects);
     }
+
     @GetMapping("/allTypes")
     public ResponseEntity<?> getAllTypes(){
         List<Typeproject> types = typeDao.findAll();

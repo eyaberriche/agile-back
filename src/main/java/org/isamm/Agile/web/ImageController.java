@@ -2,6 +2,7 @@ package org.isamm.Agile.web;
 
 import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
 import org.isamm.Agile.Repository.ImageDao;
+import org.isamm.Agile.Repository.UserDao;
 import org.isamm.Agile.model.Image;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,8 @@ import java.util.zip.Inflater;
 public class ImageController {
     @Autowired
     ImageDao imageRepository;
+    @Autowired
+    UserDao userdao ;
     @PostMapping("/upload")
     public ResponseEntity.BodyBuilder uplaodImage(@RequestParam("imageFile") MultipartFile file) throws IOException {
         System.out.println("Original Image Byte Size - " + file.getBytes().length);
@@ -29,13 +32,12 @@ public class ImageController {
         imageRepository.save(img);
         return ResponseEntity.status(HttpStatus.OK);
     }
-   /* @GetMapping(path = { "/get/{imageName}" })
-    public Image getImage(@PathVariable("imageName") String imageName) throws IOException {
-        final Optional<Image> retrievedImage = imageRepository.findByName(imageName);
-        Image img = new Image(retrievedImage.get().getName(), retrievedImage.get().getType(),
-                decompressBytes(retrievedImage.get().getPicByte()));
+    @GetMapping("/getImage/{id}")
+    public Image getImage(@PathVariable("id") Long id) throws IOException {
+        final Optional<Image> retrievedImage = imageRepository.findByImage(id);
+        Image img = new Image(decompressBytes(retrievedImage.get().getPicByte()));
         return img;
-    }*/
+    }
     // compress the image bytes before storing it in the database
     public static byte[] compressBytes(byte[] data) {
         Deflater deflater = new Deflater();
