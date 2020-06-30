@@ -42,7 +42,7 @@ private BacklogService bc ;
       if (projectService.checkIfnameExists(projectrequest.getName())) {
           return ResponseEntity
                   .badRequest()
-                  .body(new MessageResponse(" Le nom  du projet est déjà existe !"));}
+                  .body(new MessageResponse("  Nom  du projet  déjà existe !"));}
 
             projectrequest.setCreationDate(LocalDate.now());
             ProductBacklog backlog = new ProductBacklog(projectrequest.getName());
