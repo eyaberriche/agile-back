@@ -111,9 +111,9 @@ public class TaskController {
     public  Task clotureTask(@RequestBody Task task) {
 
        Task tsk = taskDao.findById(task.getId()).orElse(null);
-        tsk.setCloture(false);
+        tsk.setCloture(true);
         return taskDao.save(tsk);
-    }// yaawd yethal thb el task baad ma tsurha cloture ? nnn
+    }
 
 }
 
