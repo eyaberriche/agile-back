@@ -2,6 +2,7 @@ package org.isamm.Agile.web;
 
 import org.isamm.Agile.Exception.ResourceNotFoundException;
 import org.isamm.Agile.Repository.TaskDao;
+import org.isamm.Agile.Repository.TaskDao2;
 import org.isamm.Agile.Security.payload.response.MessageResponse;
 import org.isamm.Agile.model.StatusTask;
 import org.isamm.Agile.model.Task;
@@ -20,6 +21,9 @@ import java.util.List;
 public class TaskController {
     @Autowired
     public TaskDao taskDao;
+
+    @Autowired
+    public TaskDao2 taskDao2;
 
 
 
@@ -82,6 +86,14 @@ public class TaskController {
         return ResponseEntity.ok(new MessageResponse(task.getTitle()+"-"+task.getContent()+"-"+task.getEndDate()+"-"+task.getStatus()));
 
     }
+
+
+    @GetMapping("/all")
+    public List<Task> getAllTask() {
+        return taskDao2.findAll();
+    }
+
+
     @GetMapping("/todo/{id}")
     public List<Task> getTaskToDo(@PathVariable(value = "id") Long id) {
         StatusTask status= StatusTask.TODO;
