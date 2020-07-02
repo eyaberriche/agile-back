@@ -27,9 +27,9 @@ public class Task implements Serializable {
    @ManyToOne(fetch = FetchType.LAZY, targetEntity = UserStory.class)
    private UserStory userStory ;
 
-   private LocalDate creationDate;
-   private LocalDate estimationDate ;
-   private LocalDate endDate ;//tb3t alik hh gghhhh maalma :p taarf bahdheya jiren yadhhkou w yahkiw narvzouni 3al e5er hhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+   private LocalDateTime creationDate;
+   private LocalDateTime estimationDate ;
+   private LocalDateTime endDate ;//tb3t alik hh gghhhh maalma :p taarf bahdheya jiren yadhhkou w yahkiw narvzouni 3al e5er hhhhhhhhhhhhhhhhhhhhhhhhhhhhh
    private boolean cloture=false;
    public boolean isCloture()
    {

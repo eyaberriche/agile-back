@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @CrossOrigin(origins ="http://localhost:4200")
@@ -41,7 +43,10 @@ public class TaskController {
     public ResponseEntity<?> createNewtask(@RequestBody Task taskrequest) {
 
         taskrequest.setStatus(StatusTask.TODO);
-        taskrequest.setCreationDate(LocalDate.now());
+        //LocalDateTime dat = LocalDateTime.now();
+        //System.out.println(dat);
+        taskrequest.setCreationDate(LocalDateTime.now().plusDays(1));
+        taskrequest.setEstimationDate(taskrequest.getEstimationDate().plusDays(1));
         taskDao.save(taskrequest);
         return ResponseEntity.ok(new MessageResponse(taskrequest.getTitle()+""));
     }
@@ -63,13 +68,12 @@ public class TaskController {
 
         if (taskrequest.getStatus()==null)
         { task.setStatus(task.getStatus());
-        task.setEndDate(task.getEndDate());}
+        }
         else {
-        task.setStatus(taskrequest.getStatus());
-        if (task.getStatus() == StatusTask.DONE)
-        {task.setEndDate(LocalDate.now());}
-        else
-        {task.setEndDate(null);}}
+        task.setStatus(taskrequest.getStatus());}
+        if (task.isCloture())
+        {task.setEndDate(LocalDateTime.now().plusDays(1));}
+
         if(taskrequest.getTitle()== null)
         {task.setTitle(task.getTitle());}
         else
@@ -82,8 +86,10 @@ public class TaskController {
         {task.setCreationDate(task.getCreationDate());}
         if(taskrequest.getEstimationDate()==null)
         {task.setEstimationDate(task.getEstimationDate());}
+        else
+        {task.setEstimationDate(taskrequest.getEstimationDate().plusDays(1));}
         taskDao.save(task);
-        return ResponseEntity.ok(new MessageResponse(task.getTitle()+"-"+task.getContent()+"-"+task.getEndDate()+"-"+task.getStatus()));
+        return ResponseEntity.ok(new MessageResponse(task.getTitle()+"-"+task.getContent()+"-"+task.getEndDate()+"-"+task.getStatus()+"-"+task.isCloture()));
 
     }
 

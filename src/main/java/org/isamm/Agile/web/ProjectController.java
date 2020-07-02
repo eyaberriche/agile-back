@@ -44,7 +44,8 @@ private BacklogService bc ;
                   .badRequest()
                   .body(new MessageResponse("  Nom  du projet  déjà existe !"));}
 
-            projectrequest.setCreationDate(LocalDate.now());
+            projectrequest.setCreationDate(LocalDate.now().plusDays(1));
+            projectrequest.setEndDate(projectrequest.getEndDate().plusDays(2));
             ProductBacklog backlog = new ProductBacklog(projectrequest.getName());
             backlog.setProject(projectrequest);
             backlogDao.save(backlog);
