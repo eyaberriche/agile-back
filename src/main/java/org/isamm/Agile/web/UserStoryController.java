@@ -89,20 +89,19 @@ private SprintDao sprintdao ;
 
 
 
-      @GetMapping("allbybacklog/{id}")
+      @GetMapping("allbybacklog/{id}")//les user stories eli sprint mte3hom = null
       public List<UserStory> getUsBybacklog(@PathVariable(value = "id") Long id)
              throws ResourceNotFoundException {
           return userStorydao.findByBacklog(id);}
 
-
-          @GetMapping("allbySprint/{id}")
+          @GetMapping("allbySprint/{id}")// user story teb3in un sprint et us eli mch tb3in 7ata sprint
           public List<UserStory> getUsLibereBysprint(@PathVariable(value = "id") Long id)
              throws ResourceNotFoundException {
               Sprint sprint = sprintdao.findByidd(id);
               Long bcl = sprint.getBacklog().getId();
               return userStorydao.findByusSprint(bcl,id);
       }
-          @GetMapping("usbySprint/{id}")
+          @GetMapping("usbySprint/{id}")//user story eli id sprint mt3ha = id
           public List<UserStory> getUsBysprint(@PathVariable(value = "id") Long id)
             throws ResourceNotFoundException {
            return userStorydao.findBySprint(id);
