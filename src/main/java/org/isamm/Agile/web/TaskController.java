@@ -2,19 +2,15 @@ package org.isamm.Agile.web;
 
 import org.isamm.Agile.Exception.ResourceNotFoundException;
 import org.isamm.Agile.Repository.TaskDao;
-import org.isamm.Agile.Repository.TaskDao2;
 import org.isamm.Agile.Security.payload.response.MessageResponse;
 import org.isamm.Agile.model.StatusTask;
 import org.isamm.Agile.model.Task;
-import org.isamm.Agile.model.UserStory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @CrossOrigin(origins ="http://localhost:4200")
@@ -23,11 +19,6 @@ import java.util.List;
 public class TaskController {
     @Autowired
     public TaskDao taskDao;
-
-    @Autowired
-    public TaskDao2 taskDao2;
-
-
 
     @GetMapping("allbyus/{id}")
     public List<Task> getByus(@PathVariable(value = "id") Long id)
@@ -71,7 +62,8 @@ public class TaskController {
         }
         else {
         task.setStatus(taskrequest.getStatus());}
-        if (task.isCloture())
+        task.setCloture(taskrequest.isCloture());
+        if (task.isCloture()== false)
         {task.setEndDate(LocalDateTime.now().plusDays(1));}
 
         if(taskrequest.getTitle()== null)
@@ -96,7 +88,7 @@ public class TaskController {
 
     @GetMapping("/all")
     public List<Task> getAllTask() {
-        return taskDao2.findAll();
+        return taskDao.findAll();
     }
 
 
