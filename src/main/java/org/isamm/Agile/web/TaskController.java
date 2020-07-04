@@ -55,8 +55,11 @@ public class TaskController {
     public ResponseEntity<?> newTaskInTimesheet(@RequestBody Task taskrequest) {
 
         taskrequest.setStatus(StatusTask.INDEFINED);
-        //taskrequest.setCreationDate(LocalDate.now());
+        taskrequest.setUserStory(null);
+        taskrequest.setCreationDate(LocalDateTime.now().plusDays(1));
+        taskrequest.setEstimationDate(taskrequest.getEstimationDate().plusDays(1));        //taskrequest.setCreationDate(LocalDate.now());
         taskDao.save(taskrequest);
+
         return ResponseEntity.ok(new MessageResponse(taskrequest.getTitle()+""));
     }
     @PutMapping("/update/{id}")
