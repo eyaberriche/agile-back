@@ -2,8 +2,7 @@ package org.isamm.Agile.web;
 
 import org.isamm.Agile.Exception.ResourceNotFoundException;
 import org.isamm.Agile.Repository.TaskDao;
-import org.isamm.Agile.Repository.TaskDao2;
-import org.isamm.Agile.Security.payload.response.MessageResponse;
+ import org.isamm.Agile.Security.payload.response.MessageResponse;
 import org.isamm.Agile.model.StatusTask;
 import org.isamm.Agile.model.Task;
 import org.isamm.Agile.model.UserStory;
@@ -24,10 +23,12 @@ public class TaskController {
     @Autowired
     public TaskDao taskDao;
 
-    @Autowired
-    public TaskDao2 taskDao2;
 
-
+    @GetMapping("all")
+    public List<Task> getAll()
+            throws ResourceNotFoundException {
+        return taskDao.findAll();
+    }
 
     @GetMapping("allbyus/{id}")
     public List<Task> getByus(@PathVariable(value = "id") Long id)
@@ -93,11 +94,6 @@ public class TaskController {
 
     }
 
-
-    @GetMapping("/all")
-    public List<Task> getAllTask() {
-        return taskDao2.findAll();
-    }
 
 
     @GetMapping("/todo/{id}")
