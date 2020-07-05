@@ -32,7 +32,6 @@ public class ProductBacklog implements Serializable {
     }
 
     @OneToOne (cascade=CascadeType.ALL)
-    //@JoinColumn(name="PROJECT_ID", unique= true, nullable=true, insertable=true, updatable=true)
     private Project project;
 
     public ProductBacklog(String name) {

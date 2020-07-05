@@ -106,7 +106,7 @@ private BacklogService bc ;
         backlog.setProject(null);
         bc.deleteBacklog(backlog.getId());
         projectService.deleteProject(Id);
-        return ResponseEntity.ok(new MessageResponse(project.getName()));}
+        return ResponseEntity.ok(new MessageResponse("project suppppppp"));}
 
     @GetMapping("/byId/{id}")
     public ResponseEntity<Project> getProjectById(@PathVariable(value = "id") Long projectId)

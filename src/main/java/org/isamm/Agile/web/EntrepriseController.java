@@ -1,8 +1,10 @@
 package org.isamm.Agile.web;
 import org.isamm.Agile.Exception.ResourceNotFoundException;
+import org.isamm.Agile.Repository.ProductBacklogDao;
 import org.isamm.Agile.Repository.ProjectDao;
 import org.isamm.Agile.Repository.UserDao;
 import org.isamm.Agile.Security.payload.response.MessageResponse;
+import org.isamm.Agile.model.ProductBacklog;
 import org.isamm.Agile.model.Project;
 import org.isamm.Agile.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,8 @@ public class EntrepriseController {
     private ProjectDao projectdao ;
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private ProductBacklogDao backlogDao ;
     @PostMapping("/create")
     public ResponseEntity<?> createNewEntreprise(@RequestBody Entreprise Entrepriserequest) {
         if (entrepriseService.checkIfnameExists(Entrepriserequest.getName())) {
@@ -58,7 +62,12 @@ public class EntrepriseController {
         List<User> users = userDao.findByEntreprise(Id);
         userDao.deleteAll(users);
         List<Project> projects = projectdao.findByEntreprise(Id);
+        projects.forEach(p ->
+        { ProductBacklog backlog = backlogDao.findByProject(p.getId());
+        backlog.setProject(null);
+        backlogDao.deleteById(backlog.getId());});
         projectdao.deleteAll(projects);
+
         entrepriseService.deleteEntreprise(Id);
 
     return ResponseEntity.ok(new MessageResponse("Entreprise"+""+entreprise.getName()+""+"supprimée !"));}
