@@ -22,4 +22,12 @@ public interface TaskDao extends JpaRepository<Task, Long>{
     public List<Task> findAllByUserStoryIdAndStatus(Long id , StatusTask status);
     public List<Task> findAllByUserId(Long id);
 
+  //  @Query("seLECT task.id as id,task.creation_date,task.estimation_date,sprint.id as sprint_id FROM task,user_story,sprint WHERE user_story_id = user_story.id and user_story.sprint_id=sprint.id")
+  @Query("SELECT t "
+          + "FROM Task t "
+          + "INNER JOIN t.userStory us "
+          + "INNER JOIN us.sprint s "
+          + "WHERE s.id = :id"
+  )
+    public List<Task> findBySprint(@Param("id")Long id);
 }

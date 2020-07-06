@@ -35,6 +35,13 @@ public class TaskController {
             throws ResourceNotFoundException {
         return taskDao.findByUserStory(id);
     }
+
+    @GetMapping("allbysprint/{id}")
+    public List<Task> getBysprint(@PathVariable(value = "id") Long id)
+            throws ResourceNotFoundException {
+        return taskDao.findBySprint(id);
+    }
+
     @GetMapping("allbyTeam/{id}")
     public List<Task> getTaskByTeamMember(@PathVariable(value = "id") Long id)
             throws ResourceNotFoundException {
@@ -46,8 +53,8 @@ public class TaskController {
         taskrequest.setStatus(StatusTask.TODO);
         //LocalDateTime dat = LocalDateTime.now();
         //System.out.println(dat);
-        taskrequest.setCreationDate(LocalDateTime.now().plusDays(1));
-        taskrequest.setEstimationDate(taskrequest.getEstimationDate().plusDays(1));
+        taskrequest.setCreationDate(LocalDateTime.now());
+        taskrequest.setEstimationDate(taskrequest.getEstimationDate());
         taskDao.save(taskrequest);
         return ResponseEntity.ok(new MessageResponse(taskrequest.getTitle()+""));
     }
@@ -75,8 +82,7 @@ public class TaskController {
         }
         else {
         task.setStatus(taskrequest.getStatus());}
-        if (task.isCloture())
-        {task.setEndDate(LocalDateTime.now().plusDays(1));}
+
 
         if(taskrequest.getTitle()== null)
         {task.setTitle(task.getTitle());}
@@ -129,6 +135,7 @@ public class TaskController {
 
        Task tsk = taskDao.findById(task.getId()).orElse(null);
         tsk.setCloture(true);
+        tsk.setEndDate(LocalDateTime.now());
         return taskDao.save(tsk);
     }
 

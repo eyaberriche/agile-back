@@ -115,8 +115,9 @@ private SprintDao sprintdao ;
 
         userStorydao.deleteById(Id);
 
-        return ResponseEntity.ok(new MessageResponse(userStory.getName()+""+"supprimée !"));}
+        return ResponseEntity.ok(new MessageResponse("supprimée !"));}
 }
+
 
 
 

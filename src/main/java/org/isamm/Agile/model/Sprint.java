@@ -33,6 +33,10 @@ public class Sprint implements Serializable{
   @OneToMany(mappedBy="sprint",orphanRemoval = true,
           cascade = CascadeType.ALL )
   private Set<UserStory> us ;
+ /* @JsonIgnore
+  public ProductBacklog getBacklog() {
+    return backlog;
+  }*/
 
 
 }

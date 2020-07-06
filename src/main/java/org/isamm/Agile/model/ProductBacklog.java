@@ -63,5 +63,8 @@ public class ProductBacklog implements Serializable {
     public void setUs(Collection<UserStory> us) {
         this.us = us;
     }
+   /*jc @OneToMany(mappedBy="backlog",orphanRemoval = true,
+            cascade = CascadeType.ALL)
+    private Collection<Sprint> sprints;*/
 
 }
