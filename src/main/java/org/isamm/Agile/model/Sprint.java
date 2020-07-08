@@ -30,13 +30,10 @@ public class Sprint implements Serializable{
   @ManyToOne
   private ProductBacklog backlog ;
   @Transient
-  @OneToMany(mappedBy="sprint",orphanRemoval = true,
-          cascade = CascadeType.ALL )
+  @OneToMany(mappedBy="sprint",orphanRemoval = true
+           )
   private Set<UserStory> us ;
- /* @JsonIgnore
-  public ProductBacklog getBacklog() {
-    return backlog;
-  }*/
+
 
 
 }

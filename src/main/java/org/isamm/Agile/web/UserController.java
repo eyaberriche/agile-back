@@ -5,6 +5,7 @@ import org.isamm.Agile.Repository.RoleDao;
 import org.isamm.Agile.Repository.UserDao;
 import org.isamm.Agile.Security.payload.request.SignupRequest;
 import org.isamm.Agile.Security.payload.response.MessageResponse;
+import org.isamm.Agile.Security.services.UserDetailsImpl;
 import org.isamm.Agile.model.Competence;
 import org.isamm.Agile.model.Role;
 import org.isamm.Agile.model.RoleName;
@@ -19,6 +20,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @CrossOrigin(origins ="http://localhost:4200")
 @RestController
@@ -82,27 +84,26 @@ public class UserController {
         user.setLastname(userDetails.getLastname());
         user.setFirstname(userDetails.getFirstname());
         user.setTel(userDetails.getTel());
-        user.setRoles(userDetails.getRoles());
-        user.setCompetences(userDetails.getCompetences());
-        user.setEntreprise(userDetails.getEntreprise());
-        user.setSpecialite(userDetails.getSpecialite());
+        if(userDetails.getRoles()== null)
+        {user.setRoles(user.getRoles());}
+        else {user.setRoles(userDetails.getRoles());}
+        if(userDetails.getCompetences()== null)
+        {user.setCompetences(user.getCompetences());}
+       else {user.setCompetences(userDetails.getCompetences());}
+       if(userDetails.getEntreprise()==null)
+       {user.setEntreprise(user.getEntreprise());}
+       else
+       {user.setEntreprise(userDetails.getEntreprise());}
+       if(userDetails.getSpecialite()==null)
+       { user.setSpecialite(user.getSpecialite());}
+       else
+       { user.setSpecialite(userDetails.getSpecialite());}
         if (userDetails.getPassword() == "" || userDetails.getPassword()== null )
         {
             user.setPassword(user.getPassword());
             encoder.encode(user.getPassword());
         }else{
         user.setPassword(encoder.encode(userDetails.getPassword()));}
-
-     /*   Set<Role> roles = new HashSet<>();
-
-        if (userDetails.getRoles() == null) {
-            Role userRole = roleDao.findByName(RoleName.ROLE_CLIENT)
-                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-            roles.add(userRole);
-        } else {
-            roles.addAll(userDetails.getRoles());
-       }
-        user.setRoles(roles);*/
 
         userdao.save(user);
         return ResponseEntity.ok(new MessageResponse("mise à jour effectué avec succés!"));

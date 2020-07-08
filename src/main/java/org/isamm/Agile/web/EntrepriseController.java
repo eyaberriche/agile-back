@@ -4,6 +4,7 @@ import org.isamm.Agile.Repository.ProductBacklogDao;
 import org.isamm.Agile.Repository.ProjectDao;
 import org.isamm.Agile.Repository.UserDao;
 import org.isamm.Agile.Security.payload.response.MessageResponse;
+import org.isamm.Agile.Service.Backlog.BacklogServiceImp;
 import org.isamm.Agile.model.ProductBacklog;
 import org.isamm.Agile.model.Project;
 import org.isamm.Agile.model.User;
@@ -29,9 +30,11 @@ public class EntrepriseController {
     @Autowired
     private ProjectDao projectdao ;
     @Autowired
+    private ProductBacklogDao backlogDao ;
+    @Autowired
     private UserDao userDao;
     @Autowired
-    private ProductBacklogDao backlogDao ;
+    private BacklogServiceImp bcservice ;
     @PostMapping("/create")
     public ResponseEntity<?> createNewEntreprise(@RequestBody Entreprise Entrepriserequest) {
         if (entrepriseService.checkIfnameExists(Entrepriserequest.getName())) {
@@ -65,7 +68,7 @@ public class EntrepriseController {
         projects.forEach(p ->
         { ProductBacklog backlog = backlogDao.findByProject(p.getId());
         backlog.setProject(null);
-        backlogDao.deleteById(backlog.getId());});
+        bcservice.deleteBacklog(backlog.getId());});
         projectdao.deleteAll(projects);
 
         entrepriseService.deleteEntreprise(Id);

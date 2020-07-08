@@ -5,6 +5,7 @@ import org.isamm.Agile.Repository.EvenementDao;
 import org.isamm.Agile.Repository.SprintDao;
 import org.isamm.Agile.Repository.UserStoryDao;
 import org.isamm.Agile.Security.payload.response.MessageResponse;
+import org.isamm.Agile.model.ProductBacklog;
 import org.isamm.Agile.model.Sprint;
 import org.isamm.Agile.model.UserStory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,7 @@ public class SprintController {
                     .badRequest()
                     .body(new MessageResponse("Erreur : le nom du sprint est déjà existe dans ce backlog !"));
         }
+
                 sprintDao.save(sprintrequest) ;
                 Set<UserStory> uss= sprintrequest.getUs();
                 uss.forEach(us -> {us.setSprint(sprintrequest);

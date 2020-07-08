@@ -51,20 +51,18 @@ public class TaskController {
     public ResponseEntity<?> createNewtask(@RequestBody Task taskrequest) {
 
         taskrequest.setStatus(StatusTask.TODO);
-        //LocalDateTime dat = LocalDateTime.now();
-        //System.out.println(dat);
-        taskrequest.setCreationDate(LocalDateTime.now());
-        taskrequest.setEstimationDate(taskrequest.getEstimationDate());
+        taskrequest.setCreationDate(LocalDate.now().plusDays(1));
+        taskrequest.setEstimationDate(taskrequest.getEstimationDate().plusDays(2));
         taskDao.save(taskrequest);
-        return ResponseEntity.ok(new MessageResponse(taskrequest.getTitle()+""));
+        return ResponseEntity.ok(new MessageResponse(taskrequest.getTitle()+""+LocalDate.now()));
     }
     @PostMapping("/taskIntimesheet")
     public ResponseEntity<?> newTaskInTimesheet(@RequestBody Task taskrequest) {
 
         taskrequest.setStatus(StatusTask.INDEFINED);
         taskrequest.setUserStory(null);
-        taskrequest.setCreationDate(LocalDateTime.now().plusDays(1));
-        taskrequest.setEstimationDate(taskrequest.getEstimationDate().plusDays(1));        //taskrequest.setCreationDate(LocalDate.now());
+        taskrequest.setCreationDate(LocalDate.now().plusDays(1));
+        taskrequest.setEstimationDate(taskrequest.getEstimationDate().plusDays(2));
         taskDao.save(taskrequest);
 
         return ResponseEntity.ok(new MessageResponse(taskrequest.getTitle()+""));
@@ -76,34 +74,22 @@ public class TaskController {
         Task task = taskDao.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("task not found for this id :: " +
                         id));
-
+        task.setTitle(taskrequest.getTitle());
+        task.setContent(taskrequest.getContent());
         if (taskrequest.getStatus()==null)
         { task.setStatus(task.getStatus());
         }
         else {
         task.setStatus(taskrequest.getStatus());}
-
-
-        if(taskrequest.getTitle()== null)
-        {task.setTitle(task.getTitle());}
+        task.setCreationDate(task.getCreationDate().plusDays(1));
+        if(task.getEstimationDate()==taskrequest.getEstimationDate())
+        {task.setEstimationDate(task.getEstimationDate().minusDays(1));}
         else
-        {task.setTitle(taskrequest.getTitle());}
-        if(taskrequest.getContent()==null)
-        {task.setContent(task.getContent());}
-        else
-        {task.setContent(taskrequest.getContent());}
-        if(taskrequest.getCreationDate()==null)
-        {task.setCreationDate(task.getCreationDate());}
-        if(taskrequest.getEstimationDate()==null)
-        {task.setEstimationDate(task.getEstimationDate());}
-        else
-        {task.setEstimationDate(taskrequest.getEstimationDate().plusDays(1));}
+        {task.setEstimationDate(taskrequest.getEstimationDate().plusDays(2));}
         taskDao.save(task);
         return ResponseEntity.ok(new MessageResponse(task.getTitle()+"-"+task.getContent()+"-"+task.getEndDate()+"-"+task.getStatus()+"-"+task.isCloture()));
 
     }
-
-
 
     @GetMapping("/todo/{id}")
     public List<Task> getTaskToDo(@PathVariable(value = "id") Long id) {
@@ -135,7 +121,7 @@ public class TaskController {
 
        Task tsk = taskDao.findById(task.getId()).orElse(null);
         tsk.setCloture(true);
-        tsk.setEndDate(LocalDateTime.now());
+        tsk.setEndDate(LocalDate.now().plusDays(1));
         return taskDao.save(tsk);
     }
 

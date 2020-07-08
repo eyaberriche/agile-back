@@ -1,5 +1,6 @@
 package org.isamm.Agile.web;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -10,6 +11,7 @@ import org.isamm.Agile.Repository.SprintDao;
 import org.isamm.Agile.Repository.TypeDao;
 import org.isamm.Agile.Security.payload.response.MessageResponse;
 import org.isamm.Agile.Service.Backlog.BacklogService;
+import org.isamm.Agile.Service.Backlog.BacklogServiceImp;
 import org.isamm.Agile.Service.project.ProjectServiceImp;
 import org.isamm.Agile.model.ProductBacklog;
 import org.isamm.Agile.model.Project;
@@ -32,20 +34,18 @@ private TypeDao typeDao ;
 @Autowired
 private ProductBacklogDao backlogDao;
 @Autowired
-private SprintDao sprintDao;
-@Autowired
-private BacklogService bc ;
+private BacklogServiceImp bc ;
 
 
     @PostMapping("/create" )
-  public ResponseEntity<?> createNewProject(@RequestBody Project projectrequest) {
+    public ResponseEntity<?> createNewProject(@RequestBody Project projectrequest) {
       if (projectService.checkIfnameExists(projectrequest.getName())) {
           return ResponseEntity
                   .badRequest()
                   .body(new MessageResponse("  Nom  du projet  déjà existe !"));}
 
-            projectrequest.setCreationDate(LocalDate.now().plusDays(1));
-            projectrequest.setEndDate(projectrequest.getEndDate().plusDays(2));
+            projectrequest.setCreationDate(LocalDate.now());
+            //projectrequest.setEndDate(projectrequest.getEndDate());
             ProductBacklog backlog = new ProductBacklog(projectrequest.getName());
             backlog.setProject(projectrequest);
             backlogDao.save(backlog);
@@ -70,7 +70,7 @@ private BacklogService bc ;
         back.setName(projectrequest.getName());
         back.setProject(project);
         backlogDao.save(back);
-        project.setEndDate(projectrequest.getEndDate());
+        project.setCreationDate(project.getCreationDate());
         project.setDescription(projectrequest.getDescription());
         project.setType(projectrequest.getType());
         project.setDepartement(projectrequest.getDepartement());

@@ -21,9 +21,8 @@ public class UserStory implements Serializable{
 
     @ManyToOne
     private ProductBacklog backlog ;
-    @ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
-    private Sprint sprint ; //haka bch yhot sprint win el fazet mta3 el sprint eli kona fiha win tselectionni .. attribut adi nnn nes2ll fk 3al page win mta3 ajout sprint maw kotlk mch frd method
-
+    @ManyToOne(fetch=FetchType.LAZY)
+    private Sprint sprint ;
     public UserStory(String name) {
         super();
         this.name = name;

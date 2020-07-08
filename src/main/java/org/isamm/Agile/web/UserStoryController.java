@@ -3,12 +3,10 @@ import java.util.List;
 
 import org.isamm.Agile.Exception.ResourceNotFoundException;
 import org.isamm.Agile.Repository.SprintDao;
+import org.isamm.Agile.Repository.TaskDao;
 import org.isamm.Agile.Repository.UserStoryDao;
 import org.isamm.Agile.Security.payload.response.MessageResponse;
-import org.isamm.Agile.model.ProductBacklog;
-import org.isamm.Agile.model.Sprint;
-import org.isamm.Agile.model.User;
-import org.isamm.Agile.model.UserStory;
+import org.isamm.Agile.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +23,8 @@ public class UserStoryController {
 private UserStoryDao userStorydao;
 @Autowired
 private SprintDao sprintdao ;
+@Autowired
+private TaskDao taskDao ;
 
   @PostMapping("/create" )
    public ResponseEntity<?> createUs(@Valid @RequestBody UserStory us) {
@@ -112,7 +112,8 @@ private SprintDao sprintdao ;
         UserStory userStory = userStorydao.findById(Id)
                 .orElseThrow(() -> new ResourceNotFoundException("userstory not found for this id :: " +
                         Id));
-
+        List<Task> tasks = taskDao.findByUserStory(Id);
+        taskDao.deleteAll(tasks);
         userStorydao.deleteById(Id);
 
         return ResponseEntity.ok(new MessageResponse("supprimée !"));}
