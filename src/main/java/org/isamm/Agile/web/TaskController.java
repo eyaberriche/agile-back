@@ -51,7 +51,8 @@ public class TaskController {
     public ResponseEntity<?> createNewtask(@RequestBody Task taskrequest) {
 
         taskrequest.setStatus(StatusTask.TODO);
-        taskrequest.setCreationDate(LocalDate.now());
+        taskrequest.setCreationDate(LocalDate.now().plusDays(1));
+        taskrequest.setEstimationDate(taskrequest.getEstimationDate().plusDays(1));
         taskDao.save(taskrequest);
         return ResponseEntity.ok(new MessageResponse(""+taskrequest.getEstimationDate()));
     }
