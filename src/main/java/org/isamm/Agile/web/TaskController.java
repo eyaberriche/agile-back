@@ -51,21 +51,24 @@ public class TaskController {
     public ResponseEntity<?> createNewtask(@RequestBody Task taskrequest) {
 
         taskrequest.setStatus(StatusTask.TODO);
-        taskrequest.setCreationDate(LocalDate.now().plusDays(1));
-        taskrequest.setEstimationDate(taskrequest.getEstimationDate().plusDays(2));
+        taskrequest.setCreationDate(LocalDate.now());
         taskDao.save(taskrequest);
-        return ResponseEntity.ok(new MessageResponse(taskrequest.getTitle()+""+LocalDate.now()));
+        return ResponseEntity.ok(new MessageResponse(""+taskrequest.getEstimationDate()));
     }
     @PostMapping("/taskIntimesheet")
     public ResponseEntity<?> newTaskInTimesheet(@RequestBody Task taskrequest) {
 
         taskrequest.setStatus(StatusTask.INDEFINED);
         taskrequest.setUserStory(null);
-        taskrequest.setCreationDate(LocalDate.now().plusDays(1));
-        taskrequest.setEstimationDate(taskrequest.getEstimationDate().plusDays(2));
-        taskDao.save(taskrequest);
+        // Because of a configuration problem between JPA and MySQL
+        // and the a Problem regarding LocalDate of Java 8 and Mysql Engine, Adding a day is Hot fix
 
-        return ResponseEntity.ok(new MessageResponse(taskrequest.getTitle()+""));
+        taskrequest.setEstimationDate(taskrequest.getEstimationDate().plusDays(1));
+        taskrequest.setCreationDate(LocalDate.now().plusDays(1));
+        // Assert +1 day to the current one
+        //System.out.println("Creation Date="+ taskrequest.getCreationDate());
+        taskDao.save(taskrequest);
+        return ResponseEntity.ok(new MessageResponse(""+taskrequest.getCreationDate()));
     }
     @PutMapping("/update/{id}")
     public ResponseEntity<?> updateTask(@PathVariable(value = "id") Long id,
@@ -81,11 +84,11 @@ public class TaskController {
         }
         else {
         task.setStatus(taskrequest.getStatus());}
+        System.out.println("Ancien Date de Creation="+task.getCreationDate());
         task.setCreationDate(task.getCreationDate().plusDays(1));
-        if(task.getEstimationDate()==taskrequest.getEstimationDate())
-        {task.setEstimationDate(task.getEstimationDate().minusDays(1));}
-        else
-        {task.setEstimationDate(taskrequest.getEstimationDate().plusDays(2));}
+        System.out.println("Date de Creation+1="+task.getCreationDate());
+
+        task.setEstimationDate(taskrequest.getEstimationDate().plusDays(1));
         taskDao.save(task);
         return ResponseEntity.ok(new MessageResponse(task.getTitle()+"-"+task.getContent()+"-"+task.getEndDate()+"-"+task.getStatus()+"-"+task.isCloture()));
 
@@ -121,7 +124,7 @@ public class TaskController {
 
        Task tsk = taskDao.findById(task.getId()).orElse(null);
         tsk.setCloture(true);
-        tsk.setEndDate(LocalDate.now().plusDays(1));
+        tsk.setEndDate(LocalDate.now());
         return taskDao.save(tsk);
     }
 
