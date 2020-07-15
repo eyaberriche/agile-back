@@ -1,7 +1,6 @@
 package org.isamm.Agile.Security.payload.response;
 
 import org.isamm.Agile.model.Competence;
-import org.isamm.Agile.model.Image;
 
 import java.util.List;
 import java.util.Set;
@@ -17,9 +16,8 @@ public class JwtResponse {
 	private String tel ;
 	private String specialite ;
 	private List<String> roles;
-	private Image image ;
     private Set<Competence> competences ;
-	public JwtResponse(String token, Long id, String username, String email, String lastname, String firstname, String tel, String specialite, List<String> roles , Image image , Set<Competence> competences) {
+	public JwtResponse(String token, Long id, String username, String email, String lastname, String firstname, String tel, String specialite, List<String> roles , Set<Competence> competences) {
 		this.token = token;
 		this.id = id;
 		this.username = username;
@@ -29,7 +27,6 @@ public class JwtResponse {
 		this.tel = tel;
 		this.specialite = specialite;
 		this.roles = roles;
-		this.image = image;
 		this.competences= competences;
 	}
 
@@ -93,9 +90,6 @@ public class JwtResponse {
 		return roles;
 	}
 
-	public Image getImage() {
-		return image;
-	}
 
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
@@ -117,9 +111,6 @@ public class JwtResponse {
 		this.roles = roles;
 	}
 
-	public void setImage(Image image) {
-		this.image = image;
-	}
 
 	public Set<Competence> getCompetences() {
 		return competences;

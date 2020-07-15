@@ -1,11 +1,11 @@
 
-INSERT INTO role (name) VALUES
-('Admin'),
-('ProductOwner'),
-('ScrumMaster'),
-('Member'),
-('Client');
+INSERT INTO role (name , description) VALUES
+('Admin' , 'Administrateur'),
+('ProductOwner' , 'Product owner'),
+('ScrumMaster' , 'Scrum master'),
+("Member" , "Membre de l'équipe IT"),
+("Client" , "Acteur d'entreprise");
 INSERT INTO typeproject (name) VALUES
-("Sur papier"),("Sur tablette"),("Test gout");
+("CATI"),("QAULI"),("Test goût");
 INSERT INTO departement (name) VALUES
-("informatique"),("statistique"),("centre d'appel"),("multimedia");
+("Informatique"),("Politique"),("Média"),("Marketing");

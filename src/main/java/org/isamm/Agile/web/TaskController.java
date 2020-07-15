@@ -125,7 +125,8 @@ public class TaskController {
 
        Task tsk = taskDao.findById(task.getId()).orElse(null);
         tsk.setCloture(true);
-        tsk.setEndDate(LocalDate.now());
+        tsk.setEndDate(LocalDate.now().plusDays(1));
+        tsk.setCreationDate(tsk.getCreationDate().plusDays(1));
         return taskDao.save(tsk);
     }
 

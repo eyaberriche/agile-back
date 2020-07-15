@@ -44,8 +44,8 @@ private BacklogServiceImp bc ;
                   .badRequest()
                   .body(new MessageResponse("  Nom  du projet  déjà existe !"));}
 
-            projectrequest.setCreationDate(LocalDate.now());
-            //projectrequest.setEndDate(projectrequest.getEndDate());
+            projectrequest.setCreationDate(LocalDate.now().plusDays(1));
+            projectrequest.setEndDate(projectrequest.getEndDate().plusDays(1));
             ProductBacklog backlog = new ProductBacklog(projectrequest.getName());
             backlog.setProject(projectrequest);
             backlogDao.save(backlog);
@@ -70,13 +70,15 @@ private BacklogServiceImp bc ;
         back.setName(projectrequest.getName());
         back.setProject(project);
         backlogDao.save(back);
-        project.setCreationDate(project.getCreationDate());
+        //project.setCreationDate(project.getCreationDate());
         project.setDescription(projectrequest.getDescription());
         project.setType(projectrequest.getType());
         project.setDepartement(projectrequest.getDepartement());
         project.setEntreprise(projectrequest.getEntreprise());
         project.setUsers(projectrequest.getUsers());
-        project.setEndDate(projectrequest.getEndDate());
+        project.setEndDate(projectrequest.getEndDate().plusDays(1));
+
+        project.setCreationDate(project.getCreationDate().plusDays(1));
 
         projectService.updateProject(project) ;
 

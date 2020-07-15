@@ -68,7 +68,7 @@ public class AuthController {
                                                  userDetails.getFirstname(),
 				                                 userDetails.getTel(),
                                                  userDetails.getSpecialite(),
-                                           roles , userDetails.getImage() , userDetails.getCompetences()));
+                                           roles , userDetails.getCompetences()));
 	}
 
 
@@ -93,7 +93,6 @@ public class AuthController {
 									signUpRequest.getTel(),
 									signUpRequest.getEmail(),
 									signUpRequest.getSpecialite(),
-			                        signUpRequest.getImage(),
 			                        signUpRequest.getRoles(),
 			                        signUpRequest.getEntreprise(),
 			                        signUpRequest.getCompetences()

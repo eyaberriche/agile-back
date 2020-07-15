@@ -7,8 +7,7 @@ package org.isamm.Agile.Security.services;
 	import java.util.stream.Collectors;
 	import com.fasterxml.jackson.annotation.JsonIgnore;
 	import org.isamm.Agile.model.Competence;
-	import org.isamm.Agile.model.Image;
-	import org.isamm.Agile.model.User;
+    import org.isamm.Agile.model.User;
     import org.springframework.security.core.GrantedAuthority;
 	import org.springframework.security.core.authority.SimpleGrantedAuthority;
 	import org.springframework.security.core.userdetails.UserDetails;
@@ -24,7 +23,7 @@ package org.isamm.Agile.Security.services;
 		   private String tel ;
 		   private String specialite ;
 		   private Set<Competence> competences ;
-		   private Image image ;
+
 
 
 		@JsonIgnore
@@ -32,7 +31,7 @@ package org.isamm.Agile.Security.services;
 
 		private Collection<? extends GrantedAuthority> authorities;
 
-		public UserDetailsImpl(Long id, String username, String email, String lastname, String firstname, String tel, String specialite, Set<Competence> competences, Image image, String password, Collection<? extends GrantedAuthority> authorities) {
+		public UserDetailsImpl(Long id, String username, String email, String lastname, String firstname, String tel, String specialite, Set<Competence> competences,  String password, Collection<? extends GrantedAuthority> authorities) {
 			this.id = id;
 			this.username = username;
 			this.email = email;
@@ -41,7 +40,7 @@ package org.isamm.Agile.Security.services;
 			this.tel = tel;
 			this.specialite = specialite;
 			this.competences = competences;
-			this.image = image;
+
 			this.password = password;
 			this.authorities = authorities;
 		}
@@ -61,7 +60,7 @@ package org.isamm.Agile.Security.services;
 					user.getTel(),
 					user.getSpecialite(),
 					user.getCompetences()
-					,user.getImage(),
+					,
 					user.getPassword(),
 					authorities
 
@@ -101,9 +100,6 @@ package org.isamm.Agile.Security.services;
 			return competences;
 		}
 
-		public Image getImage() {
-			return image;
-		}
 
 		@Override
 		public String getPassword() {

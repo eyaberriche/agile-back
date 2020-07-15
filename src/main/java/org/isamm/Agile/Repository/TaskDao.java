@@ -27,7 +27,7 @@ public interface TaskDao extends JpaRepository<Task, Long>{
           + "FROM Task t "
           + "INNER JOIN t.userStory us "
           + "INNER JOIN us.sprint s "
-          + "WHERE s.id = :id"
+          + "WHERE s.id = :id  order by t.endDate ASC  "
   )
     public List<Task> findBySprint(@Param("id")Long id);
 }

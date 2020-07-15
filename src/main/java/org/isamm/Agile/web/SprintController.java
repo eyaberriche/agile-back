@@ -42,7 +42,8 @@ public class SprintController {
                     .badRequest()
                     .body(new MessageResponse("Erreur : le nom du sprint est déjà existe dans ce backlog !"));
         }
-
+                sprintrequest.setCreationDate(sprintrequest.getCreationDate().plusDays(1));
+                sprintrequest.setEndDate(sprintrequest.getEndDate().plusDays(1));
                 sprintDao.save(sprintrequest) ;
                 Set<UserStory> uss= sprintrequest.getUs();
                 uss.forEach(us -> {us.setSprint(sprintrequest);
@@ -77,6 +78,8 @@ public class SprintController {
         }
            sprint.setName(sprintrequest.getName());
            sprint.setUs(sprintrequest.getUs());
+           sprint.setCreationDate(sprintrequest.getCreationDate().plusDays(1));
+           sprint.setEndDate(sprintrequest.getEndDate().plusDays(1));
            sprint.setObjective(sprintrequest.getObjective());
            if (sprintrequest.getBacklog()== null)
            {sprint.setBacklog(sprint.getBacklog());}
