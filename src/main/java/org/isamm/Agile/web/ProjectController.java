@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.isamm.Agile.Exception.ResourceNotFoundException;
 import org.isamm.Agile.Repository.ProductBacklogDao;
+import org.isamm.Agile.Repository.ProjectDao;
 import org.isamm.Agile.Repository.SprintDao;
 import org.isamm.Agile.Repository.TypeDao;
 import org.isamm.Agile.Security.payload.response.MessageResponse;
@@ -31,6 +32,8 @@ public class ProjectController {
 private ProjectServiceImp projectService;
 @Autowired
 private TypeDao typeDao ;
+@Autowired
+private ProjectDao projectDao ;
 @Autowired
 private ProductBacklogDao backlogDao;
 @Autowired
@@ -95,6 +98,11 @@ private BacklogServiceImp bc ;
     public ResponseEntity<?> getAllTypes(){
         List<Typeproject> types = typeDao.findAll();
         return ResponseEntity.ok(types);
+    }
+    @GetMapping("/byUser/{id}")
+    public List<Project> getProjectbyUser(@PathVariable(value = "id") Long Id){
+        return   projectDao.findByUser(Id);
+
     }
 
     @DeleteMapping("/delete/{id}")
