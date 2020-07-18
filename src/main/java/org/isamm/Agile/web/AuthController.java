@@ -109,6 +109,9 @@ public class AuthController {
 		}  else {
          roles.addAll(signUpRequest.getRoles());}
 	     user.setRoles(roles);
+		if (signUpRequest.getEntreprise()== null)
+		 user.setEntreprise(null);
+
 		userRepository.save(user);
         return ResponseEntity.ok(new MessageResponse("succés d'ajout de  "+user.getFirstname()+" "+user.getLastname()));
 	}
