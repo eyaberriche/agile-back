@@ -28,6 +28,11 @@ private ProductBacklogDao backlogDao;
     	return  backlogDao.findAll();
          
     }
+    @GetMapping("/byUser/{id}")
+    public List<ProductBacklog> getBacklogbyUser(@PathVariable(value = "id") Long Id){
+        return   backlogDao.findByUser(Id);
+
+    }
     
     @PostMapping("/update" )
     public  ProductBacklog updateBacklog(@RequestBody ProductBacklog backlog) {
